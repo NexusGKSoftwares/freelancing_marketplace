@@ -23,3 +23,16 @@ def freelancer_register(request):
         else:
             messages.error(request, "Passwords do not match!")
     return render(request, 'freelancer/register.html')
+
+def freelancer_login(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request, user)
+            return redirect('freelancer_dashboard')
+        else:
+            messages.error(request, "Invalid credentials!")
+    return render(request, 'freelancer/login.html')
