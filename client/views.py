@@ -17,3 +17,11 @@ def client_login(request):
         else:
             messages.error(request, "Invalid credentials!")
     return render(request, 'client/login.html')
+
+@login_required
+def dashboard(request):
+    return render(request, 'client/dashboard.html')
+
+def client_logout(request):
+    logout(request)
+    return redirect('client_login')
