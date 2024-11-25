@@ -12,8 +12,7 @@ def admin_login(request):
             return redirect("/admin_panel/dashboard/")
         else:
             messages.error(request, "Invalid username or password")
-    return render(request, "admin/login.html")
+    return render(request, "admin_panel/login.html")
 
 def dashboard(request):
-    # Logic for rendering the dashboard
     return render(request, 'admin_panel/dashboard.html')
