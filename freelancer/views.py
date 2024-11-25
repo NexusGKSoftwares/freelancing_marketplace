@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 def freelancer_register(request):
     if request.method == 'POST':
@@ -40,3 +41,8 @@ def freelancer_login(request):
 def freelancer_logout(request):
     logout(request)
     return redirect('freelancer_login')
+
+
+@login_required
+def dashboard(request):
+    return render(request, 'freelancer/dashboard.html')
