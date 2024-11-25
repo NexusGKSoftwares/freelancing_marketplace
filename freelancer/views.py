@@ -36,3 +36,7 @@ def freelancer_login(request):
         else:
             messages.error(request, "Invalid credentials!")
     return render(request, 'freelancer/login.html')
+
+def freelancer_logout(request):
+    logout(request)
+    return redirect('freelancer_login')
