@@ -20,7 +20,7 @@ from django.urls import path, include
 from admin_panel import views
 
 urlpatterns = [
-    path('login/', views.admin_login, name='admin_login'),
-    path('dashboard/', views.dashboard, name='admin_dashboard'),
-    path('logout/', views.admin_logout, name='admin_logout'),
+    path('login/', views.login, name='login'),
+    path('dashboard/', views.dashboard, name='dashboard'),
+    path('logout/', views.logout, name='logout'),
 ]
