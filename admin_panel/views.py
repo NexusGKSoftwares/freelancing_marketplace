@@ -17,3 +17,10 @@ def admin_login(request):
             messages.error(request, "Invalid credentials!")
     return render(request, 'admin_panel/login.html')
 
+@login_required
+def dashboard(request):
+    return render(request, 'admin_panel/dashboard.html')
+
+def admin_logout(request):
+    logout(request)
+    return redirect('admin_login')
