@@ -1,7 +1,7 @@
 Django==4.2.16
 djangorestframework==3.15.0  # For building APIs if needed
 django-crispy-forms==2.0  # For better form styling
-Pillow==10.0.0  # For image uploads, if required
+Pillow==10.3.0  # For image uploads, if required
 django-allauth==0.56.0  # For advanced authentication features (optional)
 psycopg2-binary==2.9.7  # For PostgreSQL support (use only if you're using PostgreSQL)
 mysqlclient==2.1.1  # For MySQL support (use only if you're using MySQL)
