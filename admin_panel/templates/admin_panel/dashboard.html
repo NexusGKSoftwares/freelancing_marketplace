@@ -1,80 +1,97 @@
-{% extends 'admin_panel/base.html' %}
-
-{% block title %}Admin Dashboard{% endblock %}
-
+{% extends "admin_panel/base.html" %}
+{% block title %}Dashboard{% endblock %}
 {% block content %}
-<div class="container mt-4">
-    <h1 class="mb-4">Welcome to the Admin Dashboard</h1>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Dashboard</h1>
+</div>
 
-    <div class="row">
-        <!-- Statistics Cards -->
-        <div class="col-md-3">
-            <div class="card text-white bg-primary mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Total Users</h5>
-                    <p class="card-text">350</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card text-white bg-success mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Active Freelancers</h5>
-                    <p class="card-text">125</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card text-white bg-warning mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Projects In Progress</h5>
-                    <p class="card-text">80</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card text-white bg-danger mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">Pending Payments</h5>
-                    <p class="card-text">15</p>
-                </div>
+<!-- Overview Metrics -->
+<div class="row">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Total Users</h5>
+                <p class="card-text">Clients: 200 | Freelancers: 150</p>
             </div>
         </div>
     </div>
-
-    <div class="row">
-        <!-- Recent Activities -->
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
-                    Recent Activities
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li>User "John Doe" has completed the project "Website Development".</li>
-                        <li>Freelancer "Jane Smith" applied for the "Graphic Design" job.</li>
-                        <li>Client "XYZ Corporation" posted a new project: "SEO Optimization".</li>
-                    </ul>
-                </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Active Projects</h5>
+                <p class="card-text">50 ongoing</p>
             </div>
         </div>
-
-        <!-- Quick Links -->
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-header">
-                    Quick Links
-                </div>
-                <div class="card-body">
-                    <ul>
-                        <li><a href="#">View All Users</a></li>
-                        <li><a href="#">Manage Projects</a></li>
-                        <li><a href="#">Manage Freelancers</a></li>
-                        <li><a href="#">Pending Payments</a></li>
-                    </ul>
-                </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-warning mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Completed Projects</h5>
+                <p class="card-text">120 completed</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-danger mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Revenue Summary</h5>
+                <p class="card-text">$25,000 (This Month)</p>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Graphical Insights -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Revenue Trends</div>
+            <div class="card-body">
+                <canvas id="revenueChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">User Activity Trends</div>
+            <div class="card-body">
+                <canvas id="activityChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+    new Chart(revenueCtx, {
+        type: 'line',
+        data: {
+            labels: ['January', 'February', 'March', 'April'],
+            datasets: [{
+                label: 'Revenue',
+                data: [5000, 7000, 8000, 9000],
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+                fill: false,
+            }]
+        }
+    });
+
+    const activityCtx = document.getElementById('activityChart').getContext('2d');
+    new Chart(activityCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+            datasets: [{
+                label: 'Daily Signups',
+                data: [20, 15, 30, 25, 40],
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1,
+            }]
+        }
+    });
+</script>
+{% endblock %}
 {% endblock %}
