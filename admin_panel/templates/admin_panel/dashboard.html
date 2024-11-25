@@ -1,178 +1,119 @@
 {% extends "admin_panel/base.html" %}
-
+{% block title %}Dashboard{% endblock %}
 {% block content %}
-<div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar -->
-        <div class="col-md-2">
-            {% include "admin_panel/sidebar.html" %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Dashboard</h1>
+</div>
+
+
+<!-- Overview Metrics -->
+<div class="row">
+    <div class="col-md-3">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-body d-flex align-items-center">
+                <div class="me-3">
+                    <i class="fa fa-users fa-2x"></i>
+                </div>
+                <div>
+                    <h5 class="card-title">Total Users</h5>
+                    <p class="card-text">Clients: 200 | Freelancers: 150</p>
+                </div>
+            </div>
         </div>
-
-        <!-- Main Content -->
-        <div class="col-md-10">
-            <!-- Navbar -->
-            {% include "admin_panel/navbar.html" %}
-            
-            <!-- Page Content -->
-            <div class="row mt-4">
-                <!-- Overview Metrics -->
-                <div class="col-md-3">
-                    <div class="card text-white bg-primary mb-3">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <i class="fa fa-users fa-2x me-3"></i>
-                                <div>
-                                    <h5 class="card-title">Total Users</h5>
-                                    <h3>350</h3>
-                                    <small class="text-light">+10% this month</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-body d-flex align-items-center">
+                <div class="me-3">
+                    <i class="fa fa-briefcase fa-2x"></i>
                 </div>
-                <div class="col-md-3">
-                    <div class="card text-white bg-success mb-3">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <i class="fa fa-briefcase fa-2x me-3"></i>
-                                <div>
-                                    <h5 class="card-title">Active Projects</h5>
-                                    <h3>125</h3>
-                                    <small class="text-light">+5% this week</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card text-white bg-warning mb-3">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <i class="fa fa-dollar-sign fa-2x me-3"></i>
-                                <div>
-                                    <h5 class="card-title">Revenue</h5>
-                                    <h3>$12,000</h3>
-                                    <small class="text-light">+15% this month</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card text-white bg-danger mb-3">
-                        <div class="card-body">
-                            <div class="d-flex align-items-center">
-                                <i class="fa fa-flag fa-2x me-3"></i>
-                                <div>
-                                    <h5 class="card-title">Pending Disputes</h5>
-                                    <h3>8</h3>
-                                    <small class="text-light">-3% this week</small>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div>
+                    <h5 class="card-title">Active Projects</h5>
+                    <p class="card-text">50 ongoing</p>
                 </div>
             </div>
-
-            <!-- Graphical Insights -->
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="card mb-3">
-                        <div class="card-header bg-dark text-white">Revenue Trends</div>
-                        <div class="card-body">
-                            <canvas id="revenueChart"></canvas>
-                        </div>
-                    </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-warning mb-3">
+            <div class="card-body d-flex align-items-center">
+                <div class="me-3">
+                    <i class="fa fa-check-circle fa-2x"></i>
                 </div>
-                <div class="col-md-4">
-                    <div class="card mb-3">
-                        <div class="card-header bg-dark text-white">User Activity</div>
-                        <div class="card-body">
-                            <canvas id="activityChart"></canvas>
-                        </div>
-                    </div>
+                <div>
+                    <h5 class="card-title">Completed Projects</h5>
+                    <p class="card-text">120 completed</p>
                 </div>
             </div>
-
-            <!-- Activity Feed -->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card mb-3">
-                        <div class="card-header bg-dark text-white">Recent Activities</div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">New user registered: John Doe</li>
-                            <li class="list-group-item">Project milestone completed: Web App Development</li>
-                            <li class="list-group-item">Payment approved for Freelancer: $500</li>
-                            <li class="list-group-item">Client posted a new job: Logo Design</li>
-                        </ul>
-                    </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-danger mb-3">
+            <div class="card-body d-flex align-items-center">
+                <div class="me-3">
+                    <i class="fa fa-dollar fa-2x"></i>
                 </div>
-            </div>
-
-            <!-- Quick Actions -->
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="card mb-3">
-                        <div class="card-body text-center">
-                            <button class="btn btn-primary w-100">Add New User</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card mb-3">
-                        <div class="card-body text-center">
-                            <button class="btn btn-success w-100">View Flagged Content</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card mb-3">
-                        <div class="card-body text-center">
-                            <button class="btn btn-danger w-100">Resolve Disputes</button>
-                        </div>
-                    </div>
+                <div>
+                    <h5 class="card-title">Revenue Summary</h5>
+                    <p class="card-text">$25,000 (This Month)</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
-{% endblock %}
+
+
+<!-- Graphical Insights -->
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">Revenue Trends</div>
+            <div class="card-body">
+                <canvas id="revenueChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">User Activity Trends</div>
+            <div class="card-body">
+                <canvas id="activityChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
 {% block extra_js %}
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // Revenue Chart
-const revenueCtx = document.getElementById('revenueChart').getContext('2d');
-const revenueChart = new Chart(revenueCtx, {
-    type: 'line',
-    data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-        datasets: [{
-            label: 'Revenue ($)',
-            data: [5000, 10000, 7500, 12000, 14000, 16000],
-            backgroundColor: 'rgba(54, 162, 235, 0.2)',
-            borderColor: 'rgba(54, 162, 235, 1)',
-            borderWidth: 2
-        }]
-    },
-    options: { responsive: true }
-});
+    const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+    new Chart(revenueCtx, {
+        type: 'line',
+        data: {
+            labels: ['January', 'February', 'March', 'April'],
+            datasets: [{
+                label: 'Revenue',
+                data: [5000, 7000, 8000, 9000],
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+                fill: false,
+            }]
+        }
+    });
 
-// User Activity Chart
-const activityCtx = document.getElementById('activityChart').getContext('2d');
-const activityChart = new Chart(activityCtx, {
-    type: 'bar',
-    data: {
-        labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-        datasets: [{
-            label: 'User Signups',
-            data: [50, 70, 30, 80, 120, 150, 100],
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgba(255, 99, 132, 1)',
-            borderWidth: 2
-        }]
-    },
-    options: { responsive: true }
-});
-
+    const activityCtx = document.getElementById('activityChart').getContext('2d');
+    new Chart(activityCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+            datasets: [{
+                label: 'Daily Signups',
+                data: [20, 15, 30, 25, 40],
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1,
+            }]
+        }
+    });
 </script>
+{% endblock %}
 {% endblock %}
