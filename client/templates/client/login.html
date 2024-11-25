@@ -1,7 +1,34 @@
-<h2> Client  Login</h2>
-<form method="POST">
-    {% csrf_token %}
-    <input type="text" name="username" placeholder="Username" required><br>
-    <input type="password" name="password" placeholder="Password" required><br>
-    <button type="submit">Login</button>
-</form>
+<div class="container vh-100 d-flex align-items-center">
+    <div id="innerPage">
+      <div class="row align-items-center justify-content-center">
+        <div class="col-sm-6 col-xs-12 d-sm-block d-none">
+          <div id="imgBgn">
+            <!-- Optional Image Background -->
+          </div>
+        </div>
+        <div class="col-sm-6 col-xs-12 text-white p-5">
+          <div class="lead">
+            <h3>Welcome Back</h3>
+            <p class="fs-6 mb-4">
+              <small>Login to access your dashboard and services.</small>
+            </p>
+          </div>
+          <button type="button" class="btn btn-primary w-100 text-white"><i class="fab fa-google me-2"></i> Sign in with Google</button>
+          <form method="POST">
+            {% csrf_token %}
+            <div class="mt-4">
+              <p>Enter Email</p>
+            </div>
+            <input class="form-control rounded-0 mb-3" type="email" name="username" placeholder="Enter Email" required />
+            <input class="form-control rounded-0 mb-3" type="password" name="password" placeholder="Enter Password" required />
+            <div>
+              <input type="checkbox" value="" class="me-2" id="flexCheckDefault">
+              <label for="flexCheckDefault">Remember me</label>
+            </div>
+            <button class="btn btn-info mt-4 w-100" type="submit">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
