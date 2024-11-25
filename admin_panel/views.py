@@ -16,3 +16,4 @@ def admin_login(request):
         else:
             messages.error(request, "Invalid credentials!")
     return render(request, 'admin_panel/login.html')
+
