@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from .forms import AddUserForm  
 from .models import Project  
+from .forms import ProjectForm  
 
 def admin_login(request):
     if request.method == "POST":
@@ -114,6 +115,17 @@ def project_management(request):
     projects = Project.objects.all()  # Adjust query as needed
     return render(request, 'admin_panel/project_management.html', {'projects': projects})
 
+
+# Add Project view
+def add_project(request):
+    if request.method == 'POST':
+        form = ProjectForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('project_management')  # Redirect back to the project management page
+    else:
+        form = ProjectForm()
+    return render(request, 'admin_panel/add_project.html', {'form': form})
 # View individual project details
 def view_project(request, project_id):
     project = get_object_or_404(Project, id=project_id)
