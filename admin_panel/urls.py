@@ -23,6 +23,7 @@ urlpatterns = [
     path('login/', views.admin_login, name='admin_login'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path("user_management/", views.user_management, name="user_management"),
+    path('add_user/', views.add_user, name='add_user'),
     path("user/<int:user_id>/view/", views.view_user, name="view_user"),
     path("user/<int:user_id>/edit/", views.edit_user, name="edit_user"),
     path("user/<int:user_id>/toggle_status/", views.toggle_user_status, name="toggle_user_status"),
