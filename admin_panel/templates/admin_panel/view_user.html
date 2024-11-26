@@ -1,0 +1,67 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4>
+                        <i class="bi bi-person-circle me-2"></i> User Details
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <div class="row mb-3">
+                        <div class="col-md-4 fw-bold">Full Name:</div>
+                        <div class="col-md-8">{{ user.first_name }} {{ user.last_name }}</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4 fw-bold">Username:</div>
+                        <div class="col-md-8">{{ user.username }}</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4 fw-bold">Email Address:</div>
+                        <div class="col-md-8">{{ user.email }}</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4 fw-bold">Account Status:</div>
+                        <div class="col-md-8">
+                            {% if user.is_active %}
+                            <span class="badge bg-success">Active</span>
+                            {% else %}
+                            <span class="badge bg-danger">Suspended</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4 fw-bold">Date Joined:</div>
+                        <div class="col-md-8">{{ user.date_joined|date:"F j, Y, g:i a" }}</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-4 fw-bold">Last Login:</div>
+                        <div class="col-md-8">
+                            {% if user.last_login %}
+                            {{ user.last_login|date:"F j, Y, g:i a" }}
+                            {% else %}
+                            <span class="text-muted">Never logged in</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <a href="{% url 'user_management' %}" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left-circle me-2"></i> Back to User Management
+                    </a>
+                    <a href="{% url 'edit_user' user.id %}" class="btn btn-warning">
+                        <i class="bi bi-pencil-square me-2"></i> Edit User
+                    </a>
+                    <a href="{% url 'toggle_user_status' user.id %}" class="btn {% if user.is_active %}btn-danger{% else %}btn-success{% endif %}">
+                        <i class="bi bi-person-dash me-2"></i>
+                        {% if user.is_active %} Suspend User {% else %} Activate User {% endif %}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
