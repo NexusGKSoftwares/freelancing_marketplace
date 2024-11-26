@@ -35,7 +35,7 @@ urlpatterns = [
     path('view_project/<int:project_id>/', views.view_project, name='view_project'),
     path('edit_project/<int:project_id>/', views.edit_project, name='edit_project'),
     path('delete_project/<int:project_id>/', views.delete_project, name='delete_project'),
-     path('admin_panel/settings/', views.system_settings, name='system_settings'),
+    path('system_settings/', views.system_settings, name='system_settings'),
 ]
 
 if settings.DEBUG:

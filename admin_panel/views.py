@@ -162,7 +162,7 @@ def delete_project(request, project_id):
     return redirect('project_management')
 
 
-@login_required
+
 def system_settings(request):
     user_settings = UserSettings.objects.get(user=request.user)
     
