@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 
 from admin_panel import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('login/', views.admin_login, name='admin_login'),
@@ -33,4 +35,9 @@ urlpatterns = [
     path('view_project/<int:project_id>/', views.view_project, name='view_project'),
     path('edit_project/<int:project_id>/', views.edit_project, name='edit_project'),
     path('delete_project/<int:project_id>/', views.delete_project, name='delete_project'),
+    path('settings/', views.system_settings, name='system_settings'),
+    # other paths
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
