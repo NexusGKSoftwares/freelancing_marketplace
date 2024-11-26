@@ -1,0 +1,47 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <div class="settings-container">
+    <h2>System Settings</h2>
+
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      
+      <div class="setting-group">
+        <label for="profile_picture">Profile Picture</label>
+        <input type="file" name="profile_picture" accept="image/*">
+        <img src="{{ settings.profile_picture.url }}" alt="Profile Picture" class="profile-pic-preview">
+      </div>
+
+      <div class="setting-group">
+        <label for="language">Language</label>
+        <select name="language" id="language">
+          <option value="en" {% if settings.language == 'en' %}selected{% endif %}>English</option>
+          <option value="es" {% if settings.language == 'es' %}selected{% endif %}>Spanish</option>
+          <!-- Add more languages as needed -->
+        </select>
+      </div>
+
+      <div class="setting-group">
+        <label for="timezone">Timezone</label>
+        <input type="text" name="timezone" value="{{ settings.timezone }}" required>
+      </div>
+
+      <div class="setting-group">
+        <label for="notifications_enabled">Enable Notifications</label>
+        <input type="checkbox" name="notifications_enabled" {% if settings.notifications_enabled %}checked{% endif %}>
+      </div>
+
+      <div class="setting-group">
+        <label for="dark_mode">Enable Dark Mode</label>
+        <input type="checkbox" name="dark_mode" {% if settings.dark_mode %}checked{% endif %}>
+      </div>
+
+      <button type="submit">Save Changes</button>
+    </form>
+  </div>
+{% endblock %}
+
+{% block styles %}
+  <link rel="stylesheet" href="{% static 'css/system_settings.css' %}">
+{% endblock %}
