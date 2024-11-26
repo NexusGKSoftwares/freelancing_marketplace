@@ -120,13 +120,12 @@ def add_project(request):
     if request.method == 'POST':
         form = ProjectForm(request.POST)
         if form.is_valid():
-            form.save()  # Save the form data to the database
-            return redirect('project_management')  # Redirect to the project management page after saving
+            print("Form is valid, saving project")
+            form.save()
+            return redirect('project_management')
         else:
-            # If the form is not valid, return the same page with form errors
-            return render(request, 'admin_panel/add_project.html', {'form': form})
+            print("Form errors: ", form.errors)  # Print out form errors
     else:
-        # For GET requests, show an empty form
         form = ProjectForm()
     return render(request, 'admin_panel/add_project.html', {'form': form})
 
