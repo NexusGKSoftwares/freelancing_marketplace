@@ -22,5 +22,5 @@ from admin_panel import views
 urlpatterns = [
     path('login/', views.admin_login, name='admin_login'),
     path('dashboard/', views.dashboard, name='dashboard'),
-    
+    path('user_management/', views.user_management, name='user_management'),
 ]
