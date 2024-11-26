@@ -11,7 +11,7 @@
         <div class="card-body">
             <form method="POST">
                 {% csrf_token %}
-                {{ form.as_p }}
+                {{ form.as_p }}  <!-- Render form fields -->
                 <button type="submit" class="btn btn-success">Save Project</button>
             </form>
         </div>
