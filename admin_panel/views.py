@@ -57,6 +57,19 @@ def add_user(request):
     else:
         form = AddUserForm()
     return render(request, 'admin_panel/add_user.html', {'form': form})
+
+def delete_user(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    
+    # Ensure that only superusers or admins can delete users
+    if request.user.is_superuser:
+        user.delete()
+        messages.success(request, "User deleted successfully.")
+    else:
+        messages.error(request, "You do not have permission to delete users.")
+    
+    return redirect('user_management')
+
 # View User Profile
 def view_user(request, user_id):
     """
