@@ -116,16 +116,20 @@ def project_management(request):
     return render(request, 'admin_panel/project_management.html', {'projects': projects})
 
 
-# Add Project view
 def add_project(request):
     if request.method == 'POST':
         form = ProjectForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('project_management')  # Redirect back to the project management page
+            form.save()  # Save the form data to the database
+            return redirect('project_management')  # Redirect to the project management page after saving
+        else:
+            # If the form is not valid, return the same page with form errors
+            return render(request, 'admin_panel/add_project.html', {'form': form})
     else:
+        # For GET requests, show an empty form
         form = ProjectForm()
     return render(request, 'admin_panel/add_project.html', {'form': form})
+
 # View individual project details
 def view_project(request, project_id):
     project = get_object_or_404(Project, id=project_id)
