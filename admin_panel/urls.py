@@ -28,4 +28,8 @@ urlpatterns = [
     path("user/<int:user_id>/view/", views.view_user, name="view_user"),
     path("user/<int:user_id>/edit/", views.edit_user, name="edit_user"),
     path("user/<int:user_id>/toggle_status/", views.toggle_user_status, name="toggle_user_status"),
+    path('project_management/', views.project_management, name='project_management'),
+    path('view_project/<int:project_id>/', views.view_project, name='view_project'),
+    path('edit_project/<int:project_id>/', views.edit_project, name='edit_project'),
+    path('delete_project/<int:project_id>/', views.delete_project, name='delete_project'),
 ]
