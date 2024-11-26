@@ -6,6 +6,9 @@ from django.contrib.auth.models import User
 from .forms import AddUserForm  
 from .models import Project  
 from .forms import ProjectForm  
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from .models import UserSettings
 
 def admin_login(request):
     if request.method == "POST":
@@ -157,3 +160,21 @@ def delete_project(request, project_id):
         messages.error(request, "You do not have permission to delete this project.")
     
     return redirect('project_management')
+
+
+@login_required
+def system_settings(request):
+    user_settings = UserSettings.objects.get(user=request.user)
+    
+    if request.method == 'POST':
+        # Update user settings from the form
+        user_settings.language = request.POST.get('language')
+        user_settings.timezone = request.POST.get('timezone')
+        user_settings.notifications_enabled = 'notifications_enabled' in request.POST
+        user_settings.dark_mode = 'dark_mode' in request.POST
+        if 'profile_picture' in request.FILES:
+            user_settings.profile_picture = request.FILES['profile_picture']
+        user_settings.save()
+        return redirect('system_settings')
+    
+    return render(request, 'system_settings.html', {'settings': user_settings})
