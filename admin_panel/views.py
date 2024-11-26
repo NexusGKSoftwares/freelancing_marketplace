@@ -3,7 +3,8 @@ from django.db import connection
 from django.contrib.auth.hashers import check_password
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .forms import AddUserForm  # Assuming you have a form for adding users
+from .forms import AddUserForm  
+from .models import Project  
 
 def admin_login(request):
     if request.method == "POST":
@@ -105,3 +106,39 @@ def toggle_user_status(request, user_id):
     status = "activated" if user.is_active else "suspended"
     messages.success(request, f"User has been {status}.")
     return redirect("user_management")
+
+
+
+# View all projects
+def project_management(request):
+    projects = Project.objects.all()  # Adjust query as needed
+    return render(request, 'admin_panel/project_management.html', {'projects': projects})
+
+# View individual project details
+def view_project(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    return render(request, 'admin_panel/view_project.html', {'project': project})
+
+# Edit project details
+def edit_project(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    if request.method == "POST":
+        project.name = request.POST['name']
+        project.description = request.POST['description']
+        project.status = request.POST['status']  # Assuming status field exists
+        project.save()
+        messages.success(request, "Project updated successfully.")
+        return redirect('project_management')
+    
+    return render(request, 'admin_panel/edit_project.html', {'project': project})
+
+# Delete a project
+def delete_project(request, project_id):
+    project = get_object_or_404(Project, id=project_id)
+    if request.user.is_superuser:
+        project.delete()
+        messages.success(request, "Project deleted successfully.")
+    else:
+        messages.error(request, "You do not have permission to delete this project.")
+    
+    return redirect('project_management')
