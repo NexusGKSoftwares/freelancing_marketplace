@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from .models import Project
 
 class AddUserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput, label="Password")
