@@ -1,7 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.db import connection
 from django.contrib.auth.hashers import check_password
 from django.contrib import messages
+from django.contrib.auth.models import User
 
 def admin_login(request):
     if request.method == "POST":
@@ -29,3 +30,54 @@ def dashboard(request):
     if 'admin_id' not in request.session:
         return redirect('/admin_panel/login/')
     return render(request, 'admin_panel/dashboard.html')
+
+
+# User Management View
+def user_management(request):
+    """
+    View for displaying and managing users.
+    Includes options for viewing, editing, and suspending users.
+    """
+    # Fetch all users
+    users = User.objects.all()
+
+    context = {
+        "users": users,
+    }
+    return render(request, "admin_panel/user_management.html", context)
+
+# View User Profile
+def view_user(request, user_id):
+    """
+    View for displaying the details of a single user.
+    """
+    user = get_object_or_404(User, id=user_id)
+    return render(request, "admin_panel/view_user.html", {"user": user})
+
+# Edit User Profile
+def edit_user(request, user_id):
+    """
+    View for editing a user's profile information.
+    """
+    user = get_object_or_404(User, id=user_id)
+    if request.method == "POST":
+        user.first_name = request.POST.get("first_name", user.first_name)
+        user.last_name = request.POST.get("last_name", user.last_name)
+        user.email = request.POST.get("email", user.email)
+        user.save()
+        messages.success(request, "User profile updated successfully!")
+        return redirect("user_management")
+
+    return render(request, "admin_panel/edit_user.html", {"user": user})
+
+# Suspend or Activate User
+def toggle_user_status(request, user_id):
+    """
+    Toggle the active status of a user (activate/suspend).
+    """
+    user = get_object_or_404(User, id=user_id)
+    user.is_active = not user.is_active
+    user.save()
+    status = "activated" if user.is_active else "suspended"
+    messages.success(request, f"User has been {status}.")
+    return redirect("user_management")
