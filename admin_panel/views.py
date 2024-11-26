@@ -3,6 +3,7 @@ from django.db import connection
 from django.contrib.auth.hashers import check_password
 from django.contrib import messages
 from django.contrib.auth.models import User
+from .forms import AddUserForm  # Assuming you have a form for adding users
 
 def admin_login(request):
     if request.method == "POST":
@@ -46,6 +47,16 @@ def user_management(request):
     }
     return render(request, "admin_panel/user_management.html", context)
 
+def add_user(request):
+    if request.method == "POST":
+        form = AddUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "User added successfully!")
+            return redirect('user_management')  # Redirect to the user management page
+    else:
+        form = AddUserForm()
+    return render(request, 'admin_panel/add_user.html', {'form': form})
 # View User Profile
 def view_user(request, user_id):
     """
