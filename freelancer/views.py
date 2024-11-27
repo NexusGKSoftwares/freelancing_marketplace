@@ -6,6 +6,13 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.contrib.auth.models import User
+from .forms import UserProfileForm  # Form to handle profile update
+from django.db.models import Q  # For complex search queries
+
 def index(request):
     if not request.user.is_authenticated:
         return render(request, 'freelancer/index.html')
@@ -53,3 +60,49 @@ def freelancer_logout(request):
 @login_required
 def dashboard(request):
     return render(request, 'freelancer/dashboard.html')
+
+
+# Profile Page View
+@login_required
+def profile(request):
+    # Get the current logged-in user
+    user = request.user
+    # Get the user profile related to the logged-in user
+    user_profile = user.profile
+    
+    return render(request, 'freelancer/profile.html', {'user': user, 'user_profile': user_profile})
+
+# Edit Profile View
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        if form.is_valid():
+            form.save()  # Save the updated profile information
+            messages.success(request, "Profile updated successfully!")
+            return redirect('profile')  # Redirect to profile page
+    else:
+        form = UserProfileForm(instance=request.user.profile)
+
+    return render(request, 'freelancer/edit_profile.html', {'form': form})
+
+# Search Users View
+def profile_search(request):
+    search_query = request.GET.get('search', '')
+    search_results = []
+
+    if search_query:
+        # Searching across username, email, location, phone number, and skills
+        search_results = User.objects.filter(
+            Q(username__icontains=search_query) |
+            Q(email__icontains=search_query) |
+            Q(profile__location__icontains=search_query) |
+            Q(profile__phone_number__icontains=search_query) |
+            Q(profile__skills__icontains=search_query)  # Assuming 'skills' is a field in UserProfile
+        )
+
+    return render(request, 'freelancer/profile_search_results.html', {
+        'search_results': search_results,
+        'search_query': search_query  # Pass search query to keep in search box
+    })
+
