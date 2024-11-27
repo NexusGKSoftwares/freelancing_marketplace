@@ -42,6 +42,19 @@ def check_username(request):
             return HttpResponse('<b>Username must be unique.</b>')
     except User.DoesNotExist:
         return HttpResponse('')
+    
+@csrf_exempt
+def check_email(request):
+    data = json.loads(request.body.decode('utf-8'))
+    email = data['email']
+    if email.endswith('@iiits.in'):
+        return HttpResponse('<b>Login with iiits link.</b>')
+    try:
+        if User.objects.get(email=email):
+            return HttpResponse('<b>Email must be unique.</b>')
+    except User.DoesNotExist:
+        return HttpResponse('')
+
 def freelancer_login(request):
     if request.method == 'POST':
         username = request.POST['username']

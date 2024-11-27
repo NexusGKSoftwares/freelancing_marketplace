@@ -320,7 +320,7 @@
 
 	    $.ajax({
 	      type: "POST",
-	      url: "{% url 'Portal:check_email' %}",
+	      url: "{% url 'check_email' %}",
 	      contentType: "application/json",
 	      data: JSON.stringify({ 'email': email }),
 	      success: function (data) {
