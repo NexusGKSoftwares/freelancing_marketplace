@@ -20,6 +20,7 @@ from django.urls import path
 from freelancer import views 
 
 urlpatterns = [
+    path('', views.index, name='index'),
     path('register/', views.freelancer_register, name='freelancer_register'),
     path('login/', views.freelancer_login, name='freelancer_login'),
     path('dashboard/', views.dashboard, name='freelancer_dashboard'),
