@@ -47,8 +47,8 @@ def check_username(request):
 def check_email(request):
     data = json.loads(request.body.decode('utf-8'))
     email = data['email']
-    if email.endswith('@iiits.in'):
-        return HttpResponse('<b>Login with iiits link.</b>')
+    if email.endswith('@gmail.com'):
+        return HttpResponse('')
     try:
         if User.objects.get(email=email):
             return HttpResponse('<b>Email must be unique.</b>')
