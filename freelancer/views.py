@@ -10,7 +10,7 @@ def index(request):
     if not request.user.is_authenticated:
         return render(request, 'freelancer/index.html')
     else:
-        return HttpResponseRedirect(reverse('Portal:home'))
+        return HttpResponseRedirect(reverse('index'))
     
 def freelancer_register(request):
     if request.method == 'POST':
