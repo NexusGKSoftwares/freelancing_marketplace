@@ -55,32 +55,45 @@
 		</div>
 	</div>
 
-	<div class="content-section no-top-padding">
-		<div class="content-wrapper w-container">
-			<div class="header no-bottom-border">
-				<h2>Login</h2>
-				{% if error_message %}
-				<b>{{error_message}}</b>
-				<br> {% endif %}
+	<div class="card-body">
+		<!-- Display Django Messages -->
+		{% if messages %}
+		<div>
+			{% for message in messages %}
+			<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+				{{ message }}
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 			</div>
+			{% endfor %}
+		</div>
+		{% endif %}
 
-			<div class="w-form">
-				<form id="wf-form-CTA-Newsletter-Form" name="wf-form-CTA-Newsletter-Form" data-name="CTA Newsletter Form" class="form cta-newsletter"
-				 method="post" action="{% url 'freelancer_login' %}">
-					{% csrf_token %}
-					<div class="cta-form">
-						<input type="text" autofocus class="text-field cta-name w-input" maxlength="256" name="name" data-name="Name 3" placeholder="User Name"
-						 id="name-3" required/>
-						<input type="password" class="text-field cta-email w-input" maxlength="256" name="passwd" data-name="password" placeholder="password "
-						 id="password" required/>
-					</div>
-					<input type="submit" value="Login" data-wait="Please wait..." class="submit-cta-newsletter w-button" />
-				</form>
+		<!-- Login Form -->
+		<form method="POST">
+			{% csrf_token %}
+			<div class="mb-3">
+				<label for="username" class="form-label">Username</label>
+				<input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required>
 			</div>
+			<div class="mb-3">
+				<label for="password" class="form-label">Password</label>
+				<input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+			</div>
+			<div class="text-center">
+				<button type="submit" class="btn btn-primary w-100">Login</button>
+			</div>
+		</form>
 
-			</div>
+		<!-- Registration Redirect -->
+		<div class="mt-3 text-center">
+			<p>Don't have an account? <a href="{% url 'freelancer_register' %}">Register here</a></p>
+		</div>
 	</div>
-	</div>
+</div>
+</div>
+</div>
+</div>
+
 
 	<div class="footer">
 		<div class="content-wrapper w-container">
