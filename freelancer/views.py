@@ -10,7 +10,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
-from .forms import UserProfileForm  # Form to handle profile update
+from .forms import ProfileForm  # Form to handle profile update
 from django.db.models import Q  # For complex search queries
 
 def index(request):
@@ -73,13 +73,13 @@ def profile(request):
 @login_required
 def edit_profile(request):
     if request.method == 'POST':
-        form = UserProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
         if form.is_valid():
             form.save()  # Save the updated profile information
             messages.success(request, "Profile updated successfully!")
             return redirect('profile')  # Redirect to profile page
     else:
-        form = UserProfileForm(instance=request.user.profile)
+        form = ProfileForm(instance=request.user.profile)
 
     return render(request, 'freelancer/edit_profile.html', {'form': form})
 
