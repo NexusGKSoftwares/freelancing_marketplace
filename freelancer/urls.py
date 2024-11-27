@@ -25,4 +25,7 @@ urlpatterns = [
     path('login/', views.freelancer_login, name='freelancer_login'),
     path('dashboard/', views.dashboard, name='freelancer_dashboard'),
     path('logout/', views.freelancer_logout, name='freelancer_logout'),
+    path('profile/', views.profile, name='profile'),  # View user profile
+    path('profile/edit/', views.edit_profile, name='edit_profile'),  # Edit user profile
+    path('profile/search/', views.profile_search, name='profile_search'),  # Search for users
 ]
