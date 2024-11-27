@@ -284,7 +284,7 @@
 
 	    $.ajax({
 	      type: "POST",
-	      url: "{% url 'Portal:check_username' %}",
+	      url: "{% url 'freelancer:check_username' %}",
 	      contentType: "application/json",
 	      data: JSON.stringify({ 'username': username }),
 	      success: function (data) {
