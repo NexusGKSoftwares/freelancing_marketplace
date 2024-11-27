@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 
 def index(request):
     if not request.user.is_authenticated:
-        return render(request, 'index.html')
+        return render(request, 'freelancer/index.html')
     else:
         return HttpResponseRedirect(reverse('Portal:home'))
     
