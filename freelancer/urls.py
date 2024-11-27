@@ -22,6 +22,7 @@ from freelancer import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('register/', views.freelancer_register, name='freelancer_register'),
+    path('check_username/', views.check_username, name='check_username'),
     path('login/', views.freelancer_login, name='freelancer_login'),
     path('dashboard/', views.dashboard, name='freelancer_dashboard'),
     path('logout/', views.freelancer_logout, name='freelancer_logout'),
