@@ -443,7 +443,7 @@
 		<div class="content-wrapper w-container" style="display: flex;">
 
 			<div>
-				<a href="{% url 'Portal:home' %}" class="brand w-nav-brand">
+				<a href="{% url 'freelancer_dashboard' %}" class="brand w-nav-brand">
 						<img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/49/IIIT_Sri_City_Logo.png/220px-IIIT_Sri_City_Logo.png" width="60"/>
 				</a>
 			</div>
@@ -454,7 +454,7 @@
 			<div style="float: right; display:flex;">
 				<div style="min-width: 80px; min-height: 120px;height:120px; line-height:120px;height: 100%;">
 					<div style="padding-top: 60px;">
-					<a href="{% url 'Portal:profile' request.user.username %}" style="text-decoration:none;">
+					<a href="#" style="text-decoration:none;">
 						<div class="profile-wrap">
 							<span class="haad"></span>
 							<span class="booy"></span>
@@ -464,7 +464,7 @@
 				</div>
 				<div style="min-width: 80px; padding-left: 20px; ">
 					<div style="padding-top: 40px;">
-						<a href="{% url 'Portal:logout' %}" onclick="noBack()">
+						<a href="#" onclick="noBack()">
 							<svg version="1.1" id="lock" class="icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
 							 x="0px" y="0px" width="40px" height="40px" viewBox="0 0 60 57.476" style="enable-background:new 0 0 60 57.476;" xml:space="preserve">
 								<rect x="9" y="21.441" class="st1" width="42.978" height="30.855" />
@@ -494,21 +494,21 @@
 		<ul style="width: 70%;">
 			{% if not request.user.is_authenticated %}
 			<li>
-				<a href="{% url 'Portal:signup' %}">Signup</a>
+				<a href="{% url 'freelancer_register' %}">Signup</a>
 			</li>
 			<li>
-				<a href="{% url 'Portal:login' %}">Login</a>
+				<a href="{% url 'freelancer_login' %}">Login</a>
 			</li>
 			{% endif %}
 			<li>
-				<a href="{% url 'Portal:browse_jobs' %}">Browse Jobs</a>
+				<a href="#">Browse Jobs</a>
 			</li>
 			{% if request.user.is_authenticated %}
 			<li>
-				<a href="{% url 'Portal:post_project' %}">Post a Project</a>
+				<a href="#">Post a Project</a>
 			</li>
 			<li>
-				<a href="{% url 'Portal:myprojects' %}">My Projects</a>
+				<a href="#">My Projects</a>
 			</li>
 			{% endif %}
 		</ul>
@@ -527,7 +527,7 @@
 							<div class="proin">
 								<div class="inone">
 									<div style="color: #213875;">
-									<a href="{% url 'Portal:task_description' job.project.id job.id %}">{{job.task_name}}</a>
+									<a href="#">{{job.task_name}}</a>
 									</div>
 
 									<div style="color:black; font-size:15px;">
@@ -571,11 +571,11 @@
 						Current Posted Project Status<br>
 					</div>
 					<div class="protag" style="text-align: center;">
-						<a style="text-decoration: none;" href="{% url 'Portal:project_description' current_posted_project.id %}">{{current_posted_project.project_name}}</a>
+						<a style="text-decoration: none;" href="#">{{current_posted_project.project_name}}</a>
 					</div>
 					{% if current_added_task %}
 					<div class="protag" style="text-align: center;">
-						<a style="text-decoration: none;" href="{% url 'Portal:task_description' current_posted_project.id current_added_task.id %}">{{current_added_task.task_name}}</a>
+						<a style="text-decoration: none;" href="">{{current_added_task.task_name}}</a>
 					</div>
 					<br><br> {% else %}
 					<div class="td1" style="text-align: center;">
@@ -597,10 +597,10 @@
 						Current Working Project Status
 					</div>
 					<div class="protag" style="text-align: center;">
-						<a style="text-decoration: none;" href="{% url 'Portal:project_description' current_working_task.project.id %}">{{current_working_task.project.project_name}}</a>
+						<a style="text-decoration: none;" href="#">{{current_working_task.project.project_name}}</a>
 					</div>
 					<div class="protag" style="text-align: center;">
-						<a style="text-decoration: none;" href="{% url 'Portal:task_description' current_working_task.project.id  current_working_task.id %}">{{current_working_task.task_name}}</a>
+						<a style="text-decoration: none;" href="#">{{current_working_task.task_name}}</a>
 					</div>
 					<br><br>{% else %}
 					<div class="cwps2" style="text-align: center;">
