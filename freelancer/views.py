@@ -32,28 +32,6 @@ def freelancer_register(request):
         else:
             messages.error(request, "Passwords do not match!")
     return render(request, 'freelancer/register.html')
-@csrf_exempt
-def check_username(request):
-    data = json.loads(request.body.decode('utf-8'))
-    username = data['username']
-    try:
-        user = User.objects.get(username=username)
-        if user:
-            return HttpResponse('<b>Username must be unique.</b>')
-    except User.DoesNotExist:
-        return HttpResponse('')
-    
-@csrf_exempt
-def check_email(request):
-    data = json.loads(request.body.decode('utf-8'))
-    email = data['email']
-    if email.endswith('@gmail.com'):
-        return HttpResponse('')
-    try:
-        if User.objects.get(email=email):
-            return HttpResponse('<b>Email must be unique.</b>')
-    except User.DoesNotExist:
-        return HttpResponse('')
 
 def freelancer_login(request):
     if request.method == 'POST':
