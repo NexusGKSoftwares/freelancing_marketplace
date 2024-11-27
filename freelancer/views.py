@@ -65,12 +65,9 @@ def dashboard(request):
 # Profile Page View
 @login_required
 def profile(request):
-    # Get the current logged-in user
-    user = request.user
-    # Get the user profile related to the logged-in user
-    user_profile = user.profile
-    
-    return render(request, 'freelancer/profile.html', {'user': user, 'user_profile': user_profile})
+    # Access the profile of the logged-in user
+    user_profile = request.user.profile  # This will not raise an error now
+    return render(request, 'freelancer/profile.html', {'profile': user_profile})
 
 # Edit Profile View
 @login_required
