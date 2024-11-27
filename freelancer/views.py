@@ -27,12 +27,11 @@ def freelancer_register(request):
             else:
                 user = User.objects.create_user(username=username, email=email, password=password1)
                 user.save()
-                messages.success(request, "Registration successful! Please login.")
-                return redirect('freelancer_login')
+                messages.success(request, "Registration successful! Please log in.")
+                return redirect('freelancer_login') 
         else:
             messages.error(request, "Passwords do not match!")
     return render(request, 'freelancer/register.html')
-
 def freelancer_login(request):
     if request.method == 'POST':
         username = request.POST['username']
