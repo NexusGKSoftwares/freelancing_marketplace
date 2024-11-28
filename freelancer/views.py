@@ -75,7 +75,7 @@ def profile(request):
         user_profile = Profile.objects.create(user=request.user, phone_number="", skills="")
         return redirect('profile')  # Reload the page after creating the profile
 
-    return render(request, 'profile.html', {'profile': user_profile})
+    return render(request, 'freelancer/profile.html', {'profile': user_profile})
 
 # Edit Profile View
 @login_required
