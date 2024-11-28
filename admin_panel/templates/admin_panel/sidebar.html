@@ -1,157 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sidebar with Hamburger and Close Icons</title>
-
-    <!-- Link to Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
-    <style>
-        /* Sidebar Styling */
-        #sidebarMenu {
-            background: linear-gradient(to right, #0066cc, #3399ff); /* Blue gradient */
-            padding: 40px;
-            border-radius: 10px;
-            height: 100vh; /* Full height */
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
-            transition: all 0.3s ease;
-            position: fixed;
-            width: 250px; /* Default width */
-            z-index: 1000;
-            left: -250px; /* Initially hidden */
-        }
-
-        /* Text for menu items */
-        .menu-text {
-            padding-left: 10px;
-            font-size: 16px;
-            font-weight: 500;
-        }
-
-        /* Styling for menu items */
-        .nav-item {
-            margin: 10px 0;
-            border-radius: 8px; /* Border-radius for menu items */
-        }
-
-        /* Hover effect on menu items */
-        .nav-item:hover {
-            background-color: rgba(255, 255, 255, 0.1); /* Light hover effect */
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        /* Active link styling */
-        .nav-link.active {
-            background-color: rgba(255, 255, 255, 0.2);
-            color: #fff;
-            font-weight: bold;
-        }
-
-        /* FontAwesome icon styling */
-        .nav-link i {
-            font-size: 18px;
-            transition: transform 0.3s ease;
-            color: #fff; /* Icon color */
-        }
-
-        /* Hover effect for icons */
-        .nav-item:hover i {
-            transform: rotate(15deg);
-        }
-
-        /* Font styling for menu text */
-        .nav-link {
-            color: #fff;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            padding: 10px 15px;
-            border-radius: 8px;
-            font-size: 16px;
-        }
-
-        /* Adjusting text color on hover and active states */
-        .nav-item:hover .nav-link {
-            color: #fff;
-        }
-
-        .nav-item .nav-link:hover {
-            color: #fff; /* Ensures that text color is white when hovering */
-        }
-
-        /* Content section styling */
-        #mainContent {
-            transition: margin-left 0.3s ease;
-            padding: 20px;
-        }
-
-        /* Responsive adjustments for mobile view */
-        @media (max-width: 768px) {
-            #sidebarMenu {
-                left: 0; /* Sidebar will take full width when visible */
-                width: 100%; /* Full width on mobile */
-                position: fixed;
-                top: 0;
-                z-index: 1000;
-            }
-
-            /* Hide page content when sidebar is visible */
-            #mainContent.hide-content {
-                display: none;
-            }
-
-            /* Hide text and only show icons when sidebar is collapsed */
-            #sidebarMenu.collapsed .menu-text {
-                display: none;
-            }
-        }
-
-        /* Hamburger and close button (X) styling */
-        .hamburger-menu, .close-menu {
-            display: none;
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 24px;
-            cursor: pointer;
-            color: #fff;
-        }
-
-        /* Show hamburger on mobile */
-        @media (max-width: 768px) {
-            .hamburger-menu {
-                display: block;
-                position: absolute;
-                top: 20px;
-                left: 20px;
-            }
-
-            .close-menu {
-                display: block;
-                position: absolute;
-                top: 20px;
-                right: 20px;
-            }
-        }
-    </style>
-</head>
-<body>
-
-<!-- Hamburger Menu -->
-<div class="hamburger-menu" id="hamburgerMenu">
-    <i class="fa fa-bars"></i>
-</div>
-
-<!-- Close Sidebar (X) -->
-<div class="close-menu" id="closeMenu">
-    <i class="fa fa-times"></i>
-</div>
-
-<!-- Sidebar Menu -->
-<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse">
     <div class="position-sticky pt-3">
         <ul class="nav flex-column">
             <!-- Dashboard -->
@@ -197,40 +44,33 @@
     </div>
 </nav>
 
-<!-- Main Content -->
-<div id="mainContent">
-    <h1>Page Content</h1>
-    <p>This is the main content of the page. It will be hidden when the sidebar is shown on mobile devices.</p>
-</div>
+<!-- Add some Bootstrap enhancements for hover effects and icons-->
+<style>
+    /* Sidebar gradient background */
+    #sidebarMenu {
+        background: linear-gradient(to bottom, #1e3c72, #2a5298);
+    }
 
-<!-- Script for Sidebar Toggle -->
-<script>
-    // Toggle sidebar visibility on clicking hamburger menu (bars)
-    document.getElementById("hamburgerMenu").addEventListener("click", function() {
-        var sidebar = document.getElementById("sidebarMenu");
-        var mainContent = document.getElementById("mainContent");
-        sidebar.classList.toggle("show");
-        sidebar.classList.toggle("collapsed");
+    /* Sidebar hover effects */
+    .nav-link:hover {
+        background-color: #f8f9fa;
+        color: #007bff;
+        border-radius: 4px;
+        transition: background-color 0.3s ease-in-out;
+    }
 
-        // Hide main content when sidebar is shown in responsive mode
-        if (sidebar.classList.contains("show")) {
-            mainContent.classList.add("hide-content");
-        } else {
-            mainContent.classList.remove("hide-content");
-        }
-    });
+    /* Active link styling */
+    .nav-link.active {
+        background-color: #007bff;
+        color: white;
+    }
 
-    // Close sidebar on clicking the X icon
-    document.getElementById("closeMenu").addEventListener("click", function() {
-        var sidebar = document.getElementById("sidebarMenu");
-        var mainContent = document.getElementById("mainContent");
-        sidebar.classList.remove("show");
-        sidebar.classList.add("collapsed");
+    /* Add padding and spacing for icons */
+    .nav-item i {
+        margin-right: 10px;
+    }
 
-        // Show main content when sidebar is closed
-        mainContent.classList.remove("hide-content");
-    });
-</script>
-
-</body>
-</html>
+    .menu-text {
+        font-size: 16px;
+    }
+</style>
