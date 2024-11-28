@@ -7,6 +7,9 @@
         width: 200px;
         height: 100vh; /* Full height of the viewport */
         color: white; /* White text color */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* Space between items for even distribution */
     }
 
     /* Styling for the offcanvas sidebar */
@@ -14,6 +17,9 @@
         background: rgb(23, 77, 255); /* Sky blue gradient */
         border-radius: 8px; /* Rounded corners for offcanvas */
         color: white; /* White text color */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* Space between items for even distribution */
     }
 
     /* Sidebar hover effects */
@@ -33,6 +39,14 @@
     /* Add padding and spacing for icons */
     .nav-item i {
         margin-right: 10px;
+        color: white; /* Ensure icon color is white */
+    }
+
+    /* Sidebar text and icon styling */
+    .nav-item {
+        display: flex;
+        align-items: center; /* Vertically align text and icon */
+        padding: 10px 0;
     }
 
     .menu-text {
@@ -66,7 +80,16 @@
     body {
         color: white; /* Set default text color to white */
     }
+
+    /* Offcanvas content evenly spaced */
+    .offcanvas-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%;
+    }
 </style>
+
 
 <!-- Normal Sidebar for Large Screens -->
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-none d-md-block  sidebar">
