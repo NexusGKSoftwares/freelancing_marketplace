@@ -77,10 +77,6 @@ def profile(request):
 
     return render(request, 'profile.html', {'profile': user_profile})
 
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)  # Adjust to your model name
 # Edit Profile View
 @login_required
 def edit_profile(request):
