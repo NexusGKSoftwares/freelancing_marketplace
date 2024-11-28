@@ -80,28 +80,30 @@ def profile(request):
     return render(request, 'freelancer/profile.html', {'profile': user_profile})
 
 
+@login_required
 def edit_profile(request):
-    profile = Profile.objects.get(user=request.user)
-    skills = Skill.objects.all()  # List all available skills
-    
-    if request.method == 'POST':
-        profile.bio = request.POST.get('bio')
-        profile.location = request.POST.get('location')
-        profile.phone_number = request.POST.get('phone_number')
+    profile = request.user.profile
 
-        # Handle profile picture upload
-        if request.FILES.get('profile_picture'):
+    if request.method == 'POST':
+        # Get the profile picture
+        if 'profile_picture' in request.FILES:
             profile.profile_picture = request.FILES['profile_picture']
         
-        # Update skills (you would need to implement the logic to save the selected skills)
-        selected_skills = request.POST.get('skills').split(',')
-        profile.skills.set(Skill.objects.filter(id__in=selected_skills))
+        # Get the skills from the form
+        selected_skills = request.POST.get('skills', '').split(',')
+        
+        # Get skill objects from the database
+        skills_objects = FreelancerSkill.objects.filter(id__in=[int(skill_id) for skill_id in selected_skills if skill_id.isdigit()])
+        
+        # Set the skills to the profile (ManyToMany relationship)
+        profile.skills.set(skills_objects)  # This updates the ManyToMany field correctly
 
+        # Save the profile
         profile.save()
-        return redirect('profile')  # Redirect to the profile page after saving
 
-    return render(request, 'freelancer/edit_profile.html', {'profile': profile, 'skills': skills})
+        return redirect('profile')  # Redirect to the profile page or wherever you want
 
+    return render(request, 'freelancer/edit_profile.html', {'profile': profile})
 
 # Search Users View
 def profile_search(request):
