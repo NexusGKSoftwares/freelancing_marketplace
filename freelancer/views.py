@@ -93,7 +93,7 @@ def edit_profile(request):
         selected_skills = request.POST.get('skills', '').split(',')
         
         # Get skill objects from the database
-        skills_objects = FreelancerSkill.objects.filter(id__in=[int(skill_id) for skill_id in selected_skills if skill_id.isdigit()])
+        skills_objects = Skill.objects.filter(id__in=[int(skill_id) for skill_id in selected_skills if skill_id.isdigit()])
         
         # Set the skills to the profile (ManyToMany relationship)
         profile.skills.set(skills_objects)  # This updates the ManyToMany field correctly
