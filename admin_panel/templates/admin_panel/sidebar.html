@@ -1,195 +1,36 @@
-
-    <!-- Sidebar -->
-    <div class="l-navbar bg-light" id="nav-bar">
-        <nav class="nav">
-            <div> 
-                <a href="#" class="nav_logo"> 
-                    <i class='bx bx-layer nav_logo-icon'></i> 
-                    <span class="nav_logo-name">My Panel</span> 
-                </a>
-                <div class="nav_list"> 
-                    <a href="/admin_panel/dashboard/" class="nav_link active"> 
-                        <i class='bx bx-grid-alt nav_icon'></i> 
-                        <span class="nav_name">Dashboard</span> 
-                    </a> 
-                    <a href="/admin_panel/user_management/" class="nav_link"> 
-                        <i class='bx bx-user nav_icon'></i> 
-                        <span class="nav_name">User Management</span> 
-                    </a> 
-                    <a href="/admin_panel/project_management/" class="nav_link"> 
-                        <i class='bx bx-briefcase nav_icon'></i> 
-                        <span class="nav_name">Project Management</span> 
-                    </a> 
-                    <a href="/admin_panel/system_settings/" class="nav_link"> 
-                        <i class='bx bx-cog nav_icon'></i> 
-                        <span class="nav_name">System Settings</span> 
-                    </a> 
-                    <a href="/admin_panel/reports/" class="nav_link"> 
-                        <i class='bx bx-bar-chart-alt-2 nav_icon'></i> 
-                        <span class="nav_name">Reports & Analytics</span> 
-                    </a> 
-                </div>
-            </div> 
-            <a href="/logout/" class="nav_link"> 
-                <i class='bx bx-log-out nav_icon'></i> 
-                <span class="nav_name">Sign Out</span> 
-            </a>
-        </nav>
-    </div>
-
-    <!-- Main Content -->
-    <div class="height-100 bg-light">
-        <h4>Welcome to the Admin Panel</h4>
-        <!-- Add your main content here -->
-    </div>
-
-    <!-- JavaScript -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const showNavbar = (toggleId, navId, bodyId, headerId) => {
-                const toggle = document.getElementById(toggleId),
-                    nav = document.getElementById(navId),
-                    bodypd = document.getElementById(bodyId),
-                    headerpd = document.getElementById(headerId);
-
-                // Validate that all variables exist
-                if (toggle && nav && bodypd && headerpd) {
-                    toggle.addEventListener('click', () => {
-                        // Show navbar
-                        nav.classList.toggle('show');
-                        // Change icon
-                        toggle.classList.toggle('bx-x');
-                        // Add padding to body
-                        bodypd.classList.toggle('body-pd');
-                        // Add padding to header
-                        headerpd.classList.toggle('body-pd');
-                    });
-                }
-            };
-
-            showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header');
-
-            /*===== LINK ACTIVE =====*/
-            const linkColor = document.querySelectorAll('.nav_link');
-            function colorLink() {
-                if (linkColor) {
-                    linkColor.forEach(l => l.classList.remove('active'));
-                    this.classList.add('active');
-                }
-            }
-            linkColor.forEach(l => l.addEventListener('click', colorLink));
-        });
-    </script>
-
-    <!-- CSS -->
-    <style>
-        /* Global Styles */
-        :root {
-            --header-height: 3rem;
-            --nav-width: 68px;
-            --primary-color: #4723D9;
-            --white-color: #F7F6FB;
-            --bg-light: #ECECF4;
-        }
-
-        body {
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        /* Header */
-        .header {
-            width: 100%;
-            height: var(--header-height);
-            position: fixed;
-            background: var(--white-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 1rem;
-            z-index: 100;
-        }
-
-        .header_toggle {
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        .header_img img {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-        }
-
-        /* Sidebar */
-        .l-navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            width: var(--nav-width);
-            background: var(--white-color);
-            padding: 0.5rem 1rem;
-            z-index: 99;
-            transition: 0.5s;
-            overflow: hidden;
-        }
-
-        .l-navbar.show {
-            width: 200px;
-        }
-
-        .nav {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .nav_logo {
-            display: flex;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .nav_logo-icon {
-            font-size: 1.5rem;
-            color: var(--primary-color);
-        }
-
-        .nav_name {
-            font-size: 1rem;
-            font-weight: 500;
-        }
-
-        .nav_link {
-            display: flex;
-            align-items: center;
-            padding: 0.5rem 1rem;
-            margin: 0.5rem 0;
-            color: #555;
-            text-decoration: none;
-        }
-
-        .nav_link.active {
-            background-color: var(--primary-color);
-            color: var(--white-color);
-            border-radius: 4px;
-        }
-
-        .nav_icon {
-            font-size: 1.25rem;
-            margin-right: 0.5rem;
-        }
-
-        /* Main Content */
-        .height-100 {
-            margin-top: var(--header-height);
-            padding: 1rem;
-        }
-
-        .bg-light {
-            background-color: var(--bg-light);
-        }
-    </style>
-</body>
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+  <div class="position-sticky pt-3">
+      <ul class="nav flex-column">
+          <li class="nav-item">
+              <a class="nav-link active" href="/admin_panel/dashboard/">
+                  <i class="fa fa-tachometer"></i>
+                  Dashboard
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="/admin_panel/user_management/">
+                  <i class="fa fa-users"></i>
+                  User Management
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="/admin_panel/project_management/">
+                  <i class="fa fa-briefcase"></i>
+                  Project Management
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="/admin_panel/system_settings/">
+                  <i class="fa fa-cogs"></i>
+                  System Settings
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="#">
+                  <i class="fa fa-file"></i>
+                  Reports & Analytics
+              </a>
+          </li>
+      </ul>
+  </div>
+</nav>
