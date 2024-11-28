@@ -24,7 +24,10 @@
 
     /* Sidebar hover effects */
     .nav-link:hover {
-        color: #0f4fff; /* Change font and icon color to blue on hover */
+        background-color: #ffffff;
+        color: #302e2e;
+        border-radius: 4px;
+        transition: background-color 0.3s ease-in-out;
     }
 
     /* Active link styling */
@@ -37,7 +40,6 @@
     .nav-item i {
         margin-right: 10px;
         color: white; /* Ensure icon color is white */
-        transition: color 0.3s ease-in-out; /* Smooth transition for icon color */
     }
 
     /* Sidebar text and icon styling */
@@ -45,6 +47,11 @@
         display: flex;
         align-items: center; /* Vertically align text and icon */
         padding: 10px 0;
+    }
+
+    .menu-text {
+        font-size: 16px;
+        color: white; /* Ensure text is white */
     }
 
     /* Sidebar offcanvas gradient background */
@@ -69,22 +76,17 @@
         }
     }
 
+    /* Styling for the normal text */
+    body {
+        color: white; /* Set default text color to white */
+    }
+
     /* Offcanvas content evenly spaced */
     .offcanvas-body {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         height: 100%;
-    }
-
-    /* Hover effect for icons */
-    .nav-item:hover i {
-        color: #0f4fff; /* Change icon color to blue on hover */
-    }
-
-    /* Hover effect for text */
-    .nav-item:hover .menu-text {
-        color: #0f4fff; /* Change text color to blue on hover */
     }
 </style>
 
