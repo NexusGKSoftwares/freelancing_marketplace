@@ -19,7 +19,7 @@
                             <th>#</th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Role</th>
+                            <th>usename</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
@@ -30,7 +30,7 @@
                             <td>{{ forloop.counter }}</td>
                             <td>{{ user.first_name }} {{ user.last_name }}</td>
                             <td>{{ user.email }}</td>
-                            <td>{{ user.role }}</td>
+                            <td>{{ user.username }}</td>
                             <td>
                                 {% if user.is_active %}
                                     <span class="badge bg-success">Active</span>
