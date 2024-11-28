@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sidebar with Hamburger</title>
-    
+    <title>Sidebar with Hamburger Toggle</title>
+
     <!-- Link to Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
@@ -17,6 +17,10 @@
             height: 100vh; /* Full height */
             box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
             transition: all 0.3s ease;
+            position: fixed;
+            width: 250px; /* Default width */
+            z-index: 1000;
+            left: -250px; /* Initially hidden */
         }
 
         /* Text for menu items */
@@ -78,17 +82,25 @@
             color: #fff; /* Ensures that text color is white when hovering */
         }
 
+        /* Content section styling */
+        #mainContent {
+            transition: margin-left 0.3s ease;
+            padding: 20px;
+        }
+
         /* Responsive adjustments for mobile view */
         @media (max-width: 768px) {
             #sidebarMenu {
+                left: 0; /* Sidebar will take full width when visible */
+                width: 100%; /* Full width on mobile */
                 position: fixed;
                 top: 0;
-                left: -250px; /* Initially hidden */
-                width: 250px;
-                transition: left 0.3s ease;
+                z-index: 1000;
             }
-            #sidebarMenu.show {
-                left: 0;
+
+            /* Hide page content when sidebar is visible */
+            #mainContent.hide-content {
+                display: none;
             }
 
             /* Hide text and only show icons when sidebar is collapsed */
@@ -97,7 +109,7 @@
             }
         }
 
-        /* Hamburger menu styling */
+        /* Hamburger menu (left arrow) styling */
         .hamburger-menu {
             display: none;
             position: absolute;
@@ -108,10 +120,13 @@
             color: #fff;
         }
 
-        /* Display hamburger on smaller screens */
+        /* Show hamburger on mobile */
         @media (max-width: 768px) {
             .hamburger-menu {
                 display: block;
+                position: absolute;
+                top: 20px;
+                left: 20px;
             }
         }
     </style>
@@ -120,11 +135,11 @@
 
 <!-- Hamburger Menu -->
 <div class="hamburger-menu" id="hamburgerMenu">
-    <i class="fa fa-bars"></i>
+    <i class="fa fa-arrow-left"></i>
 </div>
 
 <!-- Sidebar Menu -->
-<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
     <div class="position-sticky pt-3">
         <ul class="nav flex-column">
             <!-- Dashboard -->
@@ -170,23 +185,27 @@
     </div>
 </nav>
 
+<!-- Main Content -->
+<div id="mainContent">
+    <h1>Page Content</h1>
+    <p>This is the main content of the page. It will be hidden when the sidebar is shown on mobile devices.</p>
+</div>
+
 <!-- Script for Sidebar Toggle -->
 <script>
-    // Toggle sidebar visibility on clicking hamburger menu
+    // Toggle sidebar visibility on clicking hamburger menu (left arrow)
     document.getElementById("hamburgerMenu").addEventListener("click", function() {
-        document.getElementById("sidebarMenu").classList.toggle("show");
-    });
+        var sidebar = document.getElementById("sidebarMenu");
+        var mainContent = document.getElementById("mainContent");
+        sidebar.classList.toggle("show");
+        sidebar.classList.toggle("collapsed");
 
-    // Toggle sidebar collapse on clicking a nav item
-    document.querySelectorAll('.nav-item').forEach(item => {
-        item.addEventListener('click', function () {
-            this.classList.toggle('active');
-        });
-    });
-
-    // Toggle sidebar collapse to hide text
-    document.querySelector("#sidebarMenu").addEventListener('click', function () {
-        this.classList.toggle('collapsed'); /* Toggle sidebar collapse */
+        // Hide main content when sidebar is shown in responsive mode
+        if (sidebar.classList.contains("show")) {
+            mainContent.classList.add("hide-content");
+        } else {
+            mainContent.classList.remove("hide-content");
+        }
     });
 </script>
 
