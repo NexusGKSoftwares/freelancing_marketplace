@@ -9,13 +9,14 @@ class Profile(models.Model):
     profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
     location = models.CharField(max_length=255, blank=True)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
-    skills = models.TextField(blank=True, null=True)
+    skills = models.ManyToManyField(Skill, related_name="profiles", blank=True)
 
     def __str__(self):
         return f'{self.user.username} Profile'
     
 class Skill(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=100)  # Name of the skill
+    description = models.TextField(blank=True, null=True)  # Optional description of the skill
 
     def __str__(self):
-        return self.name
+        return self.name 
