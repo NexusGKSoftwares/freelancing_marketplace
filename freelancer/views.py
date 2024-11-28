@@ -72,7 +72,7 @@ def profile(request):
         user_profile = request.user.profile  # Use `profile` for the related name
     except Profile.DoesNotExist:
         # Create a new profile if it doesn't exist
-        user_profile = Profile.objects.create(user=request.user)
+        user_profile = Profile.objects.create(user=request.user, phone_number="", skills="")
         return redirect('profile')  # Reload the page after creating the profile
 
     return render(request, 'profile.html', {'profile': user_profile})
