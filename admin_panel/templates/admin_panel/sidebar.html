@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sidebar with Hamburger Toggle</title>
+    <title>Sidebar with Hamburger and Close Icons</title>
 
     <!-- Link to Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -109,8 +109,8 @@
             }
         }
 
-        /* Hamburger menu (left arrow) styling */
-        .hamburger-menu {
+        /* Hamburger and close button (X) styling */
+        .hamburger-menu, .close-menu {
             display: none;
             position: absolute;
             top: 20px;
@@ -128,6 +128,13 @@
                 top: 20px;
                 left: 20px;
             }
+
+            .close-menu {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+            }
         }
     </style>
 </head>
@@ -135,7 +142,12 @@
 
 <!-- Hamburger Menu -->
 <div class="hamburger-menu" id="hamburgerMenu">
-    <i class="fa fa-arrow-left"></i>
+    <i class="fa fa-bars"></i>
+</div>
+
+<!-- Close Sidebar (X) -->
+<div class="close-menu" id="closeMenu">
+    <i class="fa fa-times"></i>
 </div>
 
 <!-- Sidebar Menu -->
@@ -193,7 +205,7 @@
 
 <!-- Script for Sidebar Toggle -->
 <script>
-    // Toggle sidebar visibility on clicking hamburger menu (left arrow)
+    // Toggle sidebar visibility on clicking hamburger menu (bars)
     document.getElementById("hamburgerMenu").addEventListener("click", function() {
         var sidebar = document.getElementById("sidebarMenu");
         var mainContent = document.getElementById("mainContent");
@@ -206,6 +218,17 @@
         } else {
             mainContent.classList.remove("hide-content");
         }
+    });
+
+    // Close sidebar on clicking the X icon
+    document.getElementById("closeMenu").addEventListener("click", function() {
+        var sidebar = document.getElementById("sidebarMenu");
+        var mainContent = document.getElementById("mainContent");
+        sidebar.classList.remove("show");
+        sidebar.classList.add("collapsed");
+
+        // Show main content when sidebar is closed
+        mainContent.classList.remove("hide-content");
     });
 </script>
 
