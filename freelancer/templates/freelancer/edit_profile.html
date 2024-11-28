@@ -106,11 +106,10 @@
             <div class="form-group">
                 <label for="skills">Skills</label>
                 <div class="skills-container">
-                    {% for skill in skills %}
-                        <div class="skill-tag {% if skill in profile.skills.all %}selected{% endif %}" data-skill-id="{{ skill.id }}">
-                            {{ skill.name }}
-                        </div>
+                    {% for skill in profile.get_skills %}
+                        <div class="skill-tag">{{ skill }}</div>
                     {% endfor %}
+
                 </div>
                 <input type="hidden" name="skills" id="skills" value="{{ profile.skills.all|join:',' }}">
             </div>

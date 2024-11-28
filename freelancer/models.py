@@ -15,7 +15,8 @@ class Profile(models.Model):
     location = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
-    skills = models.ManyToManyField(Skill, related_name='profiles', blank=True)
+    skill = models.ForeignKey('Skill', on_delete=models.CASCADE)
+    skill_ids = models.TextField() 
 
     def __str__(self):
         return self.user.username

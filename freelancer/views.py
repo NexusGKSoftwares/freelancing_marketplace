@@ -93,9 +93,9 @@ def edit_profile(request):
         if request.FILES.get('profile_picture'):
             profile.profile_picture = request.FILES['profile_picture']
         
-        # Update skills (you would need to implement the logic to save the selected skills)
-        selected_skills = request.POST.get('skills').split(',')
-        profile.skills.set(Skill.objects.filter(id__in=selected_skills))
+        selected_skills = request.POST.getlist('skills')  # Get selected skill IDs
+        profile.skill_ids = ','.join(selected_skills)
+        profile.save()
 
         profile.save()
         return redirect('profile')  # Redirect to the profile page after saving
