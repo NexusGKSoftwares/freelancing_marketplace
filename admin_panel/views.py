@@ -163,13 +163,25 @@ def delete_project(request, project_id):
 
 
 
+@login_required
 def system_settings(request):
-    user_settings = UserSettings.objects.get(user=request.user)
-    
+    try:
+        # Try to get the UserSettings for the logged-in user
+        user_settings = UserSettings.objects.get(user=request.user)
+    except UserSettings.DoesNotExist:
+        # If it doesn't exist, create a default one
+        user_settings = UserSettings.objects.create(
+            user=request.user,
+            language='en',  # Default language
+            timezone='UTC',  # Default timezone
+            notifications_enabled=True,  # Default notifications setting
+            dark_mode=False,  # Default dark mode setting
+        )
+
     if request.method == 'POST':
         # Update user settings from the form
-        user_settings.language = request.POST.get('language')
-        user_settings.timezone = request.POST.get('timezone')
+        user_settings.language = request.POST.get('language', user_settings.language)
+        user_settings.timezone = request.POST.get('timezone', user_settings.timezone)
         user_settings.notifications_enabled = 'notifications_enabled' in request.POST
         user_settings.dark_mode = 'dark_mode' in request.POST
         if 'profile_picture' in request.FILES:
