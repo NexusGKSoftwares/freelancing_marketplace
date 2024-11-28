@@ -4,7 +4,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
-from django.views.decorators.csrf import csrf_exempt
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
@@ -15,6 +14,9 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from .forms import ProfileForm  # Form to handle profile update
 from django.db.models import Q  # For complex search queries
+from django.shortcuts import render, redirect
+from .models import Profile, Skill
+from .forms import ProfileForm  
 
 def index(request):
     if not request.user.is_authenticated:
@@ -77,19 +79,29 @@ def profile(request):
 
     return render(request, 'freelancer/profile.html', {'profile': user_profile})
 
-# Edit Profile View
-@login_required
-def edit_profile(request):
-    if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES, instance=request.user.profile)
-        if form.is_valid():
-            form.save()  # Save the updated profile information
-            messages.success(request, "Profile updated successfully!")
-            return redirect('profile')  # Redirect to profile page
-    else:
-        form = ProfileForm(instance=request.user.profile)
 
-    return render(request, 'freelancer/edit_profile.html', {'form': form})
+def edit_profile(request):
+    profile = Profile.objects.get(user=request.user)
+    skills = Skill.objects.all()  # List all available skills
+    
+    if request.method == 'POST':
+        profile.bio = request.POST.get('bio')
+        profile.location = request.POST.get('location')
+        profile.phone_number = request.POST.get('phone_number')
+
+        # Handle profile picture upload
+        if request.FILES.get('profile_picture'):
+            profile.profile_picture = request.FILES['profile_picture']
+        
+        # Update skills (you would need to implement the logic to save the selected skills)
+        selected_skills = request.POST.get('skills').split(',')
+        profile.skills.set(Skill.objects.filter(id__in=selected_skills))
+
+        profile.save()
+        return redirect('profile')  # Redirect to the profile page after saving
+
+    return render(request, 'freelancer/edit_profile.html', {'profile': profile, 'skills': skills})
+
 
 # Search Users View
 def profile_search(request):
