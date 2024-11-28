@@ -80,32 +80,28 @@ def profile(request):
     return render(request, 'freelancer/profile.html', {'profile': user_profile})
 
 
-@login_required
-
 def edit_profile(request):
-    profile = request.user.profile
-
+    profile = Profile.objects.get(user=request.user)
+    skills = Skill.objects.all()  # List all available skills
+    
     if request.method == 'POST':
-        # Get the profile picture if exists
-        if 'profile_picture' in request.FILES:
+        profile.bio = request.POST.get('bio')
+        profile.location = request.POST.get('location')
+        profile.phone_number = request.POST.get('phone_number')
+
+        # Handle profile picture upload
+        if request.FILES.get('profile_picture'):
             profile.profile_picture = request.FILES['profile_picture']
+        
+        # Update skills (you would need to implement the logic to save the selected skills)
+        selected_skills = request.POST.get('skills').split(',')
+        profile.skills.set(Skill.objects.filter(id__in=selected_skills))
 
-        # Get the skills from the form (comma-separated skill IDs)
-        selected_skills = request.POST.get('skills', '').split(',')
-
-        # Convert string IDs to integers and fetch corresponding skill objects from the database
-        skill_ids = [int(skill_id) for skill_id in selected_skills if skill_id.isdigit()]
-        skills_objects = Skill.objects.filter(id__in=skill_ids)
-
-        # Update the skills for the profile (ManyToMany field)
-        profile.skills.set(skills_objects)  # This correctly updates the ManyToMany field
-
-        # Save the profile
         profile.save()
+        return redirect('profile')  # Redirect to the profile page after saving
 
-        return redirect('profile')  # Redirect to the profile page (or any other page)
+    return render(request, 'freelancer/edit_profile.html', {'profile': profile, 'skills': skills})
 
-    return render(request, 'freelancer/edit_profile.html', {'profile': profile})
 
 def profile_search(request):
     search_query = request.GET.get('search', '')
