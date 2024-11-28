@@ -1,36 +1,99 @@
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-  <div class="position-sticky pt-3">
-      <ul class="nav flex-column">
-          <li class="nav-item">
-              <a class="nav-link active" href="/admin_panel/dashboard/">
-                  <i class="fa fa-tachometer"></i>
-                  Dashboard
-              </a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="/admin_panel/user_management/">
-                  <i class="fa fa-users"></i>
-                  User Management
-              </a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="/admin_panel/project_management/">
-                  <i class="fa fa-briefcase"></i>
-                  Project Management
-              </a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="/admin_panel/system_settings/">
-                  <i class="fa fa-cogs"></i>
-                  System Settings
-              </a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="#">
-                  <i class="fa fa-file"></i>
-                  Reports & Analytics
-              </a>
-          </li>
-      </ul>
-  </div>
+    <div class="position-sticky pt-3">
+        <ul class="nav flex-column">
+            <!-- Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link active" href="/admin_panel/dashboard/">
+                    <i class="fa fa-tachometer"></i>
+                    <span class="menu-text">Dashboard</span>
+                </a>
+            </li>
+
+            <!-- User Management -->
+            <li class="nav-item">
+                <a class="nav-link" href="/admin_panel/user_management/">
+                    <i class="fa fa-users"></i>
+                    <span class="menu-text">User Management</span>
+                </a>
+            </li>
+
+            <!-- Project Management -->
+            <li class="nav-item">
+                <a class="nav-link" href="/admin_panel/project_management/">
+                    <i class="fa fa-briefcase"></i>
+                    <span class="menu-text">Project Management</span>
+                </a>
+            </li>
+
+            <!-- System Settings -->
+            <li class="nav-item">
+                <a class="nav-link" href="/admin_panel/system_settings/">
+                    <i class="fa fa-cogs"></i>
+                    <span class="menu-text">System Settings</span>
+                </a>
+            </li>
+
+            <!-- Reports & Analytics -->
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fa fa-file"></i>
+                    <span class="menu-text">Reports & Analytics</span>
+                </a>
+            </li>
+        </ul>
+    </div>
 </nav>
+<style>
+    /* Sidebar Styling */
+#sidebarMenu {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-right: 1px solid #e5e5e5;
+}
+
+/* Text for menu items */
+.menu-text {
+    padding-left: 10px;
+    font-size: 16px;
+}
+
+/* Hover effect on menu items */
+.nav-item:hover {
+    background-color: #e9ecef;
+    transition: background-color 0.3s ease;
+}
+
+/* Active link styling */
+.nav-link.active {
+    background-color: #007bff;
+    color: white;
+}
+
+/* FontAwesome icon styling */
+.nav-link i {
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+.nav-item:hover i {
+    transform: rotate(15deg);
+}
+
+/* Collapsing submenus (optional) */
+.nav-item .submenu {
+    display: none;
+}
+
+.nav-item.active .submenu {
+    display: block;
+}
+
+</style>
+<script>
+  document.querySelectorAll('.nav-item').forEach(item => {
+    item.addEventListener('click', function () {
+        this.classList.toggle('active');
+    });
+});
+
+</script>
