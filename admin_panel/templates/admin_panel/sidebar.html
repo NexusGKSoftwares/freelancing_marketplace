@@ -48,49 +48,89 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 <style>
-    /* Sidebar Styling */
+ /* Sidebar Styling */
 #sidebarMenu {
-    background-color: #f8f9fa;
-    padding: 15px;
-    border-right: 1px solid #e5e5e5;
+    background: linear-gradient(to right, #0066cc, #3399ff); /* Blue gradient */
+    padding: 20px;
+    border-radius: 10px;
+    height: 100vh; /* Full height */
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); /* Shadow effect */
+    transition: all 0.3s ease;
 }
 
 /* Text for menu items */
 .menu-text {
     padding-left: 10px;
     font-size: 16px;
+    font-weight: 500;
+}
+
+/* Styling for menu items */
+.nav-item {
+    margin: 10px 0;
+    border-radius: 8px; /* Border-radius for menu items */
 }
 
 /* Hover effect on menu items */
 .nav-item:hover {
-    background-color: #e9ecef;
+    background-color: rgba(255, 255, 255, 0.1); /* Light hover effect */
+    cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 /* Active link styling */
 .nav-link.active {
-    background-color: #007bff;
-    color: white;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    font-weight: bold;
 }
 
 /* FontAwesome icon styling */
 .nav-link i {
     font-size: 18px;
     transition: transform 0.3s ease;
+    color: #fff; /* Icon color */
 }
 
+/* Hover effect for icons */
 .nav-item:hover i {
     transform: rotate(15deg);
 }
 
-/* Collapsing submenus (optional) */
-.nav-item .submenu {
-    display: none;
+/* Font styling for menu text */
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 16px;
 }
 
-.nav-item.active .submenu {
-    display: block;
+/* Adjusting text color on hover and active states */
+.nav-item:hover .nav-link {
+    color: #fff;
 }
+
+.nav-item .nav-link:hover {
+    color: #fff; /* Ensures that text color is white when hovering */
+}
+
+/* Responsive adjustments for mobile view */
+@media (max-width: 768px) {
+    #sidebarMenu {
+        position: fixed;
+        top: 0;
+        left: -250px; /* Initially hidden */
+        width: 250px;
+        transition: left 0.3s ease;
+    }
+    #sidebarMenu.show {
+        left: 0;
+    }
+}
+
 
 </style>
 <script>
