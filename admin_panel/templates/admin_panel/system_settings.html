@@ -6,25 +6,33 @@
 
     <form method="POST" enctype="multipart/form-data">
       {% csrf_token %}
-      
+
       <div class="setting-group">
         <label for="profile_picture">Profile Picture</label>
         <input type="file" name="profile_picture" accept="image/*">
-        <img src="{{ settings.profile_picture.url }}" alt="Profile Picture" class="profile-pic-preview">
+        {% if settings.profile_picture %}
+            <img src="{{ settings.profile_picture.url }}" alt="Profile Picture" class="profile-pic-preview">
+        {% else %}
+            <p>No profile picture uploaded.</p>
+        {% endif %}
       </div>
 
       <div class="setting-group">
         <label for="language">Language</label>
-        <select name="language" id="language">
+        <select name="language" id="language" required>
+          <option value="" disabled {% if not settings.language %}selected{% endif %}>Select a Language</option>
           <option value="en" {% if settings.language == 'en' %}selected{% endif %}>English</option>
           <option value="es" {% if settings.language == 'es' %}selected{% endif %}>Spanish</option>
-          <!-- Add more languages as needed -->
         </select>
       </div>
 
       <div class="setting-group">
         <label for="timezone">Timezone</label>
-        <input type="text" name="timezone" value="{{ settings.timezone }}" required>
+        <select name="timezone" id="timezone" required>
+          <option value="UTC" {% if settings.timezone == 'UTC' %}selected{% endif %}>UTC</option>
+          <option value="PST" {% if settings.timezone == 'PST' %}selected{% endif %}>Pacific Standard Time</option>
+          <option value="EST" {% if settings.timezone == 'EST' %}selected{% endif %}>Eastern Standard Time</option>
+        </select>
       </div>
 
       <div class="setting-group">
@@ -37,7 +45,7 @@
         <input type="checkbox" name="dark_mode" {% if settings.dark_mode %}checked{% endif %}>
       </div>
 
-      <button type="submit">Save Changes</button>
+      <button type="submit" class="btn btn-primary">Save Changes</button>
     </form>
   </div>
 {% endblock %}
