@@ -189,4 +189,4 @@ def system_settings(request):
         user_settings.save()
         return redirect('system_settings')
     
-    return render(request, 'system_settings.html', {'settings': user_settings})
+    return render(request, 'admin_panel/system_settings.html', {'settings': user_settings})
