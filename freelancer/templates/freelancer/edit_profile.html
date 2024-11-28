@@ -1,0 +1,136 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit {{ profile.user.username }}'s Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .form-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            font-size: 16px;
+            display: block;
+            margin-bottom: 8px;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        .form-group input[type="file"] {
+            padding: 5px;
+        }
+        .form-group .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .form-group .skill-tag {
+            background-color: #007bff;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .form-group .skill-tag.selected {
+            background-color: #28a745;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <h2>Edit {{ profile.user.username }}'s Profile</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="bio">Bio</label>
+                <textarea name="bio" id="bio" placeholder="Tell us about yourself...">{{ profile.bio }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="location">Location</label>
+                <input type="text" name="location" id="location" value="{{ profile.location }}" placeholder="Where are you located?">
+            </div>
+
+            <div class="form-group">
+                <label for="phone_number">Phone Number</label>
+                <input type="text" name="phone_number" id="phone_number" value="{{ profile.phone_number }}" placeholder="Your phone number">
+            </div>
+
+            <div class="form-group">
+                <label for="profile_picture">Profile Picture</label>
+                <input type="file" name="profile_picture" id="profile_picture">
+            </div>
+
+            <div class="form-group">
+                <label for="skills">Skills</label>
+                <div class="skills-container">
+                    {% for skill in skills %}
+                        <div class="skill-tag {% if skill in profile.skills.all %}selected{% endif %}" data-skill-id="{{ skill.id }}">
+                            {{ skill.name }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <input type="hidden" name="skills" id="skills" value="{{ profile.skills.all|join:',' }}">
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="button">Save Changes</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Handle skill selection
+        document.querySelectorAll('.skill-tag').forEach(tag => {
+            tag.addEventListener('click', () => {
+                tag.classList.toggle('selected');
+                const selectedSkills = Array.from(document.querySelectorAll('.skill-tag.selected')).map(tag => tag.getAttribute('data-skill-id'));
+                document.getElementById('skills').value = selectedSkills.join(',');
+            });
+        });
+    </script>
+
+</body>
+</html>
