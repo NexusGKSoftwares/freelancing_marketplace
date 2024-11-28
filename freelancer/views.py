@@ -5,7 +5,10 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-import json
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.contrib.auth.models import User
+from .models import Profile  
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -65,9 +68,14 @@ def dashboard(request):
 # Profile Page View
 @login_required
 def profile(request):
-    # Access the profile of the logged-in user
-    user_profile = request.user.profile  # This will not raise an error now
-    return render(request, 'freelancer/profile.html', {'profile': user_profile})
+    try:
+        user_profile = request.user.userprofile  # Access related profile
+    except Profile.DoesNotExist:
+        # Create a new profile if none exists
+        user_profile = Profile.objects.create(user=request.user)
+        return redirect('profile')  # Reload the page after creating the profile
+
+    return render(request, 'profile.html', {'profile': user_profile})
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
