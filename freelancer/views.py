@@ -81,7 +81,7 @@ def profile(request):
 
 
 @login_required
-@login_required
+
 def edit_profile(request):
     profile = request.user.profile
 
