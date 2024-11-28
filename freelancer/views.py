@@ -69,13 +69,14 @@ def dashboard(request):
 @login_required
 def profile(request):
     try:
-        user_profile = request.user.userprofile  # Access related profile
+        user_profile = request.user.profile  # Use `profile` for the related name
     except Profile.DoesNotExist:
-        # Create a new profile if none exists
+        # Create a new profile if it doesn't exist
         user_profile = Profile.objects.create(user=request.user)
         return redirect('profile')  # Reload the page after creating the profile
 
     return render(request, 'profile.html', {'profile': user_profile})
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
