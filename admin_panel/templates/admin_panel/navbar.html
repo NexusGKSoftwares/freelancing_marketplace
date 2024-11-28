@@ -21,16 +21,46 @@
                     </a>
                 </li>
 
+                <!-- Calendar dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownCalendar" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-calendar-alt"></i> Calendar
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownCalendar">
+                        <li><a class="dropdown-item" href="#">Today's Date: <strong>28 Nov 2024</strong></a></li>
+                        <li><a class="dropdown-item" href="#">View Events</a></li>
+                    </ul>
+                </li>
+
+                <!-- Messages dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMessages" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-envelope"></i> Messages
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMessages">
+                        <li><a class="dropdown-item" href="#">New Message</a></li>
+                        <li><a class="dropdown-item" href="#">Inbox (5)</a></li>
+                        <li><a class="dropdown-item" href="#">Sent Items</a></li>
+                    </ul>
+                </li>
+
+                <!-- Search icon -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-search"></i> Search
+                    </a>
+                </li>
+
                 <!-- Profile dropdown with avatar and icon -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProfile" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src="https://via.placeholder.com/30" alt="Avatar" class="rounded-circle me-2"> Admin
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-user-circle"></i> Profile Settings</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-bell"></i> Notifications</a></li>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownProfile">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-user-circle animate__animated animate__pulse"></i> Profile Settings</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-bell animate__animated animate__pulse"></i> Notifications</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt animate__animated animate__pulse"></i> Logout</a></li>
                     </ul>
                 </li>
 
@@ -59,3 +89,6 @@
         document.body.classList.toggle('text-light', darkModeToggle.checked);
     });
 </script>
+
+<!-- Optional Animation Library (for icon animation) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
