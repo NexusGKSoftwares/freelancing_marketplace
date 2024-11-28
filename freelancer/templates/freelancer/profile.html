@@ -1,4 +1,4 @@
-<!-- profile.html (Template) -->
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +7,11 @@
 </head>
 <body>
     <h1>{{ profile.user.username }}'s Profile</h1>
-    <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" width="200">
+    {% if profile.profile_picture %}
+        <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" width="200">
+    {% else %}
+        <img src="{% static 'images/image.png' %}" alt="Default Profile Picture" width="200">
+    {% endif %}
     <p><strong>Bio:</strong> {{ profile.bio }}</p>
     <p><strong>Location:</strong> {{ profile.location }}</p>
     <!-- Add more fields as necessary -->
