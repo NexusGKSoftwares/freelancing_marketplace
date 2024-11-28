@@ -81,31 +81,32 @@ def profile(request):
 
 
 @login_required
+@login_required
 def edit_profile(request):
     profile = request.user.profile
 
     if request.method == 'POST':
-        # Get the profile picture
+        # Get the profile picture if exists
         if 'profile_picture' in request.FILES:
             profile.profile_picture = request.FILES['profile_picture']
-        
-        # Get the skills from the form
+
+        # Get the skills from the form (comma-separated skill IDs)
         selected_skills = request.POST.get('skills', '').split(',')
-        
-        # Get skill objects from the database
-        skills_objects = Skill.objects.filter(id__in=[int(skill_id) for skill_id in selected_skills if skill_id.isdigit()])
-        
-        # Set the skills to the profile (ManyToMany relationship)
-        profile.skills.set(skills_objects)  # This updates the ManyToMany field correctly
+
+        # Convert string IDs to integers and fetch corresponding skill objects from the database
+        skill_ids = [int(skill_id) for skill_id in selected_skills if skill_id.isdigit()]
+        skills_objects = Skill.objects.filter(id__in=skill_ids)
+
+        # Update the skills for the profile (ManyToMany field)
+        profile.skills.set(skills_objects)  # This correctly updates the ManyToMany field
 
         # Save the profile
         profile.save()
 
-        return redirect('profile')  # Redirect to the profile page or wherever you want
+        return redirect('profile')  # Redirect to the profile page (or any other page)
 
     return render(request, 'freelancer/edit_profile.html', {'profile': profile})
 
-# Search Users View
 def profile_search(request):
     search_query = request.GET.get('search', '')
     search_results = []
