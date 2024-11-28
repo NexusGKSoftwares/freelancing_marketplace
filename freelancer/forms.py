@@ -4,6 +4,7 @@ from .models import Profile
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['phone_number', 'location', 'skills', 'profile_picture', 'bio']
+        fields = ['user', 'profile_picture', 'bio', 'location', 'skills']  # Use 'skill_ids' instead
+
         
     profile_picture = forms.ImageField(required=False)
