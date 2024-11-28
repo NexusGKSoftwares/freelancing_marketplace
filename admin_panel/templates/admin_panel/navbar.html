@@ -1,7 +1,12 @@
+<!-- Add Font Awesome CSS link -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <!-- Brand and toggle for mobile -->
-        <a class="navbar-brand" href="#">Admin Panel</a>
+        <a class="navbar-brand" href="#">
+            <i class="fas fa-cogs"></i> Admin Panel
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -9,27 +14,31 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <!-- Dashboard link -->
+                <!-- Dashboard link with icon -->
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Dashboard</a>
+                    <a class="nav-link active" href="#">
+                        <i class="fas fa-tachometer-alt"></i> Dashboard
+                    </a>
                 </li>
-                
-                <!-- Profile dropdown with avatar -->
+
+                <!-- Profile dropdown with avatar and icon -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://via.placeholder.com/30" alt="Avatar" class="rounded-circle"> Admin
+                        <img src="https://via.placeholder.com/30" alt="Avatar" class="rounded-circle me-2"> Admin
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Profile Settings</a></li>
-                        <li><a class="dropdown-item" href="#">Notifications</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-user-circle"></i> Profile Settings</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-bell"></i> Notifications</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                     </ul>
                 </li>
 
-                <!-- Logout option -->
+                <!-- Logout option with icon -->
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Logout</a>
+                    <a class="nav-link" href="#">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </a>
                 </li>
             </ul>
 
