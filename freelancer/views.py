@@ -93,8 +93,8 @@ def edit_profile(request):
         if request.FILES.get('profile_picture'):
             profile.profile_picture = request.FILES['profile_picture']
         
-        selected_skills = request.POST.getlist('skills')  # Get selected skill IDs
-        profile.skill_ids = ','.join(selected_skills)
+        # selected_skills = request.POST.getlist('skills')  # Get selected skill IDs
+        # profile.skill_ids = ','.join(selected_skills)
         profile.save()
 
         profile.save()
