@@ -15,7 +15,7 @@ def client_login(request):
 def client_dashboard(request):
     projects = Project.objects.filter(client=request.user)
     notifications = Notification.objects.filter(client=request.user, is_read=False)
-    return render(request, 'client/dashboard.html', {
+    return render(request, 'client/client_dashboard.html', {
         'projects': projects,
         'notifications': notifications
     })
