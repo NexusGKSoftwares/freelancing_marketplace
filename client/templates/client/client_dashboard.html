@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
@@ -6,7 +7,9 @@
     <!-- Dashboard Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1>Welcome, {{ user.username }}</h1>
-        <a href="{% url 'client_profile' %}" class="btn btn-primary">Profile Settings</a>
+        <a href="{% url 'client_profile' %}" class="btn btn-primary">
+            <i class="fas fa-cogs"></i> Profile Settings
+        </a>
     </div>
 
     <!-- Quick Stats Section -->
@@ -14,6 +17,7 @@
         <div class="col-md-4">
             <div class="card text-white bg-primary shadow-sm">
                 <div class="card-body">
+                    <i class="fas fa-project-diagram fa-3x mb-3"></i>
                     <h4>{{ projects|length }}</h4>
                     <p>Total Projects</p>
                 </div>
@@ -22,6 +26,7 @@
         <div class="col-md-4">
             <div class="card text-white bg-success shadow-sm">
                 <div class="card-body">
+                    <i class="fas fa-check-circle fa-3x mb-3"></i>
                     <h4>{{ completed_projects }}</h4>
                     <p>Completed Projects</p>
                 </div>
@@ -30,6 +35,7 @@
         <div class="col-md-4">
             <div class="card text-white bg-danger shadow-sm">
                 <div class="card-body">
+                    <i class="fas fa-clock fa-3x mb-3"></i>
                     <h4>{{ pending_projects }}</h4>
                     <p>Pending Projects</p>
                 </div>
@@ -44,23 +50,31 @@
         <div class="col-md-4">
             <div class="card mb-4 shadow-sm">
                 <div class="card-body">
-                    <h5 class="card-title">{{ project.title }}</h5>
+                    <h5 class="card-title">
+                        <i class="fas fa-tasks"></i> {{ project.title }}
+                    </h5>
                     <p class="card-text">{{ project.description|truncatechars:100 }}</p>
                     <p><strong>Status:</strong> {{ project.get_status_display }}</p>
+                    
                     <!-- Progress Bar -->
                     <div class="progress mb-3">
                         <div 
                             class="progress-bar bg-info" 
                             role="progressbar" 
-                            <!--  -->
                             aria-valuenow="{{ project.progress }}" 
                             aria-valuemin="0" 
                             aria-valuemax="100">
                             {{ project.progress }}%
                         </div>
                     </div>
-                    <a href="{% url 'project_detail' project.id %}" class="btn btn-sm btn-outline-primary">View Details</a>
-                    <a href="{% url 'project_feedback' project.id %}" class="btn btn-sm btn-outline-success">Submit Feedback</a>
+
+                    <!-- Action Buttons -->
+                    <a href="{% url 'project_detail' project.id %}" class="btn btn-sm btn-outline-primary">
+                        <i class="fas fa-eye"></i> View Details
+                    </a>
+                    <a href="{% url 'project_feedback' project.id %}" class="btn btn-sm btn-outline-success">
+                        <i class="fas fa-comment-dots"></i> Submit Feedback
+                    </a>
                 </div>
             </div>
         </div>
@@ -74,11 +88,13 @@
     <ul class="list-group">
         {% for notification in notifications %}
         <li class="list-group-item d-flex justify-content-between align-items-center">
-            {{ notification.message }}
+            <i class="fas fa-bell"></i> {{ notification.message }}
             <span class="badge badge-primary badge-pill">{{ notification.created_at|date:"M d, Y H:i" }}</span>
         </li>
         {% empty %}
-        <li class="list-group-item">No new notifications.</li>
+        <li class="list-group-item">
+            <i class="fas fa-info-circle"></i> No new notifications.
+        </li>
         {% endfor %}
     </ul>
 
@@ -101,7 +117,9 @@
             </tr>
             {% empty %}
             <tr>
-                <td colspan="3">No recent activities found.</td>
+                <td colspan="3">
+                    <i class="fas fa-exclamation-circle"></i> No recent activities found.
+                </td>
             </tr>
             {% endfor %}
         </tbody>
