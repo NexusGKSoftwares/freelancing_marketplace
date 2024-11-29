@@ -2,38 +2,109 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-between align-items-center">
-    <h1>Welcome, {{ user.username }}</h1>
-    {% for project in projects %}
-<div class="col-md-4">
-    <div class="card mb-4 shadow-sm">
-        <div class="card-body">
-            <h5 class="card-title">{{ project.title }}</h5>
-            <p class="card-text">{{ project.description|truncatechars:100 }}</p>
-            <p><strong>Status:</strong> {{ project.get_status_display }}</p>
-            <a href="{% url 'project_feedback' project.id %}" class="btn btn-sm btn-outline-primary">Submit Feedback</a>
-        </div>
+<div class="container mt-4">
+    <!-- Dashboard Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Welcome, {{ user.username }}</h1>
+        <a href="{% url 'client_profile' %}" class="btn btn-primary">Profile Settings</a>
     </div>
-</div>
-{% endfor %}
 
-</div>
-<hr>
-<h3>Ongoing Projects</h3>
-<div class="row">
-    {% for project in projects %}
-    <div class="col-md-4">
-        <div class="card mb-4 shadow-sm">
-            <div class="card-body">
-                <h5 class="card-title">{{ project.title }}</h5>
-                <p class="card-text">{{ project.description|truncatechars:100 }}</p>
-                <p><strong>Status:</strong> {{ project.get_status_display }}</p>
-                <a href="{% url 'project_detail' project.id %}" class="btn btn-sm btn-outline-primary">View Details</a>
+    <!-- Quick Stats Section -->
+    <div class="row text-center mb-4">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary shadow-sm">
+                <div class="card-body">
+                    <h4>{{ projects|length }}</h4>
+                    <p>Total Projects</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-success shadow-sm">
+                <div class="card-body">
+                    <h4>{{ completed_projects }}</h4>
+                    <p>Completed Projects</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-danger shadow-sm">
+                <div class="card-body">
+                    <h4>{{ pending_projects }}</h4>
+                    <p>Pending Projects</p>
+                </div>
             </div>
         </div>
     </div>
-    {% empty %}
-    <p>No ongoing projects found.</p>
-    {% endfor %}
+
+    <!-- Ongoing Projects Section -->
+    <h3 class="mb-3">Ongoing Projects</h3>
+    <div class="row">
+        {% for project in projects %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ project.title }}</h5>
+                    <p class="card-text">{{ project.description|truncatechars:100 }}</p>
+                    <p><strong>Status:</strong> {{ project.get_status_display }}</p>
+                    <!-- Progress Bar -->
+                    <div class="progress mb-3">
+                        <div 
+                            class="progress-bar bg-info" 
+                            role="progressbar" 
+                            <!--  -->
+                            aria-valuenow="{{ project.progress }}" 
+                            aria-valuemin="0" 
+                            aria-valuemax="100">
+                            {{ project.progress }}%
+                        </div>
+                    </div>
+                    <a href="{% url 'project_detail' project.id %}" class="btn btn-sm btn-outline-primary">View Details</a>
+                    <a href="{% url 'project_feedback' project.id %}" class="btn btn-sm btn-outline-success">Submit Feedback</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>No ongoing projects found.</p>
+        {% endfor %}
+    </div>
+
+    <!-- Notifications Section -->
+    <h3 class="mt-5">Notifications</h3>
+    <ul class="list-group">
+        {% for notification in notifications %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ notification.message }}
+            <span class="badge badge-primary badge-pill">{{ notification.created_at|date:"M d, Y H:i" }}</span>
+        </li>
+        {% empty %}
+        <li class="list-group-item">No new notifications.</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Recent Activities Section -->
+    <h3 class="mt-5">Recent Activities</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Activity</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for activity in recent_activities %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ activity.description }}</td>
+                <td>{{ activity.created_at|date:"M d, Y H:i" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">No recent activities found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}
