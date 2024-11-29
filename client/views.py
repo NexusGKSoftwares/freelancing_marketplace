@@ -4,6 +4,10 @@ from django.contrib.auth.decorators import login_required
 from .models import ClientProfile, Project, Notification, Invoice
 from django.contrib import messages
 
+
+def client_register(request):
+    return render(request, 'client/register.html')
+
 @login_required
 def client_dashboard(request):
     projects = Project.objects.filter(client=request.user)
