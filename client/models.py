@@ -47,3 +47,10 @@ class Invoice(models.Model):
 
     def __str__(self):
         return f"Invoice for {self.project.title}"
+
+class Feedback(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='feedback')
+    client = models.ForeignKey(User, on_delete=models.CASCADE)
+    rating = models.PositiveSmallIntegerField()  # e.g., 1-5 stars
+    comments = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
