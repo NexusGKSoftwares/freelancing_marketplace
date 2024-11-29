@@ -1,9 +1,4 @@
-{% extends 'base.html' %}
-{% block title %}Invoices{% endblock %}
-
-{% block content %}
-<h1>Invoices</h1>
-<table class="table table-striped">
+<table>
     <thead>
         <tr>
             <th>Project</th>
@@ -18,7 +13,13 @@
             <td>{{ invoice.project.title }}</td>
             <td>{{ invoice.amount }}</td>
             <td>{{ invoice.due_date }}</td>
-            <td>{{ "Paid" if invoice.is_paid else "Unpaid" }}</td>
+            <td>
+                {% if invoice.is_paid %}
+                    Paid
+                {% else %}
+                    Unpaid
+                {% endif %}
+            </td>
         </tr>
         {% empty %}
         <tr>
@@ -27,4 +28,3 @@
         {% endfor %}
     </tbody>
 </table>
-{% endblock %}
