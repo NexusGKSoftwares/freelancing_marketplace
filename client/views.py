@@ -55,3 +55,6 @@ def project_feedback(request, project_id):
         form = FeedbackForm()
 
     return render(request, 'client/project_feedback.html', {'form': form, 'project': project})
+def client_profile(request):
+    # Your logic for the client profile page
+    return render(request, 'client/client_profile.html')
