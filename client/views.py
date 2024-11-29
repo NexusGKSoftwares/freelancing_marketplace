@@ -8,6 +8,9 @@ from django.contrib import messages
 def client_register(request):
     return render(request, 'client/register.html')
 
+def client_login(request):
+    return render(request, 'client/login.html')
+
 @login_required
 def client_dashboard(request):
     projects = Project.objects.filter(client=request.user)
