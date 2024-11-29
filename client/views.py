@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .models import ClientProfile, Project, Notification, Invoice
 from django.contrib import messages
-
+from .forms import FeedbackForm
 
 def client_register(request):
     return render(request, 'client/register.html')
@@ -38,12 +38,20 @@ def invoices(request):
     invoices = Invoice.objects.filter(project__client=request.user)
     return render(request, 'client/invoices.html', {'invoices': invoices})
 
-@login_required
+
+
 def project_feedback(request, project_id):
-    project = get_object_or_404(Project, id=project_id, client=request.user)
+    project = get_object_or_404(Project, id=project_id)
+
     if request.method == "POST":
-        feedback = request.POST['feedback']
-        # Save feedback to database or process as needed
-        messages.success(request, "Thank you for your feedback!")
-        return redirect('dashboard')
-    return render(request, 'client/project_feedback.html', {'project': project})
+        form = FeedbackForm(request.POST)
+        if form.is_valid():
+            feedback = form.save(commit=False)
+            feedback.project = project
+            feedback.client = request.user  # Assuming logged-in client
+            feedback.save()
+            return redirect('dashboard')
+    else:
+        form = FeedbackForm()
+
+    return render(request, 'client/project_feedback.html', {'form': form, 'project': project})
