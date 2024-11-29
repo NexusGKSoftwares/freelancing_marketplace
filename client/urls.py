@@ -10,4 +10,5 @@ urlpatterns = [
     path('notifications/', views.notifications, name='notifications'),
     path('invoices/', views.invoices, name='invoices'),
     path('project/<int:project_id>/feedback/', views.project_feedback, name='project_feedback'),
+    path('profile/', views.client_profile, name='client_profile'),
 ]
