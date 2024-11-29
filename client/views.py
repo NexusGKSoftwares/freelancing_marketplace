@@ -15,7 +15,7 @@ def client_login(request):
 def client_dashboard(request):
     projects = Project.objects.filter(client=request.user)
     notifications = Notification.objects.filter(client=request.user, is_read=False)
-    return render(request, 'clients/dashboard.html', {
+    return render(request, 'client/dashboard.html', {
         'projects': projects,
         'notifications': notifications
     })
@@ -23,7 +23,7 @@ def client_dashboard(request):
 @login_required
 def project_detail(request, project_id):
     project = get_object_or_404(Project, id=project_id, client=request.user)
-    return render(request, 'clients/project_detail.html', {'project': project})
+    return render(request, 'client/project_detail.html', {'project': project})
 
 @login_required
 def notifications(request):
@@ -31,12 +31,12 @@ def notifications(request):
     for notification in notifications:
         notification.is_read = True
         notification.save()
-    return render(request, 'clients/notifications.html', {'notifications': notifications})
+    return render(request, 'client/notifications.html', {'notifications': notifications})
 
 @login_required
 def invoices(request):
     invoices = Invoice.objects.filter(project__client=request.user)
-    return render(request, 'clients/invoices.html', {'invoices': invoices})
+    return render(request, 'client/invoices.html', {'invoices': invoices})
 
 @login_required
 def project_feedback(request, project_id):
@@ -46,4 +46,4 @@ def project_feedback(request, project_id):
         # Save feedback to database or process as needed
         messages.success(request, "Thank you for your feedback!")
         return redirect('dashboard')
-    return render(request, 'clients/project_feedback.html', {'project': project})
+    return render(request, 'client/project_feedback.html', {'project': project})
