@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-white">
+                    <h4>Edit Job: {{ job.title }}</h4>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="mb-4">
+                            <label for="title" class="form-label fw-bold">Job Title</label>
+                            <input type="text" class="form-control" id="title" name="title" value="{{ job.title }}" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="category" class="form-label fw-bold">Job Category</label>
+                            <select class="form-select" id="category" name="category" required>
+                                {% for key, value in job.CATEGORY_CHOICES %}
+                                <option value="{{ key }}" {% if key == job.category %}selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="type" class="form-label fw-bold">Job Type</label>
+                            <select class="form-select" id="type" name="type" required>
+                                {% for key, value in job.TYPE_CHOICES %}
+                                <option value="{{ key }}" {% if key == job.type %}selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="description" class="form-label fw-bold">Job Description</label>
+                            <textarea class="form-control" id="description" name="description" rows="4" required>{{ job.description }}</textarea>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="min_budget" class="form-label fw-bold">Minimum Budget</label>
+                            <input type="number" class="form-control" id="min_budget" name="min_budget" value="{{ job.min_budget }}" step="0.01" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="max_budget" class="form-label fw-bold">Maximum Budget</label>
+                            <input type="number" class="form-control" id="max_budget" name="max_budget" value="{{ job.max_budget }}" step="0.01" required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="skills" class="form-label fw-bold">Skills Required</label>
+                            <input type="text" class="form-control" id="skills" name="skills" value="{{ job.skills|join:', ' }}" placeholder="e.g., Python, Django, JavaScript" required>
+                            <small class="form-text text-muted">Separate skills with commas.</small>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="status" class="form-label fw-bold">Job Status</label>
+                            <select class="form-select" id="status" name="status" required>
+                                {% for key, value in job.STATUS_CHOICES %}
+                                <option value="{{ key }}" {% if key == job.status %}selected{% endif %}>{{ value }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="deadline" class="form-label fw-bold">Deadline</label>
+                            <input type="date" class="form-control" id="deadline" name="deadline" value="{{ job.deadline|date:"Y-m-d" }}" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Save Changes</button>
+                        <a href="{% url 'job_detail' job.id %}" class="btn btn-secondary ms-2">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
