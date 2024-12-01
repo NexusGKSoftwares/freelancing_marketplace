@@ -23,7 +23,7 @@
                     <i class="fas fa-users fa-3x text-primary"></i>
                     <h5 class="card-title mt-3">Manage Users</h5>
                     <p class="card-text">View and manage all platform users.</p>
-                    <a href="#" class="btn btn-outline-primary">View Users</a>
+                    <a href="{% url 'admin_manage_users' %}" class="btn btn-outline-primary">View Users</a>
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
                     <i class="fas fa-clipboard-list fa-3x text-success"></i>
                     <h5 class="card-title mt-3">Job Postings Overview</h5>
                     <p class="card-text">Monitor all job postings and their statuses.</p>
-                    <a href="#" class="btn btn-outline-success">View Jobs</a>
+                    <a href="{% url 'admin_job_postings' %}" class="btn btn-outline-success">View Jobs</a>
                 </div>
             </div>
         </div>
@@ -47,7 +47,7 @@
                     <i class="fas fa-dollar-sign fa-3x text-warning"></i>
                     <h5 class="card-title mt-3">Payment Management</h5>
                     <p class="card-text">Manage and review all platform payments.</p>
-                    <a href="#" class="btn btn-outline-warning">Manage Payments</a>
+                    <a href="{% url 'admin_payments' %}" class="btn btn-outline-warning">Manage Payments</a>
                 </div>
             </div>
         </div>
@@ -59,7 +59,7 @@
                     <i class="fas fa-cogs fa-3x text-info"></i>
                     <h5 class="card-title mt-3">System Activity</h5>
                     <p class="card-text">Monitor system performance and user activities.</p>
-                    <a href="#" class="btn btn-outline-info">View Activity</a>
+                    <a href="{% url 'admin_system_activity' %}" class="btn btn-outline-info">View Activity</a>
                 </div>
             </div>
         </div>
@@ -74,7 +74,7 @@
                     <i class="fas fa-chart-line fa-3x text-primary"></i>
                     <h5 class="card-title mt-3">Analytics</h5>
                     <p class="card-text">View platform performance, traffic, and growth metrics.</p>
-                    <a href="#" class="btn btn-outline-primary">View Analytics</a>
+                    <a href="{% url 'admin_analytics' %}" class="btn btn-outline-primary">View Analytics</a>
                 </div>
             </div>
         </div>
@@ -86,7 +86,7 @@
                     <i class="fas fa-bell fa-3x text-danger"></i>
                     <h5 class="card-title mt-3">Notifications</h5>
                     <p class="card-text">Manage and view system notifications for admin actions.</p>
-                    <a href="#" class="btn btn-outline-danger">Manage Notifications</a>
+                    <a href="{% url 'admin_notifications' %}" class="btn btn-outline-danger">Manage Notifications</a>
                 </div>
             </div>
         </div>
@@ -98,7 +98,7 @@
                     <i class="fas fa-headset fa-3x text-info"></i>
                     <h5 class="card-title mt-3">Support Tickets</h5>
                     <p class="card-text">Manage support tickets submitted by users or freelancers.</p>
-                    <a href="#" class="btn btn-outline-info">View Tickets</a>
+                    <a href="{% url 'admin_support_tickets' %}" class="btn btn-outline-info">View Tickets</a>
                 </div>
             </div>
         </div>
@@ -110,7 +110,7 @@
                     <i class="fas fa-comments fa-3x text-warning"></i>
                     <h5 class="card-title mt-3">User Feedback</h5>
                     <p class="card-text">View and manage user feedback and reviews.</p>
-                    <a href="#" class="btn btn-outline-warning">View Feedback</a>
+                    <a href="{% url 'admin_user_feedback' %}" class="btn btn-outline-warning">View Feedback</a>
                 </div>
             </div>
         </div>
@@ -125,7 +125,7 @@
                     <i class="fas fa-user-tie fa-3x text-info"></i>
                     <h5 class="card-title mt-3">Manage Freelancers</h5>
                     <p class="card-text">Monitor and manage freelancer profiles and activities.</p>
-                    <a href="#" class="btn btn-outline-info">View Freelancers</a>
+                    <a href="{% url 'admin_manage_freelancers' %}" class="btn btn-outline-info">View Freelancers</a>
                 </div>
             </div>
         </div>
@@ -137,7 +137,7 @@
                     <i class="fas fa-users-cog fa-3x text-primary"></i>
                     <h5 class="card-title mt-3">Manage Clients</h5>
                     <p class="card-text">View and manage client accounts and their projects.</p>
-                    <a href="#" class="btn btn-outline-primary">View Clients</a>
+                    <a href="{% url 'admin_manage_clients' %}" class="btn btn-outline-primary">View Clients</a>
                 </div>
             </div>
         </div>
@@ -176,7 +176,7 @@
                     <i class="fas fa-heartbeat fa-3x text-danger"></i>
                     <h5 class="card-title mt-3">System Health</h5>
                     <p class="card-text">Check the health and uptime of the system.</p>
-                    <a href="#" class="btn btn-outline-danger">View Health</a>
+                    <a href="{% url 'admin_system_health' %}" class="btn btn-outline-danger">View Health</a>
                 </div>
             </div>
         </div>
@@ -188,7 +188,7 @@
                     <i class="fas fa-user-plus fa-3x text-success"></i>
                     <h5 class="card-title mt-3">New Registrations</h5>
                     <p class="card-text">View and manage new freelancer and client registrations.</p>
-                    <a href="#" class="btn btn-outline-success">View Registrations</a>
+                    <a href="{% url 'admin_new_registrations' %}" class="btn btn-outline-success">View Registrations</a>
                 </div>
             </div>
         </div>
