@@ -31,7 +31,7 @@
         <div class="col-md-4">
             <div class="card text-center shadow">
                 <div class="card-body">
-                    <i class="fas fa-file-alt fa-3x text-success"></i>
+                    <i class="fas fa-file-alt fa-3x text-primary"></i>
                     <h5 class="card-title mt-3">Review Work Submissions</h5>
                     <p class="card-text display-6">{{ submissions_count }}</p>
                     <a href="#" class="btn btn-outline-success">View Submissions</a>
@@ -43,7 +43,7 @@
         <div class="col-md-4">
             <div class="card text-center shadow">
                 <div class="card-body">
-                    <i class="fas fa-credit-card fa-3x text-warning"></i>
+                    <i class="fas fa-credit-card fa-3x text-primary"></i>
                     <h5 class="card-title mt-3">Pending Payments</h5>
                     <p class="card-text display-6">{{ pending_payments }}</p>
                     <a href="#" class="btn btn-outline-warning">View Payments</a>
@@ -69,7 +69,7 @@
         <div class="col-md-4">
             <div class="card text-center shadow">
                 <div class="card-body">
-                    <i class="fas fa-user-friends fa-3x text-success"></i>
+                    <i class="fas fa-user-friends fa-3x text-primary"></i>
                     <h5 class="card-title mt-3">Hired Freelancers</h5>
                     <p class="card-text display-6">{{ hired_freelancers }}</p>
                     <a href="#" class="btn btn-outline-success">View Freelancers</a>
@@ -81,7 +81,7 @@
         <div class="col-md-4">
             <div class="card text-center shadow">
                 <div class="card-body">
-                    <i class="fas fa-envelope fa-3x text-warning"></i>
+                    <i class="fas fa-envelope fa-3x text-primary"></i>
                     <h5 class="card-title mt-3">Unread Messages</h5>
                     <p class="card-text display-6">{{ unread_messages }}</p>
                     <a href="#" class="btn btn-outline-warning">Go to Messages</a>
@@ -102,7 +102,7 @@
                         <ul class="list-group">
                             {% for activity in recent_activity %}
                                 <li class="list-group-item">
-                                    <i class="fas fa-check-circle text-success"></i> {{ activity.message }}
+                                    <i class="fas fa-check-circle text-primary"></i> {{ activity.message }}
                                     <span class="text-muted float-end">{{ activity.timestamp|date:"d M Y, H:i" }}</span>
                                 </li>
                             {% endfor %}
