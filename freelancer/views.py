@@ -12,19 +12,22 @@ def index(request):
     
 @login_required
 def freelancer_dashboard(request):
-    freelancer = Freelancer.objects.get(user=request.user)
+    # Assuming the user is logged in
+    freelancer = Freelancer.objects.get(user=request.user)  # Use related 'user' field here
+    available_jobs_count = Job.objects.filter(is_available=True).count()
     notifications = Notification.objects.filter(freelancer=freelancer)
-    available_jobs_count = Job.objects.filter(status='available').count()
-    earnings_labels = ["January", "February", "March", "April", "May"]
-    earnings_data = [1000, 1500, 2000, 1800, 2500]  # Example data
-    context = {
+    
+    # Calculate earnings and pass the data for the chart
+    earnings_data = [100, 200, 300, 400]  # Example earnings data
+    earnings_labels = ['January', 'February', 'March', 'April']  # Example labels for earnings
+
+    return render(request, 'freelancer/dashboard.html', {
         'freelancer': freelancer,
-        'notifications': notifications,
         'available_jobs_count': available_jobs_count,
-        'earnings_labels': earnings_labels,
+        'notifications': notifications,
         'earnings_data': earnings_data,
-    }
-    return render(request, 'freelancer_dashboard.html', context)
+        'earnings_labels': earnings_labels,
+    })
 
 @login_required
 def freelancer_edit_profile(request):
