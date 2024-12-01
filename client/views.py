@@ -77,7 +77,7 @@ def preview_and_post_job(request):
         del request.session['job_preview']
 
         # Redirect to the jobs listing page or success page
-        return redirect('jobs_page')  # Assuming you have a 'jobs_page' URL
+        return redirect('job_list')  # Assuming you have a 'jobs_page' URL
 
     return render(request, 'client/preview_job.html', {'job_preview': job_preview})
 
