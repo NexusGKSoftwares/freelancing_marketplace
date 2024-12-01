@@ -154,6 +154,25 @@ def filter_jobs(request):
         return render(request, 'client/jobs.html', context)
     
 def job_detail(request, job_id):
-    """Display details for a specific job."""
-    job = get_object_or_404(Job, id=job_id)
+    job = get_object_or_404(Job, pk=job_id)
     return render(request, 'client/job_detail.html', {'job': job})
+
+# Edit Job View
+def edit_job(request, job_id):
+    job = get_object_or_404(Job, pk=job_id)
+    if request.method == 'POST':
+        form = JobForm(request.POST, instance=job)
+        if form.is_valid():
+            form.save()
+            return redirect('job_detail', job_id=job.id)
+    else:
+        form = JobForm(instance=job)
+    return render(request, 'client/edit_job.html', {'form': form, 'job': job})
+
+# Delete Job View
+def delete_job(request, job_id):
+    job = get_object_or_404(Job, pk=job_id)
+    if request.method == 'POST':
+        job.delete()
+        return redirect('job_list')  # Redirect to job list after deletion
+    return redirect('job_detail', job_id=job.id)
