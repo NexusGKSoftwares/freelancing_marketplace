@@ -181,18 +181,27 @@
 {% block scripts %}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    var ctx = document.getElementById('earningsChart').getContext('2d');
-    var earningsChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: {{ earnings_labels|safe }},
-            datasets: [{
-                label: 'Earnings',
-                data: {{ earnings_data|safe }},
-                borderColor: 'rgba(75, 192, 192, 1)',
-                fill: false
-            }]
-        }
-    });
+	const ctx = document.getElementById('earningsChart').getContext('2d');
+	const earningsChart = new Chart(ctx, {
+		type: 'bar',
+		data: {
+			labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+			datasets: [{	
+				label: 'Earnings',
+				data: [1000, 1200, 1500, 1800,
+				2000],
+				backgroundColor: 'rgba(255, 99, 132, 0.2)',
+				borderColor: 'rgba(255, 99, 132, 1)',
+				borderWidth: 1
+				}]
+				},
+				options: {
+					scales: {
+						y: {
+							beginAtZero: true
+							}
+							}
+							}
+							});
 </script>
 {% endblock %}
