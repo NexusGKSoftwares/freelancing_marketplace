@@ -1,7 +1,50 @@
-
+{% extends 'base.html' %}
 {% block title %}Available Jobs{% endblock %}
 {% block content %}
 <div class="container mt-5">
+    <h1 class="text-center mb-4">Find Freelance Jobs</h1>
+    <!-- Filters Section -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <form id="filterForm" class="row g-3">
+                <div class="col-md-4">
+                    <label for="search" class="form-label fw-bold">Keyword</label>
+                    <input type="text" id="search" name="search" class="form-control" placeholder="Search by job title or skill">
+                </div>
+                <div class="col-md-4">
+                    <label for="category" class="form-label fw-bold">Category</label>
+                    <select id="category" name="category" class="form-select">
+                        <option value="">All Categories</option>
+                        <option value="web_dev">Web Development</option>
+                        <option value="design">Graphic Design</option>
+                        <option value="writing">Content Writing</option>
+                        <option value="seo">SEO Optimization</option>
+                        <option value="marketing">Digital Marketing</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="budget" class="form-label fw-bold">Budget Range</label>
+                    <select id="budget" name="budget" class="form-select">
+                        <option value="">Any Budget</option>
+                        <option value="100-500">$100 - $500</option>
+                        <option value="500-1000">$500 - $1000</option>
+                        <option value="1000-5000">$1000 - $5000</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="job_type" class="form-label fw-bold">Job Type</label>
+                    <select id="job_type" name="job_type" class="form-select">
+                        <option value="">Any Type</option>
+                        <option value="hourly">Hourly</option>
+                        <option value="fixed">Fixed Price</option>
+                    </select>
+                </div>
+                <div class="col-md-4 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">Apply Filters</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <!-- Job Listings -->
     <div id="jobsContainer">
