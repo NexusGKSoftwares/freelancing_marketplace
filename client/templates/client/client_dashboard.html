@@ -1,128 +1,105 @@
 {% extends 'base.html' %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}Client Dashboard - FreelanceHub{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <!-- Dashboard Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>Welcome, {{ user.username }}</h1>
-        <a href="{% url 'client_profile' %}" class="btn btn-primary">
-            <i class="fas fa-cogs"></i> Profile Settings
-        </a>
-    </div>
-
-    <!-- Quick Stats Section -->
-    <div class="row text-center mb-4">
-        <div class="col-md-4">
-            <div class="card text-white bg-primary shadow-sm">
-                <div class="card-body">
-                    <i class="fas fa-project-diagram fa-3x mb-3"></i>
-                    <h4>{{ projects|length }}</h4>
-                    <p>Total Projects</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card text-white bg-success shadow-sm">
-                <div class="card-body">
-                    <i class="fas fa-check-circle fa-3x mb-3"></i>
-                    <h4>{{ completed_projects }}</h4>
-                    <p>Completed Projects</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card text-white bg-danger shadow-sm">
-                <div class="card-body">
-                    <i class="fas fa-clock fa-3x mb-3"></i>
-                    <h4>{{ pending_projects }}</h4>
-                    <p>Pending Projects</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Ongoing Projects Section -->
-    <h3 class="mb-3">Ongoing Projects</h3>
+<div class="container">
     <div class="row">
-        {% for project in projects %}
-        <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        <i class="fas fa-tasks"></i> {{ project.title }}
-                    </h5>
-                    <p class="card-text">{{ project.description|truncatechars:100 }}</p>
-                    <p><strong>Status:</strong> {{ project.get_status_display }}</p>
-                    
-                    <!-- Progress Bar -->
-                    <div class="progress mb-3">
-                        <div 
-                            class="progress-bar bg-info" 
-                            role="progressbar" 
-                            aria-valuenow="{{ project.progress }}" 
-                            aria-valuemin="0" 
-                            aria-valuemax="100">
-                            {{ project.progress }}%
-                        </div>
-                    </div>
+        <!-- Welcome Section -->
+        <div class="col-12">
+            <div class="alert alert-primary text-center" role="alert">
+                <h4 class="mb-0">Welcome, {{ user.first_name }}!</h4>
+                <p class="mb-0">Manage your jobs, freelancers, and messages here.</p>
+            </div>
+        </div>
+    </div>
 
-                    <!-- Action Buttons -->
-                    <a href="{% url 'project_detail' project.id %}" class="btn btn-sm btn-outline-primary">
-                        <i class="fas fa-eye"></i> View Details
-                    </a>
-                    <a href="{% url 'project_feedback' project.id %}" class="btn btn-sm btn-outline-success">
-                        <i class="fas fa-comment-dots"></i> Submit Feedback
-                    </a>
+    <!-- Dashboard Statistics -->
+    <div class="row my-4">
+        <div class="col-md-4">
+            <div class="card text-center shadow">
+                <div class="card-body">
+                    <i class="fas fa-briefcase fa-3x text-primary"></i>
+                    <h5 class="card-title mt-3">Active Jobs</h5>
+                    <p class="card-text display-6">{{ active_jobs }}</p>
+                    <a href="{% url 'jobs' %}" class="btn btn-outline-primary">View Jobs</a>
                 </div>
             </div>
         </div>
-        {% empty %}
-        <p>No ongoing projects found.</p>
-        {% endfor %}
+        <div class="col-md-4">
+            <div class="card text-center shadow">
+                <div class="card-body">
+                    <i class="fas fa-user-tie fa-3x text-success"></i>
+                    <h5 class="card-title mt-3">Hired Freelancers</h5>
+                    <p class="card-text display-6">{{ hired_freelancers }}</p>
+                    <a href="{% url 'freelancers' %}" class="btn btn-outline-success">View Freelancers</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-center shadow">
+                <div class="card-body">
+                    <i class="fas fa-envelope fa-3x text-warning"></i>
+                    <h5 class="card-title mt-3">Unread Messages</h5>
+                    <p class="card-text display-6">{{ unread_messages }}</p>
+                    <a href="{% url 'messages' %}" class="btn btn-outline-warning">Go to Messages</a>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- Notifications Section -->
-    <h3 class="mt-5">Notifications</h3>
-    <ul class="list-group">
-        {% for notification in notifications %}
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            <i class="fas fa-bell"></i> {{ notification.message }}
-            <span class="badge badge-primary badge-pill">{{ notification.created_at|date:"M d, Y H:i" }}</span>
-        </li>
-        {% empty %}
-        <li class="list-group-item">
-            <i class="fas fa-info-circle"></i> No new notifications.
-        </li>
-        {% endfor %}
-    </ul>
+    <!-- Job Post Section -->
+    <div class="row my-4">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <i class="fas fa-plus-circle"></i> Post a New Job
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{% url 'post_job' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="jobTitle" class="form-label">Job Title</label>
+                            <input type="text" class="form-control" id="jobTitle" name="job_title" placeholder="Enter job title" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="jobDescription" class="form-label">Job Description</label>
+                            <textarea class="form-control" id="jobDescription" name="job_description" rows="4" placeholder="Describe the job details" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="budget" class="form-label">Budget</label>
+                            <input type="number" class="form-control" id="budget" name="budget" placeholder="Enter budget in USD" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Post Job</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <!-- Recent Activities Section -->
-    <h3 class="mt-5">Recent Activities</h3>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Activity</th>
-                <th>Date</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for activity in recent_activities %}
-            <tr>
-                <td>{{ forloop.counter }}</td>
-                <td>{{ activity.description }}</td>
-                <td>{{ activity.created_at|date:"M d, Y H:i" }}</td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="3">
-                    <i class="fas fa-exclamation-circle"></i> No recent activities found.
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <!-- Recent Activity -->
+    <div class="row my-4">
+        <div class="col-12">
+            <div class="card shadow">
+                <div class="card-header bg-secondary text-white">
+                    <i class="fas fa-history"></i> Recent Activity
+                </div>
+                <div class="card-body">
+                    {% if recent_activity %}
+                        <ul class="list-group">
+                            {% for activity in recent_activity %}
+                                <li class="list-group-item">
+                                    <i class="fas fa-check-circle text-success"></i> {{ activity.message }}
+                                    <span class="text-muted float-end">{{ activity.timestamp|date:"d M Y, H:i" }}</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-center">No recent activity found.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
