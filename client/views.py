@@ -49,8 +49,9 @@ def post_job(request):
         # Redirect to the preview page
         return redirect('preview_and_post_job')
 
-    return render(request, 'client/post_job.html')
-
+    return render(request, 'client/post_job.html', {
+        'job': job,  # Pass the Job instance to the template
+    })
 def preview_and_post_job(request):
     # Retrieve the job preview from session
     job_preview = request.session.get('job_preview')
