@@ -31,7 +31,7 @@ class Job(models.Model):
     skills = models.JSONField(help_text="List of skills required, e.g., ['Python', 'Django']")  # Requires PostgreSQL or Django 3.1+
     posted_on = models.DateTimeField(auto_now_add=True)
     client = models.ForeignKey(User, on_delete=models.CASCADE, related_name="jobs")
-
+    is_active = models.BooleanField(default=True) 
     def __str__(self):
         return self.title
 
