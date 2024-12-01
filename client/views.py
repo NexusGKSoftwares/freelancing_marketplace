@@ -99,7 +99,7 @@ def filter_jobs(request):
             jobs = jobs.filter(type=job_type)
 
         context = {'jobs': jobs}
-        return render(request, 'client/partials/job_list.html', context)
+        return render(request, 'client/jobs.html', context)
     
 def job_detail(request, job_id):
     """Display details for a specific job."""
