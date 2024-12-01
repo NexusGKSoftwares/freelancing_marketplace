@@ -2,6 +2,12 @@ from django.shortcuts import render
 from .models import Freelancer, Job, Notification, Feedback
 from django.contrib.auth.decorators import login_required
 
+def index(request):
+    if not request.user.is_authenticated:
+        return render(request, 'freelancer/index.html')
+    else:
+        return HttpResponseRedirect(reverse('freelancer_dashboard'))
+    
 @login_required
 def freelancer_dashboard(request):
     freelancer = Freelancer.objects.get(user=request.user)
