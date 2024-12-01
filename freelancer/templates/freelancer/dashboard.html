@@ -13,7 +13,7 @@
                     <p class="lead">Welcome back to your freelancer dashboard. Manage your jobs, track payments, and stay up to date with project statuses.</p>
                 </div>
                 <div>
-                    <a href="{% url 'freelancer_edit_profile' %}" class="btn btn-outline-primary">Edit Profile</a>
+                    <a href="#" class="btn btn-outline-primary">Edit Profile</a>
                 </div>
             </div>
         </div>
@@ -28,7 +28,7 @@
                     <h5 class="card-title text-success">Total Earnings</h5>
                     <h3 class="text-success">${{ freelancer.total_earnings }}</h3>
                     <p class="text-muted">Total earnings from completed jobs</p>
-                    <a href="{% url 'freelancer_payment_overview' %}" class="btn btn-outline-success btn-sm">View Payments</a>
+                    <a href="#" class="btn btn-outline-success btn-sm">View Payments</a>
                 </div>
             </div>
         </div>
@@ -40,7 +40,7 @@
                     <h5 class="card-title text-warning">Active Jobs</h5>
                     <h3 class="text-warning">{{ freelancer.active_jobs.count }}</h3>
                     <p class="text-muted">Ongoing projects currently assigned</p>
-                    <a href="{% url 'freelancer_ongoing_jobs' %}" class="btn btn-outline-warning btn-sm">View Active Jobs</a>
+                    <a href="#" class="btn btn-outline-warning btn-sm">View Active Jobs</a>
                 </div>
             </div>
         </div>
@@ -52,7 +52,7 @@
                     <h5 class="card-title text-primary">Available Jobs</h5>
                     <h3 class="text-primary">{{ available_jobs_count }}</h3>
                     <p class="text-muted">Browse the latest jobs and start applying</p>
-                    <a href="{% url 'freelancer_available_jobs' %}" class="btn btn-outline-primary btn-sm">Browse Jobs</a>
+                    <a href="#" class="btn btn-outline-primary btn-sm">Browse Jobs</a>
                 </div>
             </div>
         </div>
@@ -76,7 +76,7 @@
                         </li>
                         {% endfor %}
                     </ul>
-                    <a href="{% url 'freelancer_notifications' %}" class="btn btn-outline-info btn-sm mt-3">View All Notifications</a>
+                    <a href="#" class="btn btn-outline-info btn-sm mt-3">View All Notifications</a>
                 </div>
             </div>
         </div>
@@ -97,7 +97,7 @@
                     {% empty %}
                     <p>No feedback received yet.</p>
                     {% endfor %}
-                    <a href="{% url 'freelancer_feedback' %}" class="btn btn-outline-danger btn-sm mt-3">View All Feedback</a>
+                    <a href="#" class="btn btn-outline-danger btn-sm mt-3">View All Feedback</a>
                 </div>
             </div>
         </div>
@@ -128,7 +128,7 @@
                                     <td>{{ job.title }}</td>
                                     <td><span class="badge {{ job.status_class }}">{{ job.status }}</span></td>
                                     <td>{{ job.deadline }}</td>
-                                    <td><a href="{% url 'freelancer_job_details' job.id %}" class="btn btn-outline-primary btn-sm">View Details</a></td>
+                                    <td><a href="#" class="btn btn-outline-primary btn-sm">View Details</a></td>
                                 </tr>
                                 {% empty %}
                                 <tr>
@@ -152,7 +152,7 @@
                     <h5 class="card-title text-secondary">Earnings Breakdown</h5>
                     <canvas id="earningsChart" width="400" height="200"></canvas>
                     <p class="text-muted mt-3">Track your earnings over the past months</p>
-                    <a href="{% url 'freelancer_payment_history' %}" class="btn btn-outline-secondary btn-sm">View Earnings History</a>
+                    <a href="#" class="btn btn-outline-secondary btn-sm">View Earnings History</a>
                 </div>
             </div>
         </div>
@@ -171,7 +171,7 @@
                         <li class="list-group-item">No job history yet.</li>
                         {% endfor %}
                     </ul>
-                    <a href="{% url 'freelancer_job_history' %}" class="btn btn-outline-dark btn-sm mt-3">View Job History</a>
+                    <a href="#" class="btn btn-outline-dark btn-sm mt-3">View Job History</a>
                 </div>
             </div>
         </div>
@@ -204,4 +204,5 @@
 				});
 </script>
 </script>
+{% endblock %}
 {% endblock %}
