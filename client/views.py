@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Job, Message, Notification
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator
+from django.http import JsonResponse
+from .models import Job
 
 @login_required
 def client_dashboard(request):
@@ -46,3 +49,54 @@ def messages_view(request):
 def notifications_view(request):
     notifications = Notification.objects.filter(user=request.user)
     return render(request, 'client/notifications.html', {'notifications': notifications})
+
+
+
+
+def job_list(request):
+    # Get filters from request
+    search = request.GET.get('search', '')
+    category = request.GET.get('category', '')
+    budget = request.GET.get('budget', '')
+    job_type = request.GET.get('job_type', '')
+
+    # Filter jobs based on user input
+    jobs = Job.objects.all()
+    if search:
+        jobs = jobs.filter(title__icontains=search)
+    if category:
+        jobs = jobs.filter(category=category)
+    if budget:
+        min_budget, max_budget = map(int, budget.split('-'))
+        jobs = jobs.filter(min_budget__gte=min_budget, max_budget__lte=max_budget)
+    if job_type:
+        jobs = jobs.filter(type=job_type)
+
+    # Paginate the job list
+    paginator = Paginator(jobs, 5)
+    page_number = request.GET.get('page', 1)
+    page_obj = paginator.get_page(page_number)
+
+    context = {'jobs': page_obj}
+    return render(request, 'client/jobs.html', context)
+
+def filter_jobs(request):
+    if request.method == 'POST':
+        search = request.POST.get('search', '')
+        category = request.POST.get('category', '')
+        budget = request.POST.get('budget', '')
+        job_type = request.POST.get('job_type', '')
+
+        jobs = Job.objects.all()
+        if search:
+            jobs = jobs.filter(title__icontains=search)
+        if category:
+            jobs = jobs.filter(category=category)
+        if budget:
+            min_budget, max_budget = map(int, budget.split('-'))
+            jobs = jobs.filter(min_budget__gte=min_budget, max_budget__lte=max_budget)
+        if job_type:
+            jobs = jobs.filter(type=job_type)
+
+        context = {'jobs': jobs}
+        return render(request, 'client/partials/job_list.html', context)
