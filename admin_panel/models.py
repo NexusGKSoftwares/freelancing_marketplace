@@ -33,7 +33,7 @@ class Payment(models.Model):
         return f"Payment of {self.amount} by {self.user.username}"
 
 # Model for System Activity Logs
-class SystemActivity(models.Model):
+class Activity(models.Model):
     action = models.CharField(max_length=255)
     timestamp = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="activities")
