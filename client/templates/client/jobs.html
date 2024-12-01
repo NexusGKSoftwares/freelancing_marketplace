@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block title %}Available Jobs{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Find Freelance Jobs</h1>
+    <!-- Filters Section -->
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <form id="filterForm" class="row g-3">
+                <div class="col-md-4">
+                    <label for="search" class="form-label fw-bold">Keyword</label>
+                    <input type="text" id="search" name="search" class="form-control" placeholder="Search by job title or skill">
+                </div>
+                <div class="col-md-4">
+                    <label for="category" class="form-label fw-bold">Category</label>
+                    <select id="category" name="category" class="form-select">
+                        <option value="">All Categories</option>
+                        <option value="web_dev">Web Development</option>
+                        <option value="design">Graphic Design</option>
+                        <option value="writing">Content Writing</option>
+                        <option value="seo">SEO Optimization</option>
+                        <option value="marketing">Digital Marketing</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="budget" class="form-label fw-bold">Budget Range</label>
+                    <select id="budget" name="budget" class="form-select">
+                        <option value="">Any Budget</option>
+                        <option value="100-500">$100 - $500</option>
+                        <option value="500-1000">$500 - $1000</option>
+                        <option value="1000-5000">$1000 - $5000</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="job_type" class="form-label fw-bold">Job Type</label>
+                    <select id="job_type" name="job_type" class="form-select">
+                        <option value="">Any Type</option>
+                        <option value="hourly">Hourly</option>
+                        <option value="fixed">Fixed Price</option>
+                    </select>
+                </div>
+                <div class="col-md-4 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">Apply Filters</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Job Listings -->
+    <div id="jobsContainer">
+        {% for job in jobs %}
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <h5 class="card-title">{{ job.title }}</h5>
+                        <p class="card-text text-muted">{{ job.category }}</p>
+                        <p class="card-text"><strong>Budget:</strong> ${{ job.min_budget }} - ${{ job.max_budget }}</p>
+                        <p class="card-text"><strong>Skills:</strong> {{ job.skills|join:", " }}</p>
+                    </div>
+                    <div>
+                        <span class="badge bg-primary">{{ job.type }}</span>
+                        <span class="badge bg-success">{{ job.status }}</span>
+                    </div>
+                </div>
+                <a href="{% url 'job_detail' job.id %}" class="btn btn-outline-primary mt-3">View Details</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    <div class="d-flex justify-content-center">
+        {% if jobs.has_previous %}
+        <a href="?page={{ jobs.previous_page_number }}" class="btn btn-outline-primary me-2">&laquo; Previous</a>
+        {% endif %}
+        <span class="btn btn-secondary disabled">Page {{ jobs.number }} of {{ jobs.paginator.num_pages }}</span>
+        {% if jobs.has_next %}
+        <a href="?page={{ jobs.next_page_number }}" class="btn btn-outline-primary ms-2">Next &raquo;</a>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    // AJAX Filtering for jobs
+    document.getElementById('filterForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        fetch("{% url 'filter_jobs' %}", {
+            method: "POST",
+            headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+            body: formData
+        })
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('jobsContainer').innerHTML = html;
+        });
+    });
+</script>
+{% endblock %}
