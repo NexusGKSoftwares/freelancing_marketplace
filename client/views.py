@@ -21,10 +21,63 @@ def client_dashboard(request):
 
 @login_required
 def post_job(request):
-    job = Job()  # Create an instance to access the model choices
-    return render(request, 'client/post_job.html', {
-        'job': job,  # Pass the Job instance to the template
-    })
+    if request.method == 'POST':
+        # Handle job form submission
+        title = request.POST.get('title')
+        description = request.POST.get('description')
+        category = request.POST.get('category')
+        job_type = request.POST.get('type')
+        min_budget = request.POST.get('min_budget')
+        max_budget = request.POST.get('max_budget')
+        skills = request.POST.get('skills').split(',')  # Convert comma-separated skills into a list
+
+        # Create a Job object for preview
+        job_preview = {
+            'title': title,
+            'description': description,
+            'category': category,
+            'job_type': job_type,
+            'min_budget': min_budget,
+            'max_budget': max_budget,
+            'skills': skills
+        }
+
+        # Save the job preview in the session (to persist data between requests)
+        request.session['job_preview'] = job_preview
+
+        # Redirect to the preview page
+        return redirect('preview_and_post_job')
+
+    return render(request, 'client/post_job.html')
+
+def preview_and_post_job(request):
+    # Retrieve the job preview from session
+    job_preview = request.session.get('job_preview')
+
+    if not job_preview:
+        return redirect('post_job')  # If no preview data exists, redirect back to the post job page
+
+    if request.method == 'POST':
+        # Save the job to the database
+        job = Job(
+            title=job_preview['title'],
+            description=job_preview['description'],
+            category=job_preview['category'],
+            type=job_preview['job_type'],
+            min_budget=job_preview['min_budget'],
+            max_budget=job_preview['max_budget'],
+            skills=job_preview['skills'],
+            client=request.user  # Assuming the user is logged in
+        )
+        job.save()
+
+        # Clear the session data
+        del request.session['job_preview']
+
+        # Redirect to the jobs listing page or success page
+        return redirect('jobs_page')  # Assuming you have a 'jobs_page' URL
+
+    return render(request, 'client/preview_job.html', {'job_preview': job_preview})
 
 @login_required
 def edit_job(request, job_id):
