@@ -156,4 +156,4 @@ def filter_jobs(request):
 def job_detail(request, job_id):
     """Display details for a specific job."""
     job = get_object_or_404(Job, id=job_id)
-    return render(request, 'job_detail.html', {'job': job})
+    return render(request, 'client/job_detail.html', {'job': job})
