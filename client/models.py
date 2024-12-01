@@ -30,6 +30,7 @@ class Job(models.Model):
     max_budget = models.DecimalField(max_digits=10, decimal_places=2)
     skills = models.JSONField(help_text="List of skills required, e.g., ['Python', 'Django']")  # Requires PostgreSQL or Django 3.1+
     posted_on = models.DateTimeField(auto_now_add=True)
+    client = models.ForeignKey(User, on_delete=models.CASCADE, related_name="jobs")
 
     def __str__(self):
         return self.title
