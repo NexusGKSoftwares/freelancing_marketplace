@@ -1,42 +1,6 @@
-{% extends 'base.html' %}
+{% extends 'client/base.html' %}
 {% block title %}Post Job{% endblock %}
 {% block content %}
-<style>
-    .container {
-        width: 80%;
-        margin: 40px auto;
-        padding: 20px;
-        background-color: #f2f2f2;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0
-        , 0.1);
-        }
-    .card-header {
-    background-image: linear-gradient(to right, #0056b3, #007bff);
-}
-
-input[type="range"] {
-    appearance: none;
-    width: 100%;
-    height: 6px;
-    background: #ddd;
-    outline: none;
-    opacity: 0.8;
-    transition: opacity 0.2s;
-}
-
-input[type="range"]:hover {
-    opacity: 1;
-}
-
-.alert-secondary {
-    font-size: 0.9rem;
-    padding: 5px 10px;
-    margin: 0;
-}
-
-</style>
 <div class="container mt-5">
     <div class="card shadow-lg">
         <div class="card-header bg-primary text-white">
@@ -46,72 +10,71 @@ input[type="range"]:hover {
         <div class="card-body">
             <form method="post" enctype="multipart/form-data" id="postJobForm">
                 {% csrf_token %}
-                <!-- Step 1: Job Details -->
-                <div id="step1">
-                    <h4 class="mb-4">Step 1: Job Details</h4>
 
-                    <div class="mb-4">
-                        <label for="job_title" class="form-label fw-bold">Job Title <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="job_title" name="job_title" placeholder="Enter a concise job title" required>
-                    </div>
+                <!-- Job Title -->
+                <div class="mb-4">
+                    <label for="job_title" class="form-label fw-bold">Job Title <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="job_title" name="title" placeholder="Enter a concise job title" required>
+                </div>
 
-                    <div class="mb-4">
-                        <label for="job_category" class="form-label fw-bold">Job Category <span class="text-danger">*</span></label>
-                        <select class="form-select" id="job_category" name="job_category" required>
-                            <option value="">Select a category</option>
-                            <option value="web_dev">Web Development</option>
-                            <option value="design">Graphic Design</option>
-                            <option value="writing">Content Writing</option>
-                            <option value="seo">SEO Optimization</option>
-                            <option value="marketing">Digital Marketing</option>
-                        </select>
-                    </div>
+                <!-- Job Description -->
+                <div class="mb-4">
+                    <label for="job_description" class="form-label fw-bold">Description <span class="text-danger">*</span></label>
+                    <textarea class="form-control" id="job_description" name="description" rows="6" placeholder="Provide a detailed description of the job" required></textarea>
+                    <small class="text-muted" id="description_counter">0/500 characters</small>
+                </div>
 
-                    <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-primary next-btn">Next</button>
+                <!-- Category -->
+                <div class="mb-4">
+                    <label for="job_category" class="form-label fw-bold">Job Category <span class="text-danger">*</span></label>
+                    <select class="form-select" id="job_category" name="category" required>
+                        {% for key, value in job.CATEGORY_CHOICES %}
+                        <option value="{{ key }}">{{ value }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Job Type -->
+                <div class="mb-4">
+                    <label for="job_type" class="form-label fw-bold">Job Type <span class="text-danger">*</span></label>
+                    <select class="form-select" id="job_type" name="type" required>
+                        {% for key, value in job.TYPE_CHOICES %}
+                        <option value="{{ key }}">{{ value }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Budget Range -->
+                <div class="mb-4">
+                    <label class="form-label fw-bold">Budget Range (USD) <span class="text-danger">*</span></label>
+                    <div class="d-flex align-items-center">
+                        <span class="fw-bold me-2" id="budget_display">$100 - $500</span>
+                        <input type="range" class="form-range me-2" id="min_budget" name="min_budget" min="100" max="1000" step="50">
+                        <input type="range" class="form-range" id="max_budget" name="max_budget" min="500" max="5000" step="50">
                     </div>
                 </div>
 
-                <!-- Step 2: Job Description -->
-                <div id="step2" class="d-none">
-                    <h4 class="mb-4">Step 2: Job Description</h4>
-
-                    <div class="mb-4">
-                        <label for="job_description" class="form-label fw-bold">Description <span class="text-danger">*</span></label>
-                        <textarea class="form-control" id="job_description" name="job_description" rows="6" placeholder="Provide a detailed description of the job" required></textarea>
-                        <small class="text-muted" id="description_counter">0/500 characters</small>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="job_budget" class="form-label fw-bold">Budget Range (USD) <span class="text-danger">*</span></label>
-                        <div class="d-flex align-items-center">
-                            <span class="fw-bold me-2" id="budget_display">$100 - $500</span>
-                            <input type="range" class="form-range" id="min_budget" name="min_budget" min="100" max="1000" step="50">
-                            <input type="range" class="form-range" id="max_budget" name="max_budget" min="500" max="5000" step="50">
-                        </div>
-                    </div>
-
-                    <div class="d-flex justify-content-between">
-                        <button type="button" class="btn btn-secondary prev-btn">Previous</button>
-                        <button type="button" class="btn btn-primary next-btn">Next</button>
-                    </div>
+                <!-- Skills -->
+                <div class="mb-4">
+                    <label for="skills" class="form-label fw-bold">Skills Required <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="skill_input" placeholder="Enter a skill and press Enter">
+                    <div id="skill_list" class="mt-2"></div>
+                    <input type="hidden" id="skills" name="skills">
                 </div>
 
-                <!-- Step 3: File Upload -->
-                <div id="step3" class="d-none">
-                    <h4 class="mb-4">Step 3: Attach Files</h4>
+                <!-- Status -->
+                <div class="mb-4">
+                    <label for="job_status" class="form-label fw-bold">Status</label>
+                    <select class="form-select" id="job_status" name="status">
+                        {% for key, value in job.STATUS_CHOICES %}
+                        <option value="{{ key }}">{{ value }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
 
-                    <div class="mb-4">
-                        <label for="job_files" class="form-label fw-bold">Attach Files (Optional)</label>
-                        <input type="file" class="form-control" id="job_files" name="job_files" multiple>
-                        <small class="text-muted">Supported formats: PDF, DOCX, JPG, PNG</small>
-                        <div id="file_preview" class="mt-3"></div>
-                    </div>
-
-                    <div class="d-flex justify-content-between">
-                        <button type="button" class="btn btn-secondary prev-btn">Previous</button>
-                        <button type="submit" class="btn btn-primary">Post Job</button>
-                    </div>
+                <!-- Submit Button -->
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary">Post Job</button>
                 </div>
             </form>
         </div>
@@ -119,34 +82,6 @@ input[type="range"]:hover {
 </div>
 
 <script>
-    // Multi-step form handling
-    const steps = ['step1', 'step2', 'step3'];
-    let currentStep = 0;
-
-    function showStep(step) {
-        steps.forEach((id, index) => {
-            document.getElementById(id).classList.toggle('d-none', index !== step);
-        });
-    }
-
-    document.querySelectorAll('.next-btn').forEach((btn) => {
-        btn.addEventListener('click', () => {
-            if (currentStep < steps.length - 1) {
-                currentStep++;
-                showStep(currentStep);
-            }
-        });
-    });
-
-    document.querySelectorAll('.prev-btn').forEach((btn) => {
-        btn.addEventListener('click', () => {
-            if (currentStep > 0) {
-                currentStep--;
-                showStep(currentStep);
-            }
-        });
-    });
-
     // Character counter for description
     const descriptionField = document.getElementById('job_description');
     const counter = document.getElementById('description_counter');
@@ -158,26 +93,37 @@ input[type="range"]:hover {
     const minBudget = document.getElementById('min_budget');
     const maxBudget = document.getElementById('max_budget');
     const budgetDisplay = document.getElementById('budget_display');
-
     function updateBudgetDisplay() {
         budgetDisplay.textContent = `$${minBudget.value} - $${maxBudget.value}`;
     }
-
     minBudget.addEventListener('input', updateBudgetDisplay);
     maxBudget.addEventListener('input', updateBudgetDisplay);
 
-    // File upload preview
-    const fileInput = document.getElementById('job_files');
-    const filePreview = document.getElementById('file_preview');
+    // Skills management
+    const skillInput = document.getElementById('skill_input');
+    const skillList = document.getElementById('skill_list');
+    const skillsField = document.getElementById('skills');
+    let skills = [];
 
-    fileInput.addEventListener('change', () => {
-        filePreview.innerHTML = '';
-        Array.from(fileInput.files).forEach((file) => {
-            const div = document.createElement('div');
-            div.classList.add('alert', 'alert-secondary', 'mt-2');
-            div.textContent = file.name;
-            filePreview.appendChild(div);
-        });
+    skillInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && skillInput.value.trim() !== '') {
+            e.preventDefault();
+            const skill = skillInput.value.trim();
+            if (!skills.includes(skill)) {
+                skills.push(skill);
+                const skillBadge = document.createElement('span');
+                skillBadge.className = 'badge bg-primary text-white me-2';
+                skillBadge.textContent = skill;
+                skillBadge.onclick = () => {
+                    skillList.removeChild(skillBadge);
+                    skills = skills.filter((s) => s !== skill);
+                    skillsField.value = JSON.stringify(skills);
+                };
+                skillList.appendChild(skillBadge);
+                skillsField.value = JSON.stringify(skills);
+                skillInput.value = '';
+            }
+        }
     });
 </script>
 {% endblock %}
