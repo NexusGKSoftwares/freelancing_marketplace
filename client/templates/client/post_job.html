@@ -1,4 +1,4 @@
-{% extends 'client/base.html' %}
+{% extends 'base.html' %}
 {% block title %}Post Job{% endblock %}
 {% block content %}
 <div class="container mt-5">
@@ -60,6 +60,34 @@
                     <input type="text" class="form-control" id="skill_input" placeholder="Enter a skill and press Enter">
                     <div id="skill_list" class="mt-2"></div>
                     <input type="hidden" id="skills" name="skills">
+                </div>
+
+                <!-- File Uploads -->
+                <div class="mb-4">
+                    <label class="form-label fw-bold">Attachments</label>
+                    <div class="mb-3">
+                        <label for="job_image" class="form-label">Upload Job Images</label>
+                        <input type="file" class="form-control" id="job_image" name="job_image" accept="image/*" multiple>
+                    </div>
+                    <div class="mb-3">
+                        <label for="job_documents" class="form-label">Upload Supporting Documents (PDFs)</label>
+                        <input type="file" class="form-control" id="job_documents" name="job_documents" accept="application/pdf" multiple>
+                    </div>
+                </div>
+
+                <!-- Schedule -->
+                <div class="mb-4">
+                    <label for="schedule" class="form-label fw-bold">Project Schedule</label>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="start_date" class="form-label">Start Date <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" id="start_date" name="start_date" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="end_date" class="form-label">End Date <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" id="end_date" name="end_date" required>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Status -->
