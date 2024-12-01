@@ -1,24 +1,31 @@
-# models.py (in your app, e.g., 'freelancer')
-
 from django.db import models
 from django.contrib.auth.models import User
-class Skill(models.Model):
-    name = models.CharField(max_length=100)
 
-    def __str__(self):
-        return self.name
-
-
-class Profile(models.Model):
+class Freelancer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField()
-    location = models.CharField(max_length=100)
-    phone_number = models.CharField(max_length=15, blank=True, null=True)
-    profile_picture = models.ImageField(upload_to='profile_pics/', blank=True, null=True)
-    # skill = models.ForeignKey('Skill', on_delete=models.CASCADE)
-    # skill_ids = models.TextField() 
+    name = models.CharField(max_length=255)
+    total_earnings = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    active_jobs = models.ManyToManyField('Job', related_name='active_jobs', blank=True)
+    completed_jobs = models.ManyToManyField('Job', related_name='completed_jobs', blank=True)
+    feedbacks = models.ManyToManyField('Feedback', related_name='freelancer_feedbacks', blank=True)
 
-    def __str__(self):
-        return self.user.username
+class Job(models.Model):
+    STATUS_CHOICES = [
+        ('available', 'Available'),
+        ('ongoing', 'Ongoing'),
+        ('completed', 'Completed'),
+    ]
+    title = models.CharField(max_length=255)
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='available')
+    deadline = models.DateTimeField()
+    freelancer = models.ForeignKey(Freelancer, on_delete=models.SET_NULL, null=True, blank=True)
 
+class Notification(models.Model):
+    freelancer = models.ForeignKey(Freelancer, on_delete=models.CASCADE)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
+class Feedback(models.Model):
+    client_name = models.CharField(max_length=255)
+    comment = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
