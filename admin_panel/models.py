@@ -53,14 +53,14 @@ class SupportTicket(models.Model):
         return f"Ticket #{self.id}: {self.subject}"
 
 # Model for User Feedback
-class UserFeedback(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="feedback")
-    rating = models.IntegerField(choices=[(1, '1 - Poor'), (2, '2 - Fair'), (3, '3 - Good'), (4, '4 - Very Good'), (5, '5 - Excellent')])
-    comments = models.TextField()
-    date_submitted = models.DateTimeField(auto_now_add=True)
+# class UserFeedback(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="feedback")
+#     rating = models.IntegerField(choices=[(1, '1 - Poor'), (2, '2 - Fair'), (3, '3 - Good'), (4, '4 - Very Good'), (5, '5 - Excellent')])
+#     comments = models.TextField()
+#     date_submitted = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f"Feedback by {self.user.username} on {self.date_submitted}"
+#     def __str__(self):
+#         return f"Feedback by {self.user.username} on {self.date_submitted}"
 class SystemHealth(models.Model):
     cpu_usage = models.DecimalField(max_digits=5, decimal_places=2, help_text="CPU usage percentage (0-100%)")
     memory_usage = models.DecimalField(max_digits=5, decimal_places=2, help_text="Memory usage percentage (0-100%)")

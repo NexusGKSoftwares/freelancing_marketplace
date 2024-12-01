@@ -1,6 +1,8 @@
 from django.shortcuts import render
 
-from .models import Activity, User, JobPosting, Payment, SystemHealth, SupportTicket, UserFeedback
+from client.models import Feedback
+
+from .models import Activity, User, JobPosting, Payment, SystemHealth, SupportTicket 
 
 # Admin dashboard view
 def admin_dashboard(request):
@@ -70,7 +72,7 @@ def admin_support_tickets(request):
 
 # View for managing user feedback
 def admin_user_feedback(request):
-    feedback = UserFeedback.objects.all()
+    feedback = Feedback.objects.all()
     return render(request, 'admin_user_feedback.html', {'feedback': feedback})
 
 # View for managing freelancers
