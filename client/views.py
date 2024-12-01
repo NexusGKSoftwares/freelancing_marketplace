@@ -4,7 +4,7 @@ from .models import Job, Message, Notification
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.http import JsonResponse
-from .models import Job
+from .forms import JobForm
 
 @login_required
 def client_dashboard(request):
