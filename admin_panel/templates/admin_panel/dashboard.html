@@ -1,159 +1,197 @@
-{% extends "admin_panel/base.html" %}
-{% block title %}Dashboard{% endblock %}
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard - FreelanceHub{% endblock %}
+
 {% block content %}
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Dashboard</h1>
+<div class="container">
+    <!-- Welcome Section -->
+    <div class="row">
+        <div class="col-12">
+            <div class="alert alert-dark text-center" role="alert">
+                <h4 class="mb-0">Welcome, Admin!</h4>
+                <p class="mb-0">Monitor users, jobs, payments, system performance, and more!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Statistics -->
+    <div class="row my-4">
+        <!-- Manage Users -->
+        <div class="col-md-3">
+            <div class="card text-center shadow-lg">
+                <div class="card-body">
+                    <i class="fas fa-users fa-3x text-primary"></i>
+                    <h5 class="card-title mt-3">Manage Users</h5>
+                    <p class="card-text">View and manage all platform users.</p>
+                    <a href="{% url 'admin_manage_users' %}" class="btn btn-outline-primary">View Users</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Job Postings Overview -->
+        <div class="col-md-3">
+            <div class="card text-center shadow-lg">
+                <div class="card-body">
+                    <i class="fas fa-clipboard-list fa-3x text-success"></i>
+                    <h5 class="card-title mt-3">Job Postings Overview</h5>
+                    <p class="card-text">Monitor all job postings and their statuses.</p>
+                    <a href="{% url 'admin_job_postings' %}" class="btn btn-outline-success">View Jobs</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Management -->
+        <div class="col-md-3">
+            <div class="card text-center shadow-lg">
+                <div class="card-body">
+                    <i class="fas fa-dollar-sign fa-3x text-warning"></i>
+                    <h5 class="card-title mt-3">Payment Management</h5>
+                    <p class="card-text">Manage and review all platform payments.</p>
+                    <a href="{% url 'admin_payments' %}" class="btn btn-outline-warning">Manage Payments</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Activity -->
+        <div class="col-md-3">
+            <div class="card text-center shadow-lg">
+                <div class="card-body">
+                    <i class="fas fa-cogs fa-3x text-info"></i>
+                    <h5 class="card-title mt-3">System Activity</h5>
+                    <p class="card-text">Monitor system performance and user activities.</p>
+                    <a href="{% url 'admin_system_activity' %}" class="btn btn-outline-info">View Activity</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional Features Section -->
+    <div class="row my-4">
+        <!-- Analytics -->
+        <div class="col-md-3">
+            <div class="card text-center shadow-lg">
+                <div class="card-body">
+                    <i class="fas fa-chart-line fa-3x text-primary"></i>
+                    <h5 class="card-title mt-3">Analytics</h5>
+                    <p class="card-text">View platform performance, traffic, and growth metrics.</p>
+                    <a href="{% url 'admin_analytics' %}" class="btn btn-outline-primary">View Analytics</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notifications -->
+        <div class="col-md-3">
+            <div class="card text-center shadow-lg">
+                <div class="card-body">
+                    <i class="fas fa-bell fa-3x text-danger"></i>
+                    <h5 class="card-title mt-3">Notifications</h5>
+                    <p class="card-text">Manage and view system notifications for admin actions.</p>
+                    <a href="{% url 'admin_notifications' %}" class="btn btn-outline-danger">Manage Notifications</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Support Tickets -->
+        <div class="col-md-3">
+            <div class="card text-center shadow-lg">
+                <div class="card-body">
+                    <i class="fas fa-headset fa-3x text-info"></i>
+                    <h5 class="card-title mt-3">Support Tickets</h5>
+                    <p class="card-text">Manage support tickets submitted by users or freelancers.</p>
+                    <a href="{% url 'admin_support_tickets' %}" class="btn btn-outline-info">View Tickets</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Feedback -->
+        <div class="col-md-3">
+            <div class="card text-center shadow-lg">
+                <div class="card-body">
+                    <i class="fas fa-comments fa-3x text-warning"></i>
+                    <h5 class="card-title mt-3">User Feedback</h5>
+                    <p class="card-text">View and manage user feedback and reviews.</p>
+                    <a href="{% url 'admin_user_feedback' %}" class="btn btn-outline-warning">View Feedback</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Freelancers and Clients Management -->
+    <div class="row my-4">
+        <!-- Manage Freelancers -->
+        <div class="col-md-3">
+            <div class="card text-center shadow-lg">
+                <div class="card-body">
+                    <i class="fas fa-user-tie fa-3x text-info"></i>
+                    <h5 class="card-title mt-3">Manage Freelancers</h5>
+                    <p class="card-text">Monitor and manage freelancer profiles and activities.</p>
+                    <a href="{% url 'admin_manage_freelancers' %}" class="btn btn-outline-info">View Freelancers</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Manage Clients -->
+        <div class="col-md-3">
+            <div class="card text-center shadow-lg">
+                <div class="card-body">
+                    <i class="fas fa-users-cog fa-3x text-primary"></i>
+                    <h5 class="card-title mt-3">Manage Clients</h5>
+                    <p class="card-text">View and manage client accounts and their projects.</p>
+                    <a href="{% url 'admin_manage_clients' %}" class="btn btn-outline-primary">View Clients</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activity Section -->
+    <div class="row my-4">
+        <div class="col-12">
+            <div class="card shadow-lg">
+                <div class="card-header bg-dark text-white">
+                    <i class="fas fa-history"></i> Recent Activity
+                </div>
+                <div class="card-body">
+                    {% if recent_activity %}
+                        <ul class="list-group">
+                            {% for activity in recent_activity %}
+                                <li class="list-group-item">
+                                    <i class="fas fa-check-circle text-success"></i> {{ activity.message }}
+                                    <span class="text-muted float-end">{{ activity.timestamp|date:"d M Y, H:i" }}</span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="text-center">No recent activity found.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Health Monitoring -->
+    <div class="row my-4">
+        <div class="col-md-6">
+            <div class="card text-center shadow-lg">
+                <div class="card-body">
+                    <i class="fas fa-heartbeat fa-3x text-danger"></i>
+                    <h5 class="card-title mt-3">System Health</h5>
+                    <p class="card-text">Check the health and uptime of the system.</p>
+                    <a href="{% url 'admin_system_health' %}" class="btn btn-outline-danger">View Health</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- New Registrations -->
+        <div class="col-md-6">
+            <div class="card text-center shadow-lg">
+                <div class="card-body">
+                    <i class="fas fa-user-plus fa-3x text-success"></i>
+                    <h5 class="card-title mt-3">New Registrations</h5>
+                    <p class="card-text">View and manage new freelancer and client registrations.</p>
+                    <a href="{% url 'admin_new_registrations' %}" class="btn btn-outline-success">View Registrations</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-
-<!-- Overview Metrics -->
-<div class="row">
-    <div class="col-md-3">
-        <div class="card text-white bg-primary mb-3">
-            <div class="card-body d-flex align-items-center">
-                <div class="me-3">
-                    <i class="fa fa-users fa-2x"></i>
-                </div>
-                <div>
-                    <h5 class="card-title">Total Users</h5>
-                    <p class="card-text">Clients: 200 | Freelancers: 150</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card text-white bg-success mb-3">
-            <div class="card-body d-flex align-items-center">
-                <div class="me-3">
-                    <i class="fa fa-briefcase fa-2x"></i>
-                </div>
-                <div>
-                    <h5 class="card-title">Active Projects</h5>
-                    <p class="card-text">50 ongoing</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card text-white bg-warning mb-3">
-            <div class="card-body d-flex align-items-center">
-                <div class="me-3">
-                    <i class="fa fa-check-circle fa-2x"></i>
-                </div>
-                <div>
-                    <h5 class="card-title">Completed Projects</h5>
-                    <p class="card-text">120 completed</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card text-white bg-danger mb-3">
-            <div class="card-body d-flex align-items-center">
-                <div class="me-3">
-                    <i class="fa fa-dollar fa-2x"></i>
-                </div>
-                <div>
-                    <h5 class="card-title">Revenue Summary</h5>
-                    <p class="card-text">$25,000 (This Month)</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- Graphical Insights -->
-<div class="row">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">Revenue Trends</div>
-            <div class="card-body">
-                <canvas id="revenueChart"></canvas>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">User Activity Trends</div>
-            <div class="card-body">
-                <canvas id="activityChart"></canvas>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Activity Feed -->
-<div class="row">
-    <div class="col-md-12">
-        <div class="card mb-3">
-            <div class="card-header bg-dark text-white">Recent Activities</div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">New user registered: John Doe</li>
-                <li class="list-group-item">Project milestone completed: Web App Development</li>
-                <li class="list-group-item">Payment approved for Freelancer: $500</li>
-                <li class="list-group-item">Client posted a new job: Logo Design</li>
-            </ul>
-        </div>
-    </div>
-</div>
-
-<!-- Quick Actions -->
-<div class="row">
-    <div class="col-md-4">
-        <div class="card mb-3">
-            <div class="card-body text-center">
-                <button class="btn btn-primary w-100">Add New User</button>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card mb-3">
-            <div class="card-body text-center">
-                <button class="btn btn-success w-100">View Flagged Content</button>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="card mb-3">
-            <div class="card-body text-center">
-                <button class="btn btn-danger w-100">Resolve Disputes</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-{% block extra_js %}
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    const revenueCtx = document.getElementById('revenueChart').getContext('2d');
-    new Chart(revenueCtx, {
-        type: 'line',
-        data: {
-            labels: ['January', 'February', 'March', 'April'],
-            datasets: [{
-                label: 'Revenue',
-                data: [5000, 7000, 8000, 9000],
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1,
-                fill: false,
-            }]
-        }
-    });
-
-    const activityCtx = document.getElementById('activityChart').getContext('2d');
-    new Chart(activityCtx, {
-        type: 'bar',
-        data: {
-            labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-            datasets: [{
-                label: 'Daily Signups',
-                data: [20, 15, 30, 25, 40],
-                backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                borderColor: 'rgba(54, 162, 235, 1)',
-                borderWidth: 1,
-            }]
-        }
-    });
-</script>
-{% endblock %}
 {% endblock %}
