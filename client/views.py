@@ -21,13 +21,10 @@ def client_dashboard(request):
 
 @login_required
 def post_job(request):
-    if request.method == 'POST':
-        title = request.POST['job_title']
-        description = request.POST['job_description']
-        budget = request.POST['budget']
-        Job.objects.create(client=request.user, title=title, description=description, budget=budget)
-        return redirect('client_dashboard')
-    return render(request, 'client/post_job.html')
+    job = Job()  # Create an instance to access the model choices
+    return render(request, 'client/post_job.html', {
+        'job': job,  # Pass the Job instance to the template
+    })
 
 @login_required
 def edit_job(request, job_id):
