@@ -61,3 +61,14 @@ class UserFeedback(models.Model):
 
     def __str__(self):
         return f"Feedback by {self.user.username} on {self.date_submitted}"
+class SystemHealth(models.Model):
+    cpu_usage = models.DecimalField(max_digits=5, decimal_places=2, help_text="CPU usage percentage (0-100%)")
+    memory_usage = models.DecimalField(max_digits=5, decimal_places=2, help_text="Memory usage percentage (0-100%)")
+    disk_space = models.DecimalField(max_digits=5, decimal_places=2, help_text="Disk space usage percentage (0-100%)")
+    timestamp = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"System Health at {self.timestamp}"
+
+    class Meta:
+        ordering = ['-timestamp']
