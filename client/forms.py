@@ -1,8 +1,11 @@
-# client/forms.py
 from django import forms
-from .models import Feedback
+from .models import Job
 
-class FeedbackForm(forms.ModelForm):
+class JobForm(forms.ModelForm):
     class Meta:
-        model = Feedback
-        fields = ['rating', 'comments']
+        model = Job
+        fields = ['title', 'description', 'category', 'type', 'min_budget', 'max_budget', 'skills', 'status']
+        widgets = {
+            'skills': forms.Textarea(attrs={'placeholder': 'Enter skills as a comma-separated list (e.g., Python, Django, HTML)'}),
+            'description': forms.Textarea(attrs={'rows': 4}),
+        }
