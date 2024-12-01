@@ -1,60 +1,48 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from .models import ClientProfile, Project, Notification, Invoice
-from django.contrib import messages
-from .forms import FeedbackForm
-
-def client_register(request):
-    return render(request, 'client/register.html')
-
-def client_login(request):
-    return render(request, 'client/login.html')
+from .models import Job, Message, Notification
+from django.contrib.auth.models import User
 
 @login_required
 def client_dashboard(request):
-    projects = Project.objects.filter(client=request.user)
-    notifications = Notification.objects.filter(client=request.user, is_read=False)
+    active_jobs = Job.objects.filter(client=request.user, is_active=True).count()
+    hired_freelancers = 0  # Placeholder for hired freelancers logic
+    unread_messages = Message.objects.filter(recipient=request.user, is_read=False).count()
+    recent_activity = Notification.objects.filter(user=request.user).order_by('-timestamp')[:5]
     return render(request, 'client/client_dashboard.html', {
-        'projects': projects,
-        'notifications': notifications
+        'active_jobs': active_jobs,
+        'hired_freelancers': hired_freelancers,
+        'unread_messages': unread_messages,
+        'recent_activity': recent_activity,
     })
 
 @login_required
-def project_detail(request, project_id):
-    project = get_object_or_404(Project, id=project_id, client=request.user)
-    return render(request, 'client/project_detail.html', {'project': project})
+def post_job(request):
+    if request.method == 'POST':
+        title = request.POST['job_title']
+        description = request.POST['job_description']
+        budget = request.POST['budget']
+        Job.objects.create(client=request.user, title=title, description=description, budget=budget)
+        return redirect('client_dashboard')
+    return render(request, 'client/post_job.html')
 
 @login_required
-def notifications(request):
-    notifications = Notification.objects.filter(client=request.user)
-    for notification in notifications:
-        notification.is_read = True
-        notification.save()
+def edit_job(request, job_id):
+    job = get_object_or_404(Job, id=job_id, client=request.user)
+    if request.method == 'POST':
+        job.title = request.POST['job_title']
+        job.description = request.POST['job_description']
+        job.budget = request.POST['budget']
+        job.save()
+        return redirect('client_dashboard')
+    return render(request, 'client/edit_job.html', {'job': job})
+
+@login_required
+def messages_view(request):
+    messages = Message.objects.filter(recipient=request.user)
+    return render(request, 'client/messages.html', {'messages': messages})
+
+@login_required
+def notifications_view(request):
+    notifications = Notification.objects.filter(user=request.user)
     return render(request, 'client/notifications.html', {'notifications': notifications})
-
-@login_required
-def invoices(request):
-    invoices = Invoice.objects.filter(project__client=request.user)
-    return render(request, 'client/invoices.html', {'invoices': invoices})
-
-
-
-def project_feedback(request, project_id):
-    project = get_object_or_404(Project, id=project_id)
-
-    if request.method == "POST":
-        form = FeedbackForm(request.POST)
-        if form.is_valid():
-            feedback = form.save(commit=False)
-            feedback.project = project
-            feedback.client = request.user  # Assuming logged-in client
-            feedback.save()
-            return redirect('dashboard')
-    else:
-        form = FeedbackForm()
-
-    return render(request, 'client/project_feedback.html', {'form': form, 'project': project})
-def client_profile(request):
-    # Your logic for the client profile page
-    return render(request, 'client/client_profile.html')
