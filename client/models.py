@@ -53,3 +53,13 @@ class Notification(models.Model):
 
     def __str__(self):
         return self.message
+
+class Feedback(models.Model):
+    job = models.ForeignKey('Job', on_delete=models.CASCADE)
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    rating = models.IntegerField()
+    comment = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Feedback for {self.job.title} by {self.user.username}"
