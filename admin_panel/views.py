@@ -13,7 +13,10 @@ def admin_dashboard(request):
     total_users = User.objects.count()
     total_jobs = JobPosting.objects.count()
     total_payments = Payment.objects.count()
-    system_health = SystemHealth.objects.latest('timestamp')
+    try:
+        system_health = SystemHealth.objects.get(id=1)  # Example query
+    except SystemHealth.DoesNotExist:
+        system_health = None
     
     # Render the admin dashboard template with context
     context = {
