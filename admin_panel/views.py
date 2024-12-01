@@ -1,192 +1,100 @@
-from django.shortcuts import get_object_or_404, render, redirect
-from django.db import connection
-from django.contrib.auth.hashers import check_password
-from django.contrib import messages
-from django.contrib.auth.models import User
-from .forms import AddUserForm  
-from .models import Project  
-from .forms import ProjectForm  
-from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from .models import UserSettings
+from django.shortcuts import render
 
-def admin_login(request):
-    if request.method == "POST":
-        username = request.POST.get("username")
-        password = request.POST.get("password")
+from client.models import Feedback
+from .models import Activity, User, JobPosting, Payment, SystemHealth, Tickets
 
-        # Query the database for the admin user
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT id, password FROM admins WHERE username = %s", [username])
-            admin = cursor.fetchone()
-
-        # Validate the user and password
-        if admin and check_password(password, admin[1]):
-            # Store admin session
-            request.session['admin_id'] = admin[0]
-            return redirect("/admin_panel/dashboard/")
-        else:
-            messages.error(request, "Invalid username or password")
-
-    return render(request, "admin_panel/login.html")
-
-
-def dashboard(request):
-    # Ensure admin is logged in
-    # if 'admin_id' not in request.session:
-    #     return redirect('/admin_panel/login/')
-    return render(request, 'admin_panel/dashboard.html')
-
-
-# User Management View
-def user_management(request):
-    """
-    View for displaying and managing users.
-    Includes options for viewing, editing, and suspending users.
-    """
-    # Fetch all users
-    users = User.objects.all()
-
+# Admin dashboard view
+def admin_dashboard(request):
+    # Fetch recent activities
+    recent_activity = Activity.objects.all().order_by('-timestamp')[:5]
+    
+    # Fetch counts for various sections
+    total_users = User.objects.count()
+    total_jobs = JobPosting.objects.count()
+    total_payments = Payment.objects.count()
+    system_health = SystemHealth.objects.latest('timestamp')
+    
+    # Render the admin dashboard template with context
     context = {
-        "users": users,
+        'recent_activity': recent_activity,
+        'total_users': total_users,
+        'total_jobs': total_jobs,
+        'total_payments': total_payments,
+        'system_health': system_health,
     }
-    return render(request, "admin_panel/user_management.html", context)
-
-def add_user(request):
-    if request.method == "POST":
-        form = AddUserForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, "User added successfully!")
-            return redirect('user_management')  # Redirect to the user management page
-    else:
-        form = AddUserForm()
-    return render(request, 'admin_panel/add_user.html', {'form': form})
-
-def delete_user(request, user_id):
-    user = get_object_or_404(User, id=user_id)
     
-    # Ensure that only superusers or admins can delete users
-    if request.user.is_superuser:
-        user.delete()
-        messages.success(request, "User deleted successfully.")
-    else:
-        messages.error(request, "You do not have permission to delete users.")
-    
-    return redirect('user_management')
+    return render(request, 'admin_dashboard.html', context)
 
-# View User Profile
-def view_user(request, user_id):
-    """
-    View for displaying the details of a single user.
-    """
-    user = get_object_or_404(User, id=user_id)
-    return render(request, "admin_panel/view_user.html", {"user": user})
+# View for managing users
+def admin_manage_users(request):
+    users = User.objects.all()
+    return render(request, 'admin_manage_users.html', {'users': users})
 
-# Edit User Profile
-def edit_user(request, user_id):
-    """
-    View for editing a user's profile information.
-    """
-    user = get_object_or_404(User, id=user_id)
-    if request.method == "POST":
-        user.first_name = request.POST.get("first_name", user.first_name)
-        user.last_name = request.POST.get("last_name", user.last_name)
-        user.email = request.POST.get("email", user.email)
-        user.save()
-        messages.success(request, "User profile updated successfully!")
-        return redirect("user_management")
+# View for managing job postings
+def admin_job_postings(request):
+    job_postings = JobPosting.objects.all()
+    return render(request, 'admin_job_postings.html', {'job_postings': job_postings})
 
-    return render(request, "admin_panel/edit_user.html", {"user": user})
+# View for managing payments
+def admin_payments(request):
+    payments = Payment.objects.all()
+    return render(request, 'admin_payments.html', {'payments': payments})
 
-# Suspend or Activate User
-def toggle_user_status(request, user_id):
-    """
-    Toggle the active status of a user (activate/suspend).
-    """
-    user = get_object_or_404(User, id=user_id)
-    user.is_active = not user.is_active
-    user.save()
-    status = "activated" if user.is_active else "suspended"
-    messages.success(request, f"User has been {status}.")
-    return redirect("user_management")
+# View for system activity
+def admin_system_activity(request):
+    activities = Activity.objects.all()
+    return render(request, 'admin_system_activity.html', {'activities': activities})
 
+# View for viewing platform analytics
+def admin_analytics(request):
+    # Example placeholder for analytics data (replace with actual data)
+    analytics_data = {
+        'traffic': 5000,
+        'growth': 15,
+        'user_engagement': 80,
+    }
+    return render(request, 'admin_analytics.html', {'analytics_data': analytics_data})
 
+# View for managing notifications
+def admin_notifications(request):
+    # Example placeholder for notifications
+    notifications = [
+        {'message': 'New user registered.', 'timestamp': '2024-12-01 12:30'},
+        {'message': 'Payment received for job 101.', 'timestamp': '2024-12-01 14:00'},
+    ]
+    return render(request, 'admin_notifications.html', {'notifications': notifications})
 
-# View all projects
-def project_management(request):
-    projects = Project.objects.all()  # Adjust query as needed
-    return render(request, 'admin_panel/project_management.html', {'projects': projects})
+# View for managing support tickets
+def admin_support_tickets(request):
+    tickets = Ticket.objects.all()
+    return render(request, 'admin_support_tickets.html', {'tickets': tickets})
 
+# View for managing user feedback
+def admin_user_feedback(request):
+    feedback = Feedback.objects.all()
+    return render(request, 'admin_user_feedback.html', {'feedback': feedback})
 
-def add_project(request):
-    if request.method == 'POST':
-        form = ProjectForm(request.POST)
-        if form.is_valid():
-            print("Form is valid, saving project")
-            form.save()
-            return redirect('project_management')
-        else:
-            print("Form errors: ", form.errors)  # Print out form errors
-    else:
-        form = ProjectForm()
-    return render(request, 'admin_panel/add_project.html', {'form': form})
+# View for managing freelancers
+def admin_manage_freelancers(request):
+    freelancers = User.objects.filter(user_type='freelancer')
+    return render(request, 'admin_manage_freelancers.html', {'freelancers': freelancers})
 
-# View individual project details
-def view_project(request, project_id):
-    project = get_object_or_404(Project, id=project_id)
-    return render(request, 'admin_panel/view_project.html', {'project': project})
+# View for managing clients
+def admin_manage_clients(request):
+    clients = User.objects.filter(user_type='client')
+    return render(request, 'admin_manage_clients.html', {'clients': clients})
 
-# Edit project details
-def edit_project(request, project_id):
-    project = get_object_or_404(Project, id=project_id)
-    if request.method == "POST":
-        project.name = request.POST['name']
-        project.description = request.POST['description']
-        project.status = request.POST['status']  # Assuming status field exists
-        project.save()
-        messages.success(request, "Project updated successfully.")
-        return redirect('project_management')
-    
-    return render(request, 'admin_panel/edit_project.html', {'project': project})
+# View for recent activity
+def admin_recent_activity(request):
+    recent_activity = Activity.objects.all().order_by('-timestamp')[:5]
+    return render(request, 'admin_recent_activity.html', {'recent_activity': recent_activity})
 
-# Delete a project
-def delete_project(request, project_id):
-    project = get_object_or_404(Project, id=project_id)
-    if request.user.is_superuser:
-        project.delete()
-        messages.success(request, "Project deleted successfully.")
-    else:
-        messages.error(request, "You do not have permission to delete this project.")
-    
-    return redirect('project_management')
+# View for checking system health
+def admin_system_health(request):
+    system_health = SystemHealth.objects.latest('timestamp')
+    return render(request, 'admin_system_health.html', {'system_health': system_health})
 
-
-
-@login_required
-def system_settings(request):
-    try:
-        # Try to get the UserSettings for the logged-in user
-        user_settings = UserSettings.objects.get(user=request.user)
-    except UserSettings.DoesNotExist:
-        # If it doesn't exist, create a default one
-        user_settings = UserSettings.objects.create(
-            user=request.user,
-            language='en',  # Default language
-            timezone='UTC',  # Default timezone
-            notifications_enabled=True,  # Default notifications setting
-            dark_mode=False,  # Default dark mode setting
-        )
-
-    if request.method == 'POST':
-        # Update user settings from the form
-        user_settings.language = request.POST.get('language', user_settings.language)
-        user_settings.timezone = request.POST.get('timezone', user_settings.timezone)
-        user_settings.notifications_enabled = 'notifications_enabled' in request.POST
-        user_settings.dark_mode = 'dark_mode' in request.POST
-        if 'profile_picture' in request.FILES:
-            user_settings.profile_picture = request.FILES['profile_picture']
-        user_settings.save()
-        return redirect('system_settings')
-    
-    return render(request, 'admin_panel/system_settings.html', {'settings': user_settings})
+# View for new registrations
+def admin_new_registrations(request):
+    new_registrations = User.objects.filter(is_new=True)
+    return render(request, 'admin_new_registrations.html', {'new_registrations': new_registrations})
