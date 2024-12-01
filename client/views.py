@@ -153,6 +153,7 @@ def filter_jobs(request):
         context = {'jobs': jobs}
         return render(request, 'client/jobs.html', context)
     
+# Job Detail View
 def job_detail(request, job_id):
     job = get_object_or_404(Job, pk=job_id)
     return render(request, 'client/job_detail.html', {'job': job})
