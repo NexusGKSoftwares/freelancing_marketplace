@@ -3,15 +3,37 @@ from django.db import models
 from django.utils.timezone import now
 
 class Job(models.Model):
-    client = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
+    TYPE_CHOICES = [
+        ('hourly', 'Hourly'),
+        ('fixed', 'Fixed Price'),
+    ]
+
+    STATUS_CHOICES = [
+        ('open', 'Open'),
+        ('closed', 'Closed'),
+    ]
+
+    CATEGORY_CHOICES = [
+        ('web_dev', 'Web Development'),
+        ('design', 'Graphic Design'),
+        ('writing', 'Content Writing'),
+        ('seo', 'SEO Optimization'),
+        ('marketing', 'Digital Marketing'),
+    ]
+
+    title = models.CharField(max_length=255)
     description = models.TextField()
-    budget = models.DecimalField(max_digits=10, decimal_places=2)
-    created_at = models.DateTimeField(auto_now_add=True)
-    is_active = models.BooleanField(default=True)
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
+    type = models.CharField(max_length=20, choices=TYPE_CHOICES)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='open')
+    min_budget = models.DecimalField(max_digits=10, decimal_places=2)
+    max_budget = models.DecimalField(max_digits=10, decimal_places=2)
+    skills = models.JSONField(help_text="List of skills required, e.g., ['Python', 'Django']")  # Requires PostgreSQL or Django 3.1+
+    posted_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
+
 
 class Message(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_messages')
