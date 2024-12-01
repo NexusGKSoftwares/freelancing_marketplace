@@ -24,7 +24,7 @@ def admin_dashboard(request):
         'system_health': system_health,
     }
     
-    return render(request, 'admin_panel/admin_dashboard.html', context)
+    return render(request, 'admin_panel/dashboard.html', context)
 
 # View for managing users
 def admin_manage_users(request):
