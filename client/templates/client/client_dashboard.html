@@ -20,6 +20,17 @@
             <div class="card text-center shadow">
                 <div class="card-body">
                     <i class="fas fa-briefcase fa-3x text-primary"></i>
+                    <h5 class="card-title mt-3">Post Jobs</h5>
+                    <p class="card-text display-6">{{ active_jobs }}</p>
+                    <a href="{% url 'post_job' %}" class="btn btn-outline-primary">Post Job</a>
+                </div>
+            </div>
+        </div>
+    <div class="row my-4">
+        <div class="col-md-4">
+            <div class="card text-center shadow">
+                <div class="card-body">
+                    <i class="fas fa-briefcase fa-3x text-primary"></i>
                     <h5 class="card-title mt-3">Active Jobs</h5>
                     <p class="card-text display-6">{{ active_jobs }}</p>
                     <a href="{% url 'job_list' %}" class="btn btn-outline-primary">View Jobs</a>
@@ -48,34 +59,7 @@
         </div>
     </div>
 
-    <!-- Job Post Section -->
-    <div class="row my-4">
-        <div class="col-12">
-            <div class="card shadow">
-                <div class="card-header bg-primary text-white">
-                    <i class="fas fa-plus-circle"></i> Post a New Job
-                </div>
-                <div class="card-body">
-                    <form method="post" action="{% url 'post_job' %}">
-                        {% csrf_token %}
-                        <div class="mb-3">
-                            <label for="jobTitle" class="form-label">Job Title</label>
-                            <input type="text" class="form-control" id="jobTitle" name="job_title" placeholder="Enter job title" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="jobDescription" class="form-label">Job Description</label>
-                            <textarea class="form-control" id="jobDescription" name="job_description" rows="4" placeholder="Describe the job details" required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="budget" class="form-label">Budget</label>
-                            <input type="number" class="form-control" id="budget" name="budget" placeholder="Enter budget in USD" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Post Job</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <!-- Recent Activity -->
     <div class="row my-4">
