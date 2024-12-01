@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ job.title }}</title>
+</head>
+<body>
+    <h1>{{ job.title }}</h1>
+    <p><strong>Category:</strong> {{ job.get_category_display }}</p>
+    <p><strong>Type:</strong> {{ job.get_type_display }}</p>
+    <p><strong>Budget:</strong> ${{ job.min_budget }} - ${{ job.max_budget }}</p>
+    <p><strong>Posted On:</strong> {{ job.posted_on }}</p>
+    <h3>Description</h3>
+    <p>{{ job.description }}</p>
+    <h3>Required Skills</h3>
+    <ul>
+        {% for skill in job.skills %}
+        <li>{{ skill }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'job_list' %}">Back to Job Listings</a>
+</body>
+</html>
