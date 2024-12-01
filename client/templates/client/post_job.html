@@ -1,6 +1,32 @@
 {% extends 'base.html' %}
 {% block title %}Post Job{% endblock %}
 {% block content %}
+<style>
+    .card-header {
+    background-image: linear-gradient(to right, #0056b3, #007bff);
+}
+
+input[type="range"] {
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    background: #ddd;
+    outline: none;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+input[type="range"]:hover {
+    opacity: 1;
+}
+
+.alert-secondary {
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    margin: 0;
+}
+
+</style>
 <div class="container mt-5">
     <div class="card shadow-lg">
         <div class="card-header bg-primary text-white">
