@@ -22,9 +22,6 @@ def client_dashboard(request):
 @login_required
 def post_job(request):
     job = Job()  # Create an instance to access the model choices
-    return render(request, 'client/post_job.html', {
-        'job': job,  # Pass the Job instance to the template
-    })
     if request.method == 'POST':
         # Handle job form submission
         title = request.POST.get('title')
