@@ -30,7 +30,7 @@ def register(request):
             return redirect('dashboard')
     else:
         form = UserCreationForm()
-    return render(request, 'register.html', {'form': form})
+    return render(request, 'freelancer/register.html', {'form': form})
 
 # Login view
 def custom_login(request):
@@ -44,10 +44,10 @@ def custom_login(request):
                 login(request, user)
                 return redirect('dashboard')
         else:
-            return render(request, 'login.html', {'form': form, 'error': 'Invalid credentials'})
+            return render(request, 'freelancer/login.html', {'form': form, 'error': 'Invalid credentials'})
     else:
         form = AuthenticationForm()
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'freelancer/login.html', {'form': form})
 
 # Dashboard view
 @login_required
