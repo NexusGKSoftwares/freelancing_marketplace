@@ -22,7 +22,7 @@ def register(request):
             return redirect('login')
     else:
         form = UserCreationForm()
-    return render(request, 'register.html', {'form': form})
+    return render(request, 'freelancer/register.html', {'form': form})
 @login_required
 def dashboard(request):
     if request.user.role == 'freelancer':
