@@ -4,8 +4,11 @@ from django.urls import reverse
 from .models import Freelancer, Job, Notification, Feedback
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from .models import CustomUser
-
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from .models import CustomUser 
 def index(request):
     if not request.user.is_authenticated:
         return render(request, 'freelancer/index.html')
