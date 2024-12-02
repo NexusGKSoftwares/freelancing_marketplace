@@ -24,7 +24,18 @@ def register(request):
         form = UserCreationForm()
     return render(request, 'register.html', {'form': form})
 @login_required
+def dashboard(request):
+    if request.user.role == 'freelancer':
+        return redirect('freelancer_dashboard')
+    elif request.user.role == 'client':
+        return redirect('client_dashboard')
+    elif request.user.role == 'admin':
+        return redirect('admin_dashboard')
+    else:
+        return redirect('login')
+@login_required
 def freelancer_dashboard(request):
+    
     # Assuming the user is logged in
     freelancer = Freelancer.objects.get(user=request.user)  # Use related 'user' field here
     available_jobs_count = Job.objects.filter(is_available=True).count()
