@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, Group, Permission
+from django.db import models
+
 class CustomUser(AbstractUser):
     ROLE_CHOICES = [
         ('freelancer', 'Freelancer'),
@@ -8,6 +11,23 @@ class CustomUser(AbstractUser):
         ('admin', 'Admin'),
     ]
     role = models.CharField(max_length=15, choices=ROLE_CHOICES)
+
+    # Avoid clashes with related_name
+    groups = models.ManyToManyField(
+        Group,
+        related_name="customuser_set",  # Changed related_name to avoid clashes
+        blank=True,
+        help_text="The groups this user belongs to.",
+        verbose_name="groups",
+    )
+    user_permissions = models.ManyToManyField(
+        Permission,
+        related_name="customuser_set",  # Changed related_name to avoid clashes
+        blank=True,
+        help_text="Specific permissions for this user.",
+        verbose_name="user permissions",
+    )
+
 class Freelancer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
