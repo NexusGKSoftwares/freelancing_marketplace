@@ -32,7 +32,7 @@ def dashboard(request):
     elif request.user.role == 'admin':
         return redirect('admin_dashboard')
     else:
-        return redirect('login')
+        return redirect('freelancer/login')
 @login_required
 def freelancer_dashboard(request):
     
@@ -45,7 +45,7 @@ def freelancer_dashboard(request):
     earnings_data = [100, 200, 300, 400]  # Example earnings data
     earnings_labels = ['January', 'February', 'March', 'April']  # Example labels for earnings
 
-    return render(request, 'freelancer/dashboard.html', {
+    return render(request, 'dashboard.html', {
         'freelancer': freelancer,
         'available_jobs_count': available_jobs_count,
         'notifications': notifications,
