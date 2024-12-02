@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.urls import reverse
 from .models import Freelancer, Job, Notification, Feedback
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from .models import CustomUser
 
 def index(request):
     if not request.user.is_authenticated:
@@ -10,6 +12,17 @@ def index(request):
     else:
         return HttpResponseRedirect(reverse('freelancer_dashboard'))
     
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.role = request.POST.get('role')  # Set role based on form input
+            user.save()
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'register.html', {'form': form})
 @login_required
 def freelancer_dashboard(request):
     # Assuming the user is logged in
