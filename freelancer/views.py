@@ -12,17 +12,41 @@ def index(request):
     else:
         return HttpResponseRedirect(reverse('freelancer_dashboard'))
     
+# Register view
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.role = request.POST.get('role')  # Set role based on form input
+            # Set user role from the form
+            user_role = request.POST.get('role')
+            if user_role in ['freelancer', 'client', 'admin']:
+                user.role = user_role
             user.save()
-            return redirect('login')
+            login(request, user)  # Log the user in after registration
+            return redirect('dashboard')
     else:
         form = UserCreationForm()
-    return render(request, 'freelancer/register.html', {'form': form})
+    return render(request, 'register.html', {'form': form})
+
+# Login view
+def custom_login(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('dashboard')
+        else:
+            return render(request, 'login.html', {'form': form, 'error': 'Invalid credentials'})
+    else:
+        form = AuthenticationForm()
+    return render(request, 'login.html', {'form': form})
+
+# Dashboard view
 @login_required
 def dashboard(request):
     if request.user.role == 'freelancer':
@@ -32,7 +56,20 @@ def dashboard(request):
     elif request.user.role == 'admin':
         return redirect('admin_dashboard')
     else:
-        return redirect('freelancer/login')
+        return HttpResponse("Role not recognized. Please contact support.")
+
+# Placeholder views for different dashboards
+@login_required
+def freelancer_dashboard(request):
+    return HttpResponse("Welcome to the Freelancer Dashboard!")
+
+@login_required
+def client_dashboard(request):
+    return HttpResponse("Welcome to the Client Dashboard!")
+
+@login_required
+def admin_dashboard(request):
+    return HttpResponse("Welcome to the Admin Dashboard!")
 @login_required
 def freelancer_dashboard(request):
     
