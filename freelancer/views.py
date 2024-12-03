@@ -52,7 +52,7 @@ def register(request):
 
     # If GET request, render the register page
     return render(request, 'freelancer/register.html')
-def freelancer_login(request):
+def login(request):
     if request.method == 'POST':
         # Get username and password from POST request
         username = request.POST.get('username')
