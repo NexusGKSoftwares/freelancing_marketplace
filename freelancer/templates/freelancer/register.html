@@ -77,7 +77,7 @@
                                     {% endif %}
             
                                     <!-- Registration Form -->
-                                    <form method="POST" action="{% url 'register' %}">
+                                    <form method="POST"  action="{% url 'register' %}">
                                         {% csrf_token %}
                                         <div class="mb-3">
                                             <label for="username" class="form-label">Username</label>

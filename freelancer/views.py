@@ -38,7 +38,7 @@ def register(request):
             messages.error(request, f"Error: {str(e)}")
             return redirect('register')
 
-    return render(request, 'registration.html')
+    return render(request, 'freelancer/registration.html')
 def freelancer_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
