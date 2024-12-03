@@ -52,24 +52,25 @@ def register(request):
 
     # If GET request, render the register page
     return render(request, 'freelancer/register.html')
-
-# Login view
-def custom_login(request):
+def freelancer_login(request):
     if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect('dashboard')
-        else:
-            return render(request, 'freelancer/login.html', {'form': form, 'error': 'Invalid credentials'})
-    else:
-        form = AuthenticationForm()
-    return render(request, 'freelancer/login.html', {'form': form})
+        # Get username and password from POST request
+        username = request.POST.get('username')
+        password = request.POST.get('password')
 
+        # Authenticate user
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            # Log the user in if authentication is successful
+            login(request, user)
+            return redirect('dashboard')  # Replace with the name of your desired redirect page
+        else:
+            # If authentication fails, add an error message
+            messages.error(request, "Invalid username or password.")
+    
+    # Render the login page if the method is GET or after an unsuccessful login attempt
+    return render(request, 'freelancer/login.html')
 # Dashboard view
 @login_required
 def dashboard(request):
