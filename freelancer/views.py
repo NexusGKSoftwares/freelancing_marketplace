@@ -72,36 +72,18 @@ def freelancer_login(request):
     
     return render(request, 'freelancer/login.html')  # Render the login page if GET request
 # Dashboard view
-@login_required
-def dashboard(request):
-    if request.user.role == 'freelancer':
-        return redirect('freelancer_dashboard')
-    elif request.user.role == 'client':
-        return redirect('client_dashboard')
-    elif request.user.role == 'admin':
-        return redirect('admin_dashboard')
-    else:
-        return HttpResponse("Role not recognized. Please contact support.")
-
-
 def freelancer_dashboard(request):
-    
-    # Assuming the user is logged in
-    freelancer = Freelancer.objects.get(user=request.user)  # Use related 'user' field here
-    available_jobs_count = Job.objects.filter(is_available=True).count()
-    notifications = Notification.objects.filter(freelancer=freelancer)
-    
-    # Calculate earnings and pass the data for the chart
-    earnings_data = [100, 200, 300, 400]  # Example earnings data
-    earnings_labels = ['January', 'February', 'March', 'April']  # Example labels for earnings
+    return render(request, 'freelancer/dashboard.html')
 
-    return render(request, 'freelancer/dashboard.html', {
-        'freelancer': freelancer,
-        'available_jobs_count': available_jobs_count,
-        'notifications': notifications,
-        'earnings_data': earnings_data,
-        'earnings_labels': earnings_labels,
-    })
+@login_required
+def freelancer_dashboard(request):
+    try:
+        freelancer = Freelancer.objects.get(user=request.user)
+    except Freelancer.DoesNotExist:
+        # Handle case where the freelancer object is not found
+        return redirect('register')  # Redirect to freelancer registration page
+    
+    return render(request, 'freelancer/dashboard.html', {'freelancer': freelancer})
 
 @login_required
 def freelancer_edit_profile(request):
