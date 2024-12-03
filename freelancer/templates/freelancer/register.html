@@ -77,7 +77,7 @@
                                     {% endif %}
             
                                     <!-- Registration Form -->
-                                    <form method="POST">
+                                    <form method="POST" action="{% url 'register' %}">
                                         {% csrf_token %}
                                         <div class="mb-3">
                                             <label for="username" class="form-label">Username</label>
@@ -99,6 +99,7 @@
                                             <button type="submit" class="btn btn-primary w-100">Register</button>
                                         </div>
                                     </form>
+                                    
             
                                     <!-- Login Redirect -->
                                     <div class="mt-3 text-center">
