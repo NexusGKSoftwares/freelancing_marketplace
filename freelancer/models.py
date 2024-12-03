@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import AbstractUser, Group, Permission
 from django.db import models
-
+from django.contrib.auth import get_user_model
 class CustomUser(AbstractUser):
     ROLE_CHOICES = [
         ('freelancer', 'Freelancer'),
@@ -29,7 +29,7 @@ class CustomUser(AbstractUser):
     )
 
 class Freelancer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     total_earnings = models.DecimalField(max_digits=10, decimal_places=2)
     # Using ForeignKey to link each freelancer to a job and feedback (single job per freelancer at a time)
