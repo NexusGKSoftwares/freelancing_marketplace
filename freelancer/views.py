@@ -17,7 +17,7 @@ def index(request):
     else:
         return HttpResponseRedirect(reverse('freelancer_dashboard'))
     
-def freelancer_registration(request):
+def register(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         email = request.POST.get('email')
@@ -27,31 +27,31 @@ def freelancer_registration(request):
         # Check if passwords match
         if password1 != password2:
             messages.error(request, "Passwords do not match.")
-            return redirect('freelancer_registration')
+            return redirect('register')
 
         # Check if username already exists
         if User.objects.filter(username=username).exists():
             messages.error(request, "Username already exists.")
-            return redirect('freelancer_registration')
+            return redirect('register')
 
         # Check if email already exists
         if User.objects.filter(email=email).exists():
             messages.error(request, "Email is already registered.")
-            return redirect('freelancer_registration')
+            return redirect('register')
 
         # Create a new user
         try:
             user = User.objects.create_user(username=username, email=email, password=password1)
             user.save()
-            login(request, user)  # Auto-login after registration
-            messages.success(request, "Registration successful! You are now logged in.")
-            return redirect('index')  # Redirect to the home page or desired page after successful registration
+            login(request, user)  # Auto-login after register
+            messages.success(request, "register successful! You are now logged in.")
+            return redirect('index')  # Redirect to the home page or desired page after successful register
         except Exception as e:
             messages.error(request, f"Error creating account: {str(e)}")
-            return redirect('freelancer_registration')
+            return redirect('register')
 
-    # If GET request, render the registration page
-    return render(request, 'registration.html')
+    # If GET request, render the register page
+    return render(request, 'freelancer/register.html')
 
 # Login view
 def custom_login(request):
