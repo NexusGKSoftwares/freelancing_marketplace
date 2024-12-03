@@ -9,28 +9,49 @@ from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from .models import CustomUser 
+from django.contrib import messages
+from django.contrib.auth.models import User
 def index(request):
     if not request.user.is_authenticated:
         return render(request, 'freelancer/index.html')
     else:
         return HttpResponseRedirect(reverse('freelancer_dashboard'))
     
-# Register view
-def register(request):
+def freelancer_registration(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            # Set user role from the form
-            user_role = request.POST.get('role')
-            if user_role in ['freelancer', 'client', 'admin']:
-                user.role = user_role
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+
+        # Check if passwords match
+        if password1 != password2:
+            messages.error(request, "Passwords do not match.")
+            return redirect('freelancer_registration')
+
+        # Check if username already exists
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Username already exists.")
+            return redirect('freelancer_registration')
+
+        # Check if email already exists
+        if User.objects.filter(email=email).exists():
+            messages.error(request, "Email is already registered.")
+            return redirect('freelancer_registration')
+
+        # Create a new user
+        try:
+            user = User.objects.create_user(username=username, email=email, password=password1)
             user.save()
-            login(request, user)  # Log the user in after registration
-            return redirect('dashboard')
-    else:
-        form = UserCreationForm()
-    return render(request, 'freelancer/register.html', {'form': form})
+            login(request, user)  # Auto-login after registration
+            messages.success(request, "Registration successful! You are now logged in.")
+            return redirect('index')  # Redirect to the home page or desired page after successful registration
+        except Exception as e:
+            messages.error(request, f"Error creating account: {str(e)}")
+            return redirect('freelancer_registration')
+
+    # If GET request, render the registration page
+    return render(request, 'registration.html')
 
 # Login view
 def custom_login(request):
