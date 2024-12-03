@@ -19,40 +19,26 @@ def index(request):
         return HttpResponseRedirect(reverse('freelancer_dashboard'))
     
 def register(request):
-    if request.method == 'POST':
-        username = request.POST.get('username')
-        email = request.POST.get('email')
-        password1 = request.POST.get('password1')
-        password2 = request.POST.get('password2')
+    if request.method == "POST":
+        username = request.POST['username']
+        email = request.POST['email']
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
 
-        # Check if passwords match
         if password1 != password2:
-            messages.error(request, "Passwords do not match.")
+            messages.error(request, "Passwords do not match!")
             return redirect('register')
 
-        # Check if username already exists
-        if User.objects.filter(username=username).exists():
-            messages.error(request, "Username already exists.")
-            return redirect('register')
-
-        # Check if email already exists
-        if User.objects.filter(email=email).exists():
-            messages.error(request, "Email is already registered.")
-            return redirect('register')
-
-        # Create a new user
         try:
             user = User.objects.create_user(username=username, email=email, password=password1)
-            user.save()
-            login(request, user)  # Auto-login after register
-            messages.success(request, "register successful! You are now logged in.")
-            return redirect('login')  # Redirect to the home page or desired page after successful register
+            login(request, user)
+            messages.success(request, "Registration successful!")
+            return redirect('dashboard')  # Adjust this as per your application logic
         except Exception as e:
-            messages.error(request, f"Error creating account: {str(e)}")
+            messages.error(request, f"Error: {str(e)}")
             return redirect('register')
 
-    # If GET request, render the register page
-    return render(request, 'freelancer/register.html')
+    return render(request, 'registration.html')
 def freelancer_login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
