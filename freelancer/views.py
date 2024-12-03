@@ -46,32 +46,31 @@ def register(request):
             user.save()
             login(request, user)  # Auto-login after register
             messages.success(request, "register successful! You are now logged in.")
-            return redirect('index')  # Redirect to the home page or desired page after successful register
+            return redirect('login')  # Redirect to the home page or desired page after successful register
         except Exception as e:
             messages.error(request, f"Error creating account: {str(e)}")
             return redirect('register')
 
     # If GET request, render the register page
     return render(request, 'freelancer/register.html')
-def login(request):
+def freelancer_login(request):
     if request.method == 'POST':
-        # Get username and password from POST request
         username = request.POST.get('username')
         password = request.POST.get('password')
-        # Check if user exists
-        user = authenticate(username=username, password=password)
-
+        
+        # Authenticate user
+        user = authenticate(request, username=username, password=password)
         
         if user is not None:
-            # Log the user in if authentication is successful
+            # Login the user
             login(request, user)
-            return redirect('dashboard')  # Replace with the name of your desired redirect page
+            messages.success(request, "Successfully logged in.")
+            return redirect('freelancer_dashboard')  # Redirect to home or any page after login
         else:
-            # If authentication fails, add an error message
             messages.error(request, "Invalid username or password.")
+            return redirect('login')  # Stay on login page for retry
     
-    # Render the login page if the method is GET or after an unsuccessful login attempt
-    return render(request, 'freelancer/login.html')
+    return render(request, 'freelancer/login.html')  # Render the login page if GET request
 # Dashboard view
 @login_required
 def dashboard(request):
@@ -84,19 +83,7 @@ def dashboard(request):
     else:
         return HttpResponse("Role not recognized. Please contact support.")
 
-# Placeholder views for different dashboards
-@login_required
-def freelancer_dashboard(request):
-    return HttpResponse("Welcome to the Freelancer Dashboard!")
 
-@login_required
-def client_dashboard(request):
-    return HttpResponse("Welcome to the Client Dashboard!")
-
-@login_required
-def admin_dashboard(request):
-    return HttpResponse("Welcome to the Admin Dashboard!")
-@login_required
 def freelancer_dashboard(request):
     
     # Assuming the user is logged in
@@ -108,7 +95,7 @@ def freelancer_dashboard(request):
     earnings_data = [100, 200, 300, 400]  # Example earnings data
     earnings_labels = ['January', 'February', 'March', 'April']  # Example labels for earnings
 
-    return render(request, 'dashboard.html', {
+    return render(request, 'freelancer/dashboard.html', {
         'freelancer': freelancer,
         'available_jobs_count': available_jobs_count,
         'notifications': notifications,
