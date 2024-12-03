@@ -33,7 +33,7 @@ def register(request):
             user = User.objects.create_user(username=username, email=email, password=password1)
             login(request, user)
             messages.success(request, "Registration successful!")
-            return redirect('dashboard')  # Adjust this as per your application logic
+            return redirect('freelancer_dashboard')  # Adjust this as per your application logic
         except Exception as e:
             messages.error(request, f"Error: {str(e)}")
             return redirect('register')
@@ -61,15 +61,7 @@ def freelancer_login(request):
 def freelancer_dashboard(request):
     return render(request, 'freelancer/dashboard.html')
 
-@login_required
-def freelancer_dashboard(request):
-    try:
-        freelancer = Freelancer.objects.get(user=request.user)
-    except Freelancer.DoesNotExist:
-        # Handle case where the freelancer object is not found
-        return redirect('register')  # Redirect to freelancer registration page
-    
-    return render(request, 'freelancer/dashboard.html', {'freelancer': freelancer})
+
 
 @login_required
 def freelancer_edit_profile(request):
