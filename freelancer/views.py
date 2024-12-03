@@ -5,7 +5,8 @@ from .models import Freelancer, Job, Notification, Feedback
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import login 
+
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from .models import CustomUser 
@@ -57,9 +58,9 @@ def login(request):
         # Get username and password from POST request
         username = request.POST.get('username')
         password = request.POST.get('password')
+        # Check if user exists
+        user = authenticate(username=username, password=password)
 
-        # Authenticate user
-        user = authenticate(request, username=username, password=password)
         
         if user is not None:
             # Log the user in if authentication is successful
