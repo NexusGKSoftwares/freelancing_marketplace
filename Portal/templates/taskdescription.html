@@ -1,0 +1,540 @@
+{% load static %}
+<!DOCTYPE html>
+<html data-wf-page="588650ddefcbe214061d3bfe" data-wf-site="5862ff0a48ddaea33e96e0ef">
+
+
+<head>
+    <meta charset="utf-8" />
+    <title>Task Description</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="Webflow" name="generator" />
+
+    <link href="/static/ase.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="/static/bellstyle.css">
+    <link rel="stylesheet" href="/static/profilestyle.css">
+    <link rel="stylesheet" href="/static/extnav.css">
+    <link rel="javascript" href="/static/extnavjs.js">
+    <link rel="stylesheet" href="/static/main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript">
+        WebFont.load({ google: { families: ["Open Sans:300,300italic,400,400italic,600,600italic,700,700italic,800,800italic", "Montserrat:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic"] } });
+    </script>
+    <script type="text/javascript">
+        !function (o, c) {
+            var n = c.documentElement, t = " w-mod-"; n.className += t + "js", ("ontouchstart" in o || o.DocumentTouch && c instanceof DocumentTouch) && (n.className += t + "touch")
+        }(window, document);
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" type="text/javascript" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://daks2k3a4ib2z.cloudfront.net/5862ff0a48ddaea33e96e0ef/js/webflow.299fdfef2.js" type="text/javascript"></script>
+
+
+
+
+    <link href="https://daks2k3a4ib2z.cloudfront.net/5862ff0a48ddaea33e96e0ef/587523ed5b6467f56000d039_32x32.png" rel="shortcut icon"
+        type="image/x-icon" />
+    <link href="https://daks2k3a4ib2z.cloudfront.net/5862ff0a48ddaea33e96e0ef/587523f2dd54b69e5863657e_256x256.png" rel="apple-touch-icon"
+    />
+
+
+
+
+
+</head>
+
+
+
+<body data-ix="full-opacity-on-load" class="body">
+    <div data-collapse="medium" data-animation="default" data-duration="400" class="navbar w-nav">
+        <div class="book">
+            <img src="http://uploads.webflow.com/5862ff0a48ddaea33e96e0ef/58630dd822584dd00564dd47_Book.png" data-ix="book" />
+        </div>
+        <div data-ix="cactus" class="cactus" style="width:220px;height:220px;"></div>
+        <div class="content-wrapper w-container" style="display: flex;">
+
+            <div>
+                <a href="{% url 'Portal:home' %}" class="brand w-nav-brand">
+                    	<img src="http://uploads.webflow.com/5862ff0a48ddaea33e96e0ef/587523cda9cb9b0448b0f616_Logo.png" width="30" />      </a>
+            </div>
+            <div id="freekohide" style="min-height: 120px;height:120px; line-height:120px; vertical-align: center; color: white; font-size:40px;overflow: hidden;">Freelancing Portal</div>
+            <div id="freekohideho" style="min-height: 120px;height:120px; line-height:120px;width: 25%; overflow: hidden;"></div>
+            <div style="float: right; display:flex;">
+
+                {% if request.user.is_authenticated %}
+                <div style="min-width: 80px; min-height: 120px;height:120px; line-height:120px;height: 100%;">
+                        <div style="padding-top: 60px;">
+                    <a href="{% url 'Portal:profile' request.user.username %}" style="text-decoration:none;">
+                        <div class="profile-wrap">
+                            <span class="haad"></span>
+                            <span class="booy"></span>
+                        </div>
+                    </a>
+                    </div>
+                </div>
+                <div style="min-width: 80px; padding-left: 20px; ">
+                    <div style="padding-top: 40px;">
+                        <a href="{% url 'Portal:logout' %}">
+                            <svg version="1.1" id="lock" class="icons" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                x="0px" y="0px" width="40px" height="40px" viewBox="0 0 60 57.476" style="enable-background:new 0 0 60 57.476;"
+                                xml:space="preserve">
+                                <rect x="9" y="21.441" class="st1" width="42.978" height="30.855" />
+                                <circle class="st0" cx="31.074" cy="36.318" r="6.715" />
+                                <path class="st2" d="M31.04,3.382c-9.967,0-18.045,8.079-18.045,18.045h36.09C49.085,11.461,41.006,3.382,31.04,3.382z" />
+                            </svg>
+                        </a>
+                    </div>
+
+                </div>
+                {% endif %}
+
+
+            </div>
+            <div class="menu-button w-nav-button">
+                <div class="burger-menu w-icon-nav-menu"></div>
+            </div>
+        </div>
+    </div>
+
+    <p style=" display: block; margin: 5px 0;"></p>
+
+    <div class="navs" style="display: flex;padding-top: 0px; width: 100%;">
+
+        <div class="backbutton" id="back" style="display: absolute; left: 10px;line-height:inherit;vertical-align:center;padding-left: 10px;padding-top: 10px;">
+            <i class="fa fa-arrow-circle-o-left" style="font-size:36px"></i>
+        </div>
+        <ul style="width: 70%;">
+            {% if not request.user.is_authenticated %}
+            <li>
+                <a href="{% url 'Portal:signup' %}">Signup</a>
+            </li>
+            <li>
+                <a href="{% url 'Portal:login' %}">Login</a>
+            </li>
+            {% endif %}
+            <li>
+                <a href="{% url 'Portal:browse_jobs' %}">Browse Jobs</a>
+            </li>
+            {% if request.user.is_authenticated %}
+            <li>
+                <a href="{% url 'Portal:post_project' %}">Post a Project</a>
+            </li>
+            <li>
+                <a href="{% url 'Portal:myprojects' %}">My Projects</a>
+            </li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <br>
+    <div style="text-align:center;font-size:40px; width: 100%">
+        {{task.task_name}}
+        <div style="font-size: 15px">
+            <!-- Project:-  -->
+            <a href="{% url 'Portal:project_description' task.project.id%}">{{task.project.project_name}}</a>
+        </div>        
+    </div>
+    <br><br>    
+    <div class="tskheader">
+            <div class="innDesc" style="text-align: center;background-color: white">
+                <div id="appimg" style="overflow: hidden; text-align: center; background-color: #213875; padding: 10px;">
+                        <img id="lowa"src="/media/icons/to-do.png"/>
+                </div>
+                Task Description
+                <br><br>
+                <div style="color: black;line-height: inherit; vertical-align: center;">
+                    <center>{{task.task_description}}</center>
+                </div>
+            </div>
+
+            <div class="pta" style="text-align: center;background-color: white;margin: 5px;width: 25%">
+                <div id="appimg" style="overflow: hidden; text-align: center; background-color: #213875; padding: 10px;">
+                        <img id="lowa"src="/media/icons/deadline.png"/>
+                </div>
+                Deadline
+                <br><span style="padding-left: 10px;"></span><p style="color: black;">{{task.deadline}}</p>
+            </div>
+
+            <div class="dead" style="text-align: center;background-color: white;margin: 5px;width: 25%">
+                <div id="appimg" style="overflow: hidden; text-align: center; background-color: #213875; padding: 10px;">
+                        <img id="lowa"src="/media/icons/alarm-clock.png"/>
+                </div>
+                You are left with <br><br>
+                <div style="color: black;line-height: inherit; vertical-align: center;" id="deadTime" >
+                </div>
+            </div>
+            <div class="dead" style="text-align: center;background-color: white;margin: 5px;width: 25%">
+                <div id="appimg" style="overflow: hidden; text-align: center; background-color: #213875; padding: 10px;">
+                        <img id="lowa"src="/media/icons/give-money.png"/>
+                </div>
+                Credit <br><br>
+                <div style="color: black;line-height: inherit; vertical-align: center;">
+                    {% if task.credits == 'Paid' %}
+                        Rs. {{task.amount}}
+                    {% else %}
+                        {{task.mention}}
+                    {% endif %}
+                </div>
+            </div>
+
+    </div>
+    <div class="ou">
+        <div class="prjtDesc">
+
+            <div style="text-align: center;background-color: white;margin: 5px;width: 50%">
+                <div id="appimg" style="overflow: hidden;  text-align: center; background-color: #213875; padding: 10px;">
+                            <img id="lowa"src="/media/icons/java.png"/>
+                </div>
+                Skills
+                <div class="desc" style="width: 100%; padding: 15px; text-align: center;">
+                    {% for i in skills_required %}
+                    <a style="text-decoration: none;" href="{% url 'Portal:browse_jobs' %}?skill={{i.skill.id}}">
+                        <input type="submit" value="{{i.skill.skill_name}}">
+
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div style="text-align: center;background-color: white;margin: 5px;width: 50%">
+                <div id="appimg" style="overflow: hidden;  text-align: center; background-color: #213875; padding: 10px;">
+                        <img id="lowa"src="/media/icons/translator.png"/>
+                </div>
+                <div style="text-align: center;">
+                    Language
+                <div class="desc" style="width: 100%; padding: 15px; text-align: center;">
+                    {% for i in languages_required %}
+                    <a style="text-decoration: none;" href="{% url 'Portal:browse_jobs' %}?language={{i.language.id}}">
+                        <input type="submit" value="{{i.language.language_name}}">
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+             </div>
+
+
+        </div>
+        <div style="height: 100%;" class="ouleft">
+
+
+            {% if task.isCompleted %}
+                {% ifnotequal task_rating -1 %}
+                <div class="dead" style="text-align: center;background-color: white;margin: 5px;width: 100%">
+                        <div id="appimg" style="overflow: hidden; text-align: center; background-color: #213875; padding: 10px;">
+                            <img id="lowa"src="/media/icons/rating.png"/>
+                        </div>
+                    The task has a rating of {{task_rating}}.<br>
+                </div>
+                {% endifnotequal %}
+            {% endif%}
+
+            {% if is_leader %}
+                {% comment %} {% if task.isCompleted %}
+                    {% if user_rating.f_rating %}
+                    <div class="dead" style="text-align: center;background-color: white;margin: 5px;width: 100%">
+                        <div id="appimg" style="overflow: hidden; text-align: center; background-color: #213875; padding: 10px;">
+                            <img id="lowa"src="/media/icons/urating.png"/>
+                        </div>
+                        You gave a rating of {{user_rating.f_rating}}.<br>
+                    </div>
+                    {% endif %}
+
+                    {% if user_rating.e_rating %}
+                    <div class="dead" style="text-align: center;background-color: white;margin: 5px;width: 100%">
+                        <div id="appimg" style="overflow: hidden; text-align: center; background-color: #213875; padding: 10px;">
+                            <img id="lowa"src="/media/icons/like.png"/>
+                        </div>
+                        You have got a rating of {{user_rating.e_rating}}.<br>
+                    </div>
+                    {% endif %}
+
+                {%endif%} {% endcomment %}
+                {% if not task.isCompleted %}
+                <div class="dead" style="text-align: center;background-color: white;margin: 5px;width: 100%">
+                    <div id="appimg" style="overflow: hidden; text-align: center; background-color: #213875; padding: 10px;">
+                        <img id="lowa"src="/media/icons/conversation.png"/>
+                    </div><br>
+                    <a style="text-decoration: none;" href="{% url 'Portal:applicants' task.id%}">
+                    <div><input type="submit" value="Applicants"></div><br>
+                </a>
+                <br><br><br>
+                </div>
+                {% endif %}
+
+                <div class="dead" style="text-align: center;background-color: white;margin: 5px;width: 100%">
+                    <div id="appimg" style="overflow: hidden; text-align: center; background-color: #213875; padding: 10px;">
+                        <img id="lowa"src="/media/icons/tools.png"/>
+                    </div>
+                    <br>
+                        <a style="text-decoration: none;" href="{% url 'Portal:task_edit' task.project.id task.id %}">
+                        <input type="submit" style="padding: 5px;"value="Edit Task">
+                     </a>
+                <br><br><br>
+                </div>
+
+
+
+                {% if contributor %}
+                    <div class="dead" style="text-align: center;background-color: white;margin: 5px;width: 100%">
+                        <div id="appimg" style="overflow: hidden; text-align: center; background-color: #213875; padding: 10px;">
+                            <img id="lowa"src="/media/icons/operator.png"/>
+                        </div>
+                        <br>Contributor
+                        <a href="{% url 'Portal:profile' contributor.user.user.username %}">{{contributor.user.user.username}}</a>
+                        <br><br><br>
+                    </div>
+                {% else %}
+                <div class="dead" style="text-align: center;background-color: white;margin: 5px;width: 100%">
+                        <div id="appimg" style="overflow: hidden; text-align: center; background-color: #213875; padding: 10px;">
+                            <img id="lowa"src="/media/icons/operator.png"/>
+                        </div>
+                        <br>No Contributor
+                        <br><br><br>
+                </div>
+                {% endif %}
+                <div class="dead" style="text-align: center;background-color: white;margin: 5px;width: 100%">
+                        <div id="appimg" style="overflow: hidden; text-align: center; background-color: #213875; padding: 10px;">
+                            <img id="open_close_img" src="/media/icons/open.png" />
+                        </div>
+                        <br>
+                        <input id="open_close" type="submit" name="status_update" onclick="open_close()">
+                </div>
+                <br>
+                {% if not task.isCompleted and task.task_link %}
+                    <div class="dead" style="text-align: center;background-color: white;margin: 5px;width: 100%">
+                        <div id="appimg" style="overflow: hidden; text-align: center; background-color: #213875; padding: 10px;">
+                            <img id="lowa"src="/media/icons/code.png"/>
+                        </div><br>
+                        <div class="protag">
+                        <a style="text-decoration: none;" href="{{task.task_link}}">Task Link</a>
+                        </div>
+                        <br><br><br>
+                    </div>
+
+                {% endif %}
+
+                {% comment %} {%if task.isCompleted %}
+                {% if not user_rating.f_rating %}
+                <div class="dead" style="text-align: center;background-color: white;margin: 5px;width: 100%">
+                    <div id="appimg" style="overflow: hidden; text-align: center; background-color: #213875; padding: 10px;">
+                        <img id="lowa"src="/media/icons/urating.png"/>
+                    </div>
+                    <b>User Rating</b>
+                    <br>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="work" value="user_user_rating">
+                        <input type="hidden" name="from" value="leader">
+                        <select name="rating">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                        <input type="submit" name="submit">
+                    </form><br><br>
+                </div>
+                {% endif %}
+                {% endif %} {% endcomment %}
+            {% elif is_contributor %}
+                {% comment %} {% if task.isCompleted %}
+                    {% if user_rating.f_rating %}
+                    <div class="dead" style="text-align: center;background-color: white;margin: 5px;width: 100%">
+                        <div id="appimg" style="overflow: hidden; text-align: center; background-color: #213875; padding: 10px;">
+                            <img id="lowa"src="/media/icons/urating.png"/>
+                        </div>
+                        You have got a rating of {{user_rating.f_rating}}.<br><br>
+                    </div>
+                    {% endif %}
+                    {% if user_rating.e_rating %}
+                    <div class="dead" style="text-align: center;background-color: white;margin: 5px;width: 100%">
+                    <div id="appimg" style="overflow: hidden; text-align: center; background-color: #213875; padding: 10px;">
+                        <img id="lowa"src="/media/icons/like.png"/>
+                    </div>
+                        You gave a rating of {{user_rating.e_rating}}.<br><br>
+                    </div>
+                    {% endif %}
+                {% endif %} {% endcomment %}
+                {% if not task.isCompleted %}
+                <div class="dead" style="text-align: center;background-color: white;margin: 5px;width: 100%">
+                    <div id="appimg" style="overflow: hidden; text-align: center; background-color: #213875; padding: 10px;">
+                        <img id="lowa"src="/media/icons/code.png"/>
+                    </div><br>
+                    <form method="POST">
+                        {% csrf_token%}
+                        <input type="hidden" name="work" value="submit_task">
+                        <input style="width: 80%; "type="url" name="work_link" placeholder="Your Task Link Here">
+                        <br>
+                        <input type="submit" name="submit">
+                    </form><br>
+                </div>
+                {% endif %}
+                {% if task.isCompleted %}
+                {% ifequal task.rating 0 %}
+                <div class="dead" style="text-align: center;background-color: white;margin: 5px;width: 100%">
+                    <div id="appimg" style="overflow: hidden; text-align: center; background-color: #213875; padding: 10px;">
+                        <img id="lowa"src="/media/icons/rating.png"/>
+                    </div>
+                    Give the Task Rating
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="work" value="user_task_rating">
+                        <input type="hidden" name="from" value="contributor">
+                        <select name="rating">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                        <input type="submit" name="submit">
+                    </form>
+                <br><br>
+                </div>
+                {%  endifequal  %}
+
+                    <br>
+
+                {% comment %} {% if not user_rating.e_rating %}
+                    <div class="dead" style="text-align: center;background-color: white;margin: 5px;width: 100%">
+                    <div id="appimg" style="overflow: hidden; text-align: center; background-color: #213875; padding: 10px;">
+                        <img id="lowa"src="/media/icons/like.png"/>
+                    </div>
+                    Give the Employer Rating
+                    <form method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="work" value="user_user_rating">
+                        <input type="hidden" name="from" value="contributor">
+                        <select name="rating">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                        <input type="submit" name="submit">
+                    </form>
+                <br><br>
+                </div>
+                {% endif %} {% endcomment %}
+                {% endif %}
+            {% elif has_applied%}
+                <div class="dead" style="text-align: center;background-color: white;margin: 5px;width: 100%">
+                    <div id="appimg" style="overflow: hidden; text-align: center; background-color: #213875; padding: 10px;">
+                        <img id="lowa"src="/media/icons/tick.png"/>
+                    </div>
+                    You have applied for the task<br><br><br>
+                </div>
+
+            {% elif request.user.is_authenticated%}
+                <div class="dead" style="text-align: center;background-color: white;margin: 5px;width: 100%">
+                    <div id="appimg" style="overflow: hidden; text-align: center; background-color: #213875; padding: 10px;">
+                        <img id="lowa" src="/media/icons/open.png"/>
+                    </div>
+                    Open For Applicants<br><br>
+                    <form method="POST" action="{% url 'Portal:task_description' task.project.id task.id %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="work" value="apply">
+                        <input type="submit" name="submit" value="Apply for the task">
+                    </form>
+                    <br>
+                </div>
+            {% else %}
+                <div class="dead" style="text-align: center;background-color: white;margin: 5px;width: 100%">
+                    <div id="appimg" style="overflow: hidden; text-align: center; background-color: #213875; padding: 10px;">
+                        <img id="lowa"src="/media/icons/login.png"/>
+                    </div>
+                    Open For Applicants! Login to apply.<br>
+                    <div class="protag"><a style="text-decoration: none;" href="{% url 'Portal:login' %}">Login</a></div>
+                    <br><br>
+                </div>
+
+            {% endif %}
+
+
+        </div>
+
+    </div>
+
+    <div style="background: white; color: #213875;">
+        Posted by
+        <a href="{% url 'Portal:profile' task.project.leader.user.username %}"><span style="color: black;">{{task.project.leader}}</span></a>
+    </div>
+
+</body>
+{% if is_leader %}
+<script type="text/javascript">
+
+    console.log({{user_rating}})
+
+    $('#back').click(function goBack() {
+		window.history.back();
+	});
+
+    btn = document.getElementById('open_close');
+    t = document.getElementById("id1");
+    console.log("{{task.isCompleted}}");
+    if ("{{task.isCompleted}}" === "True") {
+        btn.value = 'open';
+        document.getElementById('open_close_img').src="/media/icons/closed.png";
+    }
+    else {
+        btn.value = 'close';
+        document.getElementById('open_close_img').src="/media/icons/open.png";
+    }
+    function open_close() {
+        $.ajax({
+            type: "POST",
+            url: "{% url 'Portal:open_close_project' %}",
+            contentType: "application/json",
+            data: JSON.stringify({ 'task_id': {{ task.id }}, 'current': btn.value }),
+            success: function(data) {
+                btn = document.getElementById('open_close');
+
+                if (data === "True") {
+                    btn.value = "open";
+                    document.getElementById('open_close_img').src="/media/icons/closed.png";
+                    console.log('closing');
+                }
+                else {
+                    btn.value = "close";
+                    document.getElementById('open_close_img').src="/media/icons/open.png";
+                    console.log('opening');
+                }
+            }
+        });
+	}
+</script>
+{% endif %}
+<script>
+    // Set the date we're counting down to
+    var countDownDate = new Date("{{year}}-{{month}}-{{date}}").getTime();      //   Date and Time in this format 2400hrs time system
+
+    // Update the count down every 1 second
+    var x = setInterval(function () {
+
+        // Get todays date and time
+        var now = new Date().getTime();
+
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+
+        // Time calculations for days, hours, minutes and seconds
+        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Output the result in an element with id="deadTime"
+        document.getElementById("deadTime").innerHTML = days + "d " + hours + "h "
+            + minutes + "m " + seconds + "s ";
+
+        // If the count down is over, write some text
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("deadTime").innerHTML = "Time Up!";
+        }
+    }, 1000);
+</script>
+</html>
