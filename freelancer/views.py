@@ -64,9 +64,10 @@ def freelancer_dashboard(request):
 
     # Fetch freelancer profile data
     try:
-        freelancer = Freelancer.objects.get(user=user)
+            freelancer = request.user.freelancer_profile
     except Freelancer.DoesNotExist:
-        return render(request, 'error.html', {'message': 'Freelancer profile not found.'})
+            freelancer = Freelancer.objects.create(user=request.user)
+
 
     # Fetch active jobs, completed jobs, and available jobs
     active_jobs = freelancer.jobs.filter(status='Active')
