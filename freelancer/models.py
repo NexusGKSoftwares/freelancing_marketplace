@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from freelancer import forms
+
 class Freelancer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='freelancer_profile')
     total_earnings = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
@@ -67,3 +69,17 @@ class Payment(models.Model):
 
     def __str__(self):
         return f"{self.freelancer.name} - {self.amount} ({self.status})"
+
+class FreelancerEditProfileForm(forms.ModelForm):
+    class Meta:
+        model = Freelancer
+        fields = ['name', 'email', 'profile_picture']
+        widgets = {
+            'profile_picture': forms.ClearableFileInput(attrs={'multiple': True}),
+        }
+    
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if Freelancer.objects.filter(email=email).exclude(id=self.instance.id).exists():
+            raise forms.ValidationError("This email is already taken.")
+        return email
