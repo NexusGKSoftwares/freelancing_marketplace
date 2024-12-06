@@ -1,6 +1,8 @@
 from django.shortcuts import render
 
-from client.models import Feedback
+from freelancer.models import Feedback
+
+
 
 from .models import Activity, User, JobPosting, Payment, SystemHealth, SupportTicket 
 
