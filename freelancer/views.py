@@ -9,7 +9,7 @@ from django.contrib.auth import login
 
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from .models import CustomUser 
+
 from django.contrib import messages
 from django.contrib.auth.models import User
 def index(request):
