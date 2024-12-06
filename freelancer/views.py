@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
-from .models import Freelancer, Job, Notification, Feedback
+from .models import Freelancer, Job, Notification, Feedback, Payment
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
@@ -104,9 +104,16 @@ def freelancer_edit_profile(request):
 
 @login_required
 def freelancer_payment_overview(request):
-    freelancer = Freelancer.objects.get(user=request.user)
-    # Fetch freelancer payments
-    return render(request, 'freelancer_payment_overview.html', {'freelancer': freelancer})
+    # Assuming the logged-in user is associated with a freelancer profile
+    freelancer = get_object_or_404(Freelancer, user=request.user)
+    payments = Payment.objects.filter(freelancer=freelancer).order_by('-date')
+
+    context = {
+        'freelancer': freelancer,
+        'payments': payments,
+    }
+
+    return render(request, 'freelancer/freelancer_payment_overview.html', context)
 
 @login_required
 def freelancer_ongoing_jobs(request):
