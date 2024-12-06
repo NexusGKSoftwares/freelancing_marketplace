@@ -1,76 +1,54 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.models import AbstractUser, Group, Permission
-from django.db import models
-from django.contrib.auth import get_user_model
-class CustomUser(AbstractUser):
-    ROLE_CHOICES = [
-        ('freelancer', 'Freelancer'),
-        ('client', 'Client'),
-        ('admin', 'Admin'),
-    ]
-    role = models.CharField(max_length=15, choices=ROLE_CHOICES)
-
-    # Avoid clashes with related_name
-    groups = models.ManyToManyField(
-        Group,
-        related_name="customuser_set",  # Changed related_name to avoid clashes
-        blank=True,
-        help_text="The groups this user belongs to.",
-        verbose_name="groups",
-    )
-    user_permissions = models.ManyToManyField(
-        Permission,
-        related_name="customuser_set",  # Changed related_name to avoid clashes
-        blank=True,
-        help_text="Specific permissions for this user.",
-        verbose_name="user permissions",
-    )
 
 class Freelancer(models.Model):
-    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
-    total_earnings = models.DecimalField(max_digits=10, decimal_places=2)
-    # Using ForeignKey to link each freelancer to a job and feedback (single job per freelancer at a time)
-    active_jobs = models.ForeignKey('Job', related_name='active_jobs', null=True, blank=True, on_delete=models.SET_NULL)
-    completed_jobs = models.ForeignKey('Job', related_name='completed_jobs', null=True, blank=True, on_delete=models.SET_NULL)
-    feedbacks = models.ForeignKey('Feedback', related_name='freelancer_feedbacks', null=True, blank=True, on_delete=models.SET_NULL)
-    # Add other fields as needed
-
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='freelancer_profile')
+    total_earnings = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    
     def __str__(self):
-        return self.name
-
+        return f"{self.user.username}'s Profile"
 
 class Job(models.Model):
     STATUS_CHOICES = [
-        ('available', 'Available'),
-        ('ongoing', 'Ongoing'),
-        ('completed', 'Completed'),
+        ('Active', 'Active'),
+        ('Completed', 'Completed'),
+        ('Available', 'Available'),
+        ('Pending', 'Pending'),
     ]
+
+    freelancer = models.ForeignKey(Freelancer, on_delete=models.SET_NULL, null=True, blank=True, related_name='jobs')
     title = models.CharField(max_length=255)
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='available')
-    deadline = models.DateTimeField()
-    # Removed ManyToMany and added ForeignKey to Freelancer for assignment of job to freelancer
-    freelancer = models.ForeignKey(Freelancer, on_delete=models.SET_NULL, null=True, blank=True)
+    description = models.TextField()
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Available')
+    deadline = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return self.title
 
+    @property
+    def status_class(self):
+        """Returns a CSS class based on the job status."""
+        status_classes = {
+            'Active': 'badge-warning',
+            'Completed': 'badge-success',
+            'Available': 'badge-primary',
+            'Pending': 'badge-secondary',
+        }
+        return status_classes.get(self.status, 'badge-light')
 
 class Notification(models.Model):
-    freelancer = models.ForeignKey(Freelancer, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notifications')
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Notification for {self.freelancer.name}"
-
+        return f"Notification for {self.user.username}"
 
 class Feedback(models.Model):
-    client_name = models.CharField(max_length=255)
+    freelancer = models.ForeignKey(Freelancer, on_delete=models.CASCADE, related_name='feedbacks')
+    client = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='given_feedbacks')
     comment = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Feedback from {self.client_name}"
+        return f"Feedback for {self.freelancer.user.username} by {self.client.username if self.client else 'Unknown'}"

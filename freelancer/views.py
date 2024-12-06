@@ -57,10 +57,43 @@ def freelancer_login(request):
             return redirect('login')  # Stay on login page for retry
     
     return render(request, 'freelancer/login.html')  # Render the login page if GET request
-# Dashboard view
+@login_required
 def freelancer_dashboard(request):
-    return render(request, 'freelancer/dashboard.html')
+    # Get the current user
+    user = request.user
 
+    # Fetch freelancer profile data
+    try:
+        freelancer = Freelancer.objects.get(user=user)
+    except Freelancer.DoesNotExist:
+        return render(request, 'error.html', {'message': 'Freelancer profile not found.'})
+
+    # Fetch active jobs, completed jobs, and available jobs
+    active_jobs = freelancer.jobs.filter(status='Active')
+    completed_jobs = freelancer.jobs.filter(status='Completed')
+    available_jobs_count = Job.objects.filter(status='Available').count()
+
+    # Fetch notifications for the freelancer
+    notifications = Notification.objects.filter(user=user).order_by('-created_at')
+
+    # Fetch feedback related to the freelancer
+    feedbacks = Feedback.objects.filter(freelancer=freelancer).order_by('-date')
+
+    # Context to pass to the template
+    context = {
+        'user': user,
+        'freelancer': {
+            'total_earnings': freelancer.total_earnings,
+            'active_jobs': active_jobs,
+            'jobs': freelancer.jobs.all(),
+            'completed_jobs': completed_jobs,
+            'feedbacks': feedbacks,
+        },
+        'notifications': notifications,
+        'available_jobs_count': available_jobs_count,
+    }
+
+    return render(request, 'freelancer/dashboard.html', context)
 
 
 @login_required
