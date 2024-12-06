@@ -70,16 +70,3 @@ class Payment(models.Model):
     def __str__(self):
         return f"{self.freelancer.name} - {self.amount} ({self.status})"
 
-class Freelancer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='freelancer_profile')
-    name = models.CharField(max_length=255)
-    email = models.EmailField(max_length=255)
-    profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True)
-    bio = models.TextField(null=True, blank=True)
-    location = models.CharField(max_length=255, null=True, blank=True)
-    skills = models.CharField(max_length=255, null=True, blank=True)
-    website = models.URLField(max_length=255, null=True, blank=True)
-    phone = models.CharField(max_length=15, null=True, blank=True)
-
-    def __str__(self):
-        return self.name
