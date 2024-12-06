@@ -113,7 +113,10 @@ def freelancer_edit_profile(request):
         return redirect('freelancer_profile')  # Redirect to a page showing the freelancer's profile
     
     return render(request, 'freelancer/freelancer_edit_profile.html', {'freelancer': freelancer})
-
+@login_required
+def freelancer_profile(request):
+    freelancer = Freelancer.objects.get(user=request.user)
+    return render(request, 'freelancer/freelancer_profile.html', {'freelancer': freelancer})
 @login_required
 def freelancer_payment_overview(request):
     # Assuming the logged-in user is associated with a freelancer profile
