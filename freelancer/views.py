@@ -99,8 +99,20 @@ def freelancer_dashboard(request):
 
 @login_required
 def freelancer_edit_profile(request):
-    # Handle the profile editing logic
-    return render(request, 'freelancer_edit_profile.html')
+    freelancer = Freelancer.objects.get(user=request.user)  # Assuming freelancer is linked to the user
+
+    if request.method == 'POST':
+        freelancer.name = request.POST.get('name')
+        freelancer.email = request.POST.get('email')
+
+        # Handle profile picture update
+        if 'profile_picture' in request.FILES:
+            freelancer.profile_picture = request.FILES['profile_picture']
+        
+        freelancer.save()
+        return redirect('freelancer_profile')  # Redirect to a page showing the freelancer's profile
+    
+    return render(request, 'freelancer/freelancer_edit_profile.html', {'freelancer': freelancer})
 
 @login_required
 def freelancer_payment_overview(request):
