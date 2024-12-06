@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
-
+from django.contrib.auth.views import LogoutView
 urlpatterns = [
     path('', views.index, name='index'),
     path('register/', views.register, name='register'),
@@ -16,4 +16,5 @@ urlpatterns = [
     path('job/<int:job_id>/', views.freelancer_job_details, name='freelancer_job_details'),
     path('payment-history/', views.freelancer_payment_history, name='freelancer_payment_history'),
     path('job-history/', views.freelancer_job_history, name='freelancer_job_history'),
+    path('logout/', LogoutView.as_view(), name='logout'),
 ]
