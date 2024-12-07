@@ -95,71 +95,46 @@ def delete_user(request, user_id):
         messages.success(request, "User deleted successfully.")  # Optional
         return redirect('admin_manage_users')  # Redirect to user management page
     return redirect('admin_manage_users')  # Fallback in case of a GET request
-# View for managing job postings
-def admin_job_postings(request):
-    job_postings = JobPosting.objects.all()
-    return render(request, 'admin_panel/admin_job_postings.html', {'job_postings': job_postings})
+# Job Postings Overview
+def job_postings_overview(request):
+    return render(request, 'job_postings_overview.html')
 
-# View for managing payments
-def admin_payments(request):
-    payments = Payment.objects.all()
-    return render(request, 'admin_panel/admin_payments.html', {'payments': payments})
+# Payment Management
+def payment_management(request):
+    return render(request, 'payment_management.html')
 
-# View for system activity
-def admin_system_activity(request):
-    activities = Activity.objects.all()
-    return render(request, 'admin_panel/admin_system_activity.html', {'activities': activities})
+# System Activity
+def system_activity(request):
+    return render(request, 'system_activity.html')
 
-# View for viewing platform analytics
-def admin_analytics(request):
-    # Example placeholder for analytics data (replace with actual data)
-    analytics_data = {
-        'traffic': 5000,
-        'growth': 15,
-        'user_engagement': 80,
-    }
-    return render(request, 'admin_panel/admin_analytics.html', {'analytics_data': analytics_data})
+# Analytics
+def analytics(request):
+    return render(request, 'analytics.html')
 
-# View for managing notifications
-def admin_notifications(request):
-    # Example placeholder for notifications
-    notifications = [
-        {'message': 'New user registered.', 'timestamp': '2024-12-01 12:30'},
-        {'message': 'Payment received for job 101.', 'timestamp': '2024-12-01 14:00'},
-    ]
-    return render(request, 'admin_panel/admin_notifications.html', {'notifications': notifications})
+# Notifications
+def notifications(request):
+    return render(request, 'notifications.html')
 
-# View for managing support tickets
-def admin_support_tickets(request):
-    tickets = SupportTicket.objects.all()
-    return render(request, 'admin_panel/admin_support_tickets.html', {'tickets': tickets})
+# Support Tickets
+def support_tickets(request):
+    return render(request, 'support_tickets.html')
 
-# View for managing user feedback
-def admin_user_feedback(request):
-    feedback = Feedback.objects.all()
-    return render(request, 'admin_panel/admin_user_feedback.html', {'feedback': feedback})
+# User Feedback
+def user_feedback(request):
+    return render(request, 'user_feedback.html')
 
-# View for managing freelancers
-def admin_manage_freelancers(request):
-    freelancers = User.objects.filter(user_type='freelancer')
-    return render(request, 'admin_panel/admin_manage_freelancers.html', {'freelancers': freelancers})
+# Manage Freelancers
+def manage_freelancers(request):
+    return render(request, 'manage_freelancers.html')
 
-# View for managing clients
-def admin_manage_clients(request):
-    clients = User.objects.filter(user_type='client')
-    return render(request, 'admin_panel/admin_manage_clients.html', {'clients': clients})
+# Manage Clients
+def manage_clients(request):
+    return render(request, 'manage_clients.html')
 
-# View for recent activity
-def admin_recent_activity(request):
-    recent_activity = Activity.objects.all().order_by('-timestamp')[:5]
-    return render(request, 'admin_panel/admin_recent_activity.html', {'recent_activity': recent_activity})
+# System Health
+def system_health(request):
+    return render(request, 'system_health.html')
 
-# View for checking system health
-def admin_system_health(request):
-    system_health = SystemHealth.objects.latest('timestamp')
-    return render(request, 'admin_panel/admin_system_health.html', {'system_health': system_health})
-
-# View for new registrations
-def admin_new_registrations(request):
-    new_registrations = User.objects.filter(is_new=True)
-    return render(request, 'admin_panel/admin_new_registrations.html', {'new_registrations': new_registrations})
+# New Registrations
+def new_registrations(request):
+    return render(request, 'new_registrations.html')
