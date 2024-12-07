@@ -43,15 +43,35 @@ def view_user(request, user_id):
     user = get_object_or_404(User, id=user_id)
     return render(request, 'admin_panel/view_user.html', {'user': user})
 def edit_user(request, user_id):
+    # Fetch the user by ID or return a 404 if not found
     user = get_object_or_404(User, id=user_id)
+
     if request.method == 'POST':
-        form = UserEditForm(request.POST, instance=user)
-        if form.is_valid():
-            form.save()
-            return redirect('admin_manage_users')  # Redirect to user management page
-    else:
-        form = UserEditForm(instance=user)
-    return render(request, 'admin_panel/edit_user.html', {'form': form, 'user': user})
+        # Get data from the request
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        is_active = request.POST.get('is_active') == 'True'
+
+        # Update the user object
+        user.first_name = first_name
+        user.last_name = last_name
+        user.username = username
+        user.email = email
+        user.is_active = is_active
+
+        # Save the updated user object
+        user.save()
+
+        # Add a success message (optional)
+        messages.success(request, 'User details updated successfully.')
+
+        # Redirect to the user management page
+        return redirect('admin_manage_users')  # Adjust the URL name as needed
+
+    # Render the edit user template with the user data
+    return render(request, 'admin_panel/edit_user.html', {'user': user})
 def delete_user(request, user_id):
     user = get_object_or_404(User, id=user_id)
     if request.method == 'POST':
