@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, redirect, render
-
+from django.contrib import messages 
 from freelancer.models import Feedback
 from .forms import UserEditForm
 
@@ -52,6 +52,13 @@ def edit_user(request, user_id):
     else:
         form = UserEditForm(instance=user)
     return render(request, 'admin_panel/edit_user.html', {'form': form, 'user': user})
+def delete_user(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    if request.method == 'POST':
+        user.delete()
+        messages.success(request, "User deleted successfully.")  # Optional
+        return redirect('admin_manage_users')  # Redirect to user management page
+    return redirect('admin_manage_users')  # Fallback in case of a GET request
 # View for managing job postings
 def admin_job_postings(request):
     job_postings = JobPosting.objects.all()
