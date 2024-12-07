@@ -97,7 +97,7 @@ def delete_user(request, user_id):
     return redirect('admin_manage_users')  # Fallback in case of a GET request
 # Job Postings Overview
 def job_postings_overview(request):
-    return render(request, 'job_postings_overview.html')
+    return render(request, 'job_postings.html')
 
 # Payment Management
 def payment_management(request):
