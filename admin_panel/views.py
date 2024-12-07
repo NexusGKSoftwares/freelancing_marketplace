@@ -36,6 +36,9 @@ def admin_manage_users(request):
     users = User.objects.all()
     return render(request, 'admin_panel/admin_manage_users.html', {'users': users})
 
+def add_user(request):
+    # Your logic to handle adding a user
+    return render(request, 'admin_panel/add_user.html')
 # View for managing job postings
 def admin_job_postings(request):
     job_postings = JobPosting.objects.all()
