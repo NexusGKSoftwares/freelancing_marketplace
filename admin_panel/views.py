@@ -72,6 +72,22 @@ def edit_user(request, user_id):
 
     # Render the edit user template with the user data
     return render(request, 'admin_panel/edit_user.html', {'user': user})
+def toggle_user_status(request, user_id):
+    # Fetch the user by ID or return a 404 if not found
+    user = get_object_or_404(User, id=user_id)
+    
+    # Toggle the active status
+    user.is_active = not user.is_active
+    user.save()
+
+    # Add a success message
+    if user.is_active:
+        messages.success(request, f"{user.username}'s account has been activated.")
+    else:
+        messages.success(request, f"{user.username}'s account has been suspended.")
+
+    # Redirect back to the user management page or another relevant page
+    return redirect('admin_manage_users')  # Adjust the URL name as needed
 def delete_user(request, user_id):
     user = get_object_or_404(User, id=user_id)
     if request.method == 'POST':
