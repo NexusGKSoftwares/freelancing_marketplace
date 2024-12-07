@@ -1,7 +1,7 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from freelancer.models import Feedback
-
+from .forms import UserEditForm
 
 
 from .models import Activity, User, JobPosting, Payment, SystemHealth, SupportTicket 
@@ -42,6 +42,16 @@ def add_user(request):
 def view_user(request, user_id):
     user = get_object_or_404(User, id=user_id)
     return render(request, 'admin_panel/view_user.html', {'user': user})
+def edit_user(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    if request.method == 'POST':
+        form = UserEditForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_manage_users')  # Redirect to user management page
+    else:
+        form = UserEditForm(instance=user)
+    return render(request, 'admin_panel/edit_user.html', {'form': form, 'user': user})
 # View for managing job postings
 def admin_job_postings(request):
     job_postings = JobPosting.objects.all()
