@@ -1,0 +1,16 @@
+{% extends 'freelancer/base.html' %}
+
+{% block content %}
+<h1>Feedback</h1>
+<ul>
+    {% for feedback in feedbacks %}
+        <li>
+            <strong>{{ feedback.job.title }}</strong> - {{ feedback.comment }}
+            <br><strong>Rating:</strong> {{ feedback.rating }} / 5
+            <br><strong>Submitted on:</strong> {{ feedback.date_submitted }}
+        </li>
+    {% empty %}
+        <li>No feedback found.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
