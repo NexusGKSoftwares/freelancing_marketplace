@@ -119,7 +119,7 @@ def job_postings(request):
     page_number = request.GET.get('page')
     jobs = paginator.get_page(page_number)
 
-    return render(request, 'job_postings.html', {'jobs': jobs})
+    return render(request, 'admin_panel/job_postings.html', {'jobs': jobs})
 
 def add_job(request):
     if request.method == 'POST':
@@ -139,7 +139,7 @@ def add_job(request):
         messages.success(request, "Job added successfully!")
         return redirect('job_postings')
     
-    return render(request, 'add_job.html')
+    return render(request, 'admin_panel/add_job.html')
 
 # Payment Management
 def payment_management(request):
