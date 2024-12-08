@@ -117,7 +117,16 @@ def add_job(request):
         return redirect('job_postings')
     
     return render(request, 'add_job.html')
-
+def edit_job(request, job_id):
+    job = get_object_or_404(Job, id=job_id)
+    if request.method == 'POST':
+        title = request.POST['title']
+        category = request.POST['category']
+        description = request.POST['description']
+        budget = request.POST['budget']
+        status = request.POST['status']
+        
+    
 # Payment Management
 def payment_management(request):
     return render(request, 'payment_management.html')
