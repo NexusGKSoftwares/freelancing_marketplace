@@ -4,7 +4,7 @@ from freelancer.models import Feedback
 
 
 
-from .models import Activity, User, JobPosting, Payment, SystemHealth, SupportTicket 
+from .models import Activity, User, JobPosting, Payment, SystemHealth, Job 
 
 # Admin dashboard view
 def admin_dashboard(request):
@@ -98,6 +98,25 @@ def delete_user(request, user_id):
 # Job Postings Overview
 def job_postings_overview(request):
     return render(request, 'admin_panel/job_postings.html')
+def add_job(request):
+    if request.method == 'POST':
+        title = request.POST['title']
+        category = request.POST['category']
+        description = request.POST['description']
+        budget = request.POST['budget']
+        status = request.POST['status']
+        
+        job = Job.objects.create(
+            title=title,
+            category=category,
+            description=description,
+            budget=budget,
+            status=status
+        )
+        messages.success(request, "Job added successfully!")
+        return redirect('job_postings')
+    
+    return render(request, 'add_job.html')
 
 # Payment Management
 def payment_management(request):
