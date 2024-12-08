@@ -143,9 +143,12 @@ def add_job(request):
         job_posting.save()
 
         # Redirect to a success page (or any other page you prefer)
-        return redirect('some_success_url')
+        return redirect('job_postings')
 
     return render(request, 'admin_panel/add_job.html')
+def view_job(request, job_id):
+    job = get_object_or_404(JobPosting, id=job_id)
+    return render(request, 'admin_panel/view_job.html', {'job': job})
 # Payment Management
 def payment_management(request):
     return render(request, 'payment_management.html')
