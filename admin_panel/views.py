@@ -123,24 +123,29 @@ def job_postings(request):
 
 def add_job(request):
     if request.method == 'POST':
-        title = request.POST['title']
-        category = request.POST['category']
-        description = request.POST['description']
-        budget = request.POST['budget']
-        status = request.POST['status']
-        
-        job = JobPosting.objects.create(
+        # Get the form data from the request
+        title = request.POST.get('title')
+        category = request.POST.get('category')
+        description = request.POST.get('description')
+        budget = request.POST.get('budget')
+        status = request.POST.get('status')
+
+        # Create a new JobPosting object
+        job_posting = JobPosting(
             title=title,
             category=category,
             description=description,
             budget=budget,
             status=status
         )
-        messages.success(request, "Job added successfully!")
-        return redirect('job_postings')
-    
-    return render(request, 'admin_panel/add_job.html')
 
+        # Save the new JobPosting object to the database
+        job_posting.save()
+
+        # Redirect to a success page (or any other page you prefer)
+        return redirect('some_success_url')
+
+    return render(request, 'admin_panel/add_job.html')
 # Payment Management
 def payment_management(request):
     return render(request, 'payment_management.html')
