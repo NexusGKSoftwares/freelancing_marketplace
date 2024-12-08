@@ -1,22 +1,32 @@
-<nav class="navbar navbar-expand-lg" style="background-color: #007bff;">
+<nav class="navbar navbar-expand-lg" style="background: linear-gradient(90deg, #007bff, #00c6ff);">
   <div class="container-fluid">
-    <a class="navbar-brand text-white fw-bold" href="#">Freelancer Panel</a>
+    <a class="navbar-brand text-white fw-bold" href="#">
+      <i class="fas fa-briefcase"></i> Freelancer Panel
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon text-white"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link text-white" href="{% url 'freelancer_dashboard' %}" style="margin-right: 10px;">Dashboard</a>
+          <a class="nav-link text-white" href="{% url 'freelancer_dashboard' %}" style="margin-right: 10px;">
+            <i class="fas fa-tachometer-alt"></i> Dashboard
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="{% url 'freelancer_ongoing_jobs' %}" style="margin-right: 10px;">Jobs</a>
+          <a class="nav-link text-white" href="{% url 'freelancer_ongoing_jobs' %}" style="margin-right: 10px;">
+            <i class="fas fa-tasks"></i> Jobs
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-white" href="{% url 'freelancer_payment_overview' %}" style="margin-right: 10px;">Payments</a>
+          <a class="nav-link text-white" href="{% url 'freelancer_payment_overview' %}" style="margin-right: 10px;">
+            <i class="fas fa-wallet"></i> Payments
+          </a>
         </li>
       </ul>
     </div>
-    <a href="{% url 'logout' %}" class="btn btn-outline-light">Logout</a>
+    <a href="{% url 'logout' %}" class="btn btn-outline-light">
+      <i class="fas fa-sign-out-alt"></i> Logout
+    </a>
   </div>
 </nav>
