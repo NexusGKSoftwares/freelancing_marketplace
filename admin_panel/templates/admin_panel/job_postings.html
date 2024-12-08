@@ -3,7 +3,35 @@
 {% block title %}Job Postings - FreelanceHub{% endblock %}
 
 {% block content %}
-<h2 class="text-center">Job Postings</h2>
+<h2 class="text-center mb-4">Job Postings</h2>
+
+<div class="container mb-4">
+    <form method="get" action="" class="row g-3">
+        <div class="col-md-4">
+            <input type="text" name="search" class="form-control" placeholder="Search by title..." value="{{ request.GET.search }}">
+        </div>
+        <div class="col-md-3">
+            <select name="category" class="form-select">
+                <option value="">Filter by Category</option>
+                <option value="Development" {% if request.GET.category == "Development" %}selected{% endif %}>Development</option>
+                <option value="Design" {% if request.GET.category == "Design" %}selected{% endif %}>Design</option>
+                <option value="Writing" {% if request.GET.category == "Writing" %}selected{% endif %}>Writing</option>
+                <option value="Marketing" {% if request.GET.category == "Marketing" %}selected{% endif %}>Marketing</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <select name="status" class="form-select">
+                <option value="">Filter by Status</option>
+                <option value="Open" {% if request.GET.status == "Open" %}selected{% endif %}>Open</option>
+                <option value="Closed" {% if request.GET.status == "Closed" %}selected{% endif %}>Closed</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">Filter</button>
+        </div>
+    </form>
+</div>
+
 <div class="table-responsive">
     <table class="table table-striped table-bordered">
         <thead>
@@ -11,25 +39,67 @@
                 <th>ID</th>
                 <th>Title</th>
                 <th>Category</th>
+                <th>Budget ($)</th>
                 <th>Status</th>
+                <th>Posted Date</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            {% for job in jobs %}
-            <tr>
-                <td>{{ job.id }}</td>
-                <td>{{ job.title }}</td>
-                <td>{{ job.category }}</td>
-                <td>{{ job.status }}</td>
-                <td>
-                    <a href="{% url 'admin_view_job' job.id %}" class="btn btn-sm btn-primary">View</a>
-                    <a href="{% url 'admin_edit_job' job.id %}" class="btn btn-sm btn-warning">Edit</a>
-                    <a href="{% url 'admin_delete_job' job.id %}" class="btn btn-sm btn-danger">Delete</a>
-                </td>
-            </tr>
-            {% endfor %}
+            {% if jobs %}
+                {% for job in jobs %}
+                <tr>
+                    <td>{{ job.id }}</td>
+                    <td>{{ job.title }}</td>
+                    <td>{{ job.category }}</td>
+                    <td>{{ job.budget }}</td>
+                    <td>
+                        <span class="badge {% if job.status == 'Open' %}bg-success{% else %}bg-danger{% endif %}">
+                            {{ job.status }}
+                        </span>
+                    </td>
+                    <td>{{ job.created_at|date:"d M Y" }}</td>
+                    <td>
+                        <a href="{% url 'admin_view_job' job.id %}" class="btn btn-sm btn-primary">View</a>
+                        <a href="{% url 'admin_edit_job' job.id %}" class="btn btn-sm btn-warning">Edit</a>
+                        <a href="{% url 'admin_delete_job' job.id %}" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="7" class="text-center">No jobs found.</td>
+                </tr>
+            {% endif %}
         </tbody>
     </table>
 </div>
+
+{% if jobs.paginator %}
+<div class="d-flex justify-content-center">
+    <nav>
+        <ul class="pagination">
+            {% if jobs.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ jobs.previous_page_number }}&{{ request.GET.urlencode }}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            {% endif %}
+            {% for page_num in jobs.paginator.page_range %}
+                <li class="page-item {% if jobs.number == page_num %}active{% endif %}">
+                    <a class="page-link" href="?page={{ page_num }}&{{ request.GET.urlencode }}">{{ page_num }}</a>
+                </li>
+            {% endfor %}
+            {% if jobs.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ jobs.next_page_number }}&{{ request.GET.urlencode }}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+{% endif %}
 {% endblock %}
