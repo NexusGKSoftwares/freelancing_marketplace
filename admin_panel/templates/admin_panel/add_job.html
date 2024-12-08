@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Job - FreelanceHub{% endblock %}
+
+{% block content %}
+<h2 class="text-center">Add Job</h2>
+<div class="container mt-4">
+    <form method="post" action="{% url 'admin_add_job' %}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="title" class="form-label">Job Title</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+        <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select class="form-select" id="category" name="category" required>
+                <option value="Development">Development</option>
+                <option value="Design">Design</option>
+                <option value="Writing">Writing</option>
+                <option value="Marketing">Marketing</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="5" required></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="budget" class="form-label">Budget ($)</label>
+            <input type="number" class="form-control" id="budget" name="budget" min="1" required>
+        </div>
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-select" id="status" name="status" required>
+                <option value="Open">Open</option>
+                <option value="Closed">Closed</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Add Job</button>
+    </form>
+</div>
+{% endblock %}

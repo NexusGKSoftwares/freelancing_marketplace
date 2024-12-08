@@ -1,10 +1,11 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages 
 from freelancer.models import Feedback
+from django.core.paginator import Paginator
+from django.db.models import Q
 
 
-
-from .models import Activity, User, JobPosting, Payment, SystemHealth, SupportTicket 
+from .models import Activity, User, JobPosting, Payment, SystemHealth
 
 # Admin dashboard view
 def admin_dashboard(request):
@@ -96,8 +97,49 @@ def delete_user(request, user_id):
         return redirect('admin_manage_users')  # Redirect to user management page
     return redirect('admin_manage_users')  # Fallback in case of a GET request
 # Job Postings Overview
-def job_postings_overview(request):
-    return render(request, 'job_postings.html')
+
+
+def job_postings(request):
+    search_query = request.GET.get('search', '')
+    category_filter = request.GET.get('category', '')
+    status_filter = request.GET.get('status', '')
+
+    jobs = JobPosting.objects.all()
+
+    # Apply search and filters
+    if search_query:
+        jobs = jobs.filter(title__icontains=search_query)
+    if category_filter:
+        jobs = jobs.filter(category=category_filter)
+    if status_filter:
+        jobs = jobs.filter(status=status_filter)
+
+    # Add pagination
+    paginator = Paginator(jobs, 10)  # 10 jobs per page
+    page_number = request.GET.get('page')
+    jobs = paginator.get_page(page_number)
+
+    return render(request, 'admin_panel/job_postings.html', {'jobs': jobs})
+
+def add_job(request):
+    if request.method == 'POST':
+        title = request.POST['title']
+        category = request.POST['category']
+        description = request.POST['description']
+        budget = request.POST['budget']
+        status = request.POST['status']
+        
+        job = JobPosting.objects.create(
+            title=title,
+            category=category,
+            description=description,
+            budget=budget,
+            status=status
+        )
+        messages.success(request, "Job added successfully!")
+        return redirect('job_postings')
+    
+    return render(request, 'admin_panel/add_job.html')
 
 # Payment Management
 def payment_management(request):
