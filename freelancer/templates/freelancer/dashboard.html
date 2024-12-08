@@ -24,10 +24,10 @@
     </div>
 
     <!-- Stats and Card Section -->
-    <div class="row">
+    <div class="row row-cols-1 row-cols-md-3 g-4 mb-4">
         <!-- Total Earnings -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-lg" style="background: linear-gradient(135deg, #00c6ff, #007bff);">
+        <div class="col">
+            <div class="card shadow-lg" style="background: linear-gradient(135deg, #00c6ff, #007bff); height: 100%;">
                 <div class="card-body text-white">
                     <h5 class="card-title">
                         <i class="fas fa-wallet"></i> Total Earnings
@@ -42,8 +42,8 @@
         </div>
 
         <!-- Active Jobs -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-lg" style="background: linear-gradient(135deg, #ffc107, #ff9800);">
+        <div class="col">
+            <div class="card shadow-lg" style="background: linear-gradient(135deg, #ffc107, #ff9800); height: 100%;">
                 <div class="card-body text-white">
                     <h5 class="card-title">
                         <i class="fas fa-tasks"></i> Active Jobs
@@ -58,8 +58,8 @@
         </div>
 
         <!-- Available Jobs -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-lg" style="background: linear-gradient(135deg, #6a11cb, #2575fc);">
+        <div class="col">
+            <div class="card shadow-lg" style="background: linear-gradient(135deg, #6a11cb, #2575fc); height: 100%;">
                 <div class="card-body text-white">
                     <h5 class="card-title">
                         <i class="fas fa-clipboard-list"></i> Available Jobs
@@ -70,6 +70,28 @@
                         <i class="fas fa-search"></i> Browse Jobs
                     </a>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Jobs Available Section -->
+    <div class="row">
+        <div class="col-12">
+            <h3 class="mb-4">Available Jobs</h3>
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                {% for job in available_jobs %}
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ job.title }}</h5>
+                                <p class="card-text">{{ job.description }}</p>
+                                <a href="{% url 'job_detail' job.id %}" class="btn btn-primary">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p>No available jobs at the moment.</p>
+                {% endfor %}
             </div>
         </div>
     </div>
