@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Job - FreelanceHub{% endblock %}
+
+{% block content %}
+<h2 class="text-center">Edit Job</h2>
+<div class="container mt-4">
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="title" class="form-label">Job Title</label>
+            <input type="text" class="form-control" id="title" name="title" value="{{ job.title }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select class="form-select" id="category" name="category" required>
+                <option value="Development" {% if job.category == 'Development' %}selected{% endif %}>Development</option>
+                <option value="Design" {% if job.category == 'Design' %}selected{% endif %}>Design</option>
+                <option value="Writing" {% if job.category == 'Writing' %}selected{% endif %}>Writing</option>
+                <option value="Marketing" {% if job.category == 'Marketing' %}selected{% endif %}>Marketing</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" name="description" rows="5" required>{{ job.description }}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="budget" class="form-label">Budget ($)</label>
+            <input type="number" class="form-control" id="budget" name="budget" value="{{ job.budget }}" min="1" required>
+        </div>
+        <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-select" id="status" name="status" required>
+                <option value="Open" {% if job.status == 'Open' %}selected{% endif %}>Open</option>
+                <option value="Closed" {% if job.status == 'Closed' %}selected{% endif %}>Closed</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Update Job</button>
+    </form>
+</div>
+{% endblock %}
