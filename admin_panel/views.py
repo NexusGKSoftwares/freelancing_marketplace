@@ -5,7 +5,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 
 
-from .models import Activity, User, JobPosting, Payment, SystemHealth, Job 
+from .models import Activity, User, JobPosting, Payment, SystemHealth
 
 # Admin dashboard view
 def admin_dashboard(request):
@@ -104,7 +104,7 @@ def job_postings(request):
     category_filter = request.GET.get('category', '')
     status_filter = request.GET.get('status', '')
 
-    jobs = Job.objects.all()
+    jobs = JobPosting.objects.all()
 
     # Apply search and filters
     if search_query:
@@ -129,7 +129,7 @@ def add_job(request):
         budget = request.POST['budget']
         status = request.POST['status']
         
-        job = Job.objects.create(
+        job = JobPosting.objects.create(
             title=title,
             category=category,
             description=description,
