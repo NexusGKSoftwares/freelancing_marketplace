@@ -1,0 +1,10 @@
+{% extends 'freelancer/base.html' %}
+
+{% block content %}
+<h1>Job Details</h1>
+<h2>{{ job.title }}</h2>
+<p>{{ job.description }}</p>
+<p><strong>Status:</strong> {{ job.status }}</p>
+<p><strong>Created At:</strong> {{ job.created_at }}</p>
+<p><strong>Start Date:</strong> {{ job.start_date }}</p>
+{% endblock %}
