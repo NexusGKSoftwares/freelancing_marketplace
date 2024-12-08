@@ -1,42 +1,84 @@
-<style>.navbar-nav .nav-link:hover {
-  color: #ffc107;
-  text-decoration: underline;
-}
-
-.btn-outline-light:hover {
-  background-color: #ffc107;
-  color: #fff;
-}
-</style>
-<nav class="navbar navbar-expand-lg" style="background: linear-gradient(90deg, #007bff, #00c6ff);">
-  <div class="container-fluid">
-    <a class="navbar-brand text-white fw-bold" href="#">
-      <i class="fas fa-briefcase"></i> Freelancer Panel
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon text-white"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link text-white" href="{% url 'freelancer_dashboard' %}" style="margin-right: 10px;">
-            <i class="fas fa-tachometer-alt"></i> Dashboard
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="{% url 'freelancer_ongoing_jobs' %}" style="margin-right: 10px;">
-            <i class="fas fa-tasks"></i> Jobs
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-white" href="{% url 'freelancer_payment_overview' %}" style="margin-right: 10px;">
-            <i class="fas fa-wallet"></i> Payments
-          </a>
-        </li>
-      </ul>
+<style>
+  /* Navbar Styling */
+  .navbar {
+    background: linear-gradient(90deg, #4e73df, #1cc88a);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar-brand {
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-brand i {
+    margin-right: 8px;
+  }
+  
+  .navbar-nav .nav-link {
+    font-weight: 500;
+    margin-right: 15px;
+    transition: color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .navbar-nav .nav-link:hover {
+    color: #ffc107;
+    text-decoration: none;
+    transform: scale(1.1);
+  }
+  
+  .btn-outline-light {
+    border-color: #fff;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-outline-light:hover {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #fff;
+  }
+  
+  @media (max-width: 768px) {
+    .navbar-brand {
+      font-size: 1.2rem;
+    }
+  }
+  </style>
+  
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <!-- Brand -->
+      <a class="navbar-brand text-white fw-bold" href="#">
+        <i class="fas fa-briefcase"></i> Freelancer Panel
+      </a>
+      <!-- Toggler -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon text-white"></span>
+      </button>
+      <!-- Navbar Links -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'freelancer_dashboard' %}">
+              <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'freelancer_ongoing_jobs' %}">
+              <i class="fas fa-tasks"></i> Jobs
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{% url 'freelancer_payment_overview' %}">
+              <i class="fas fa-wallet"></i> Payments
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- Logout Button -->
+      <a href="{% url 'logout' %}" class="btn btn-outline-light">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </a>
     </div>
-    <a href="{% url 'logout' %}" class="btn btn-outline-light">
-      <i class="fas fa-sign-out-alt"></i> Logout
-    </a>
-  </div>
-</nav>
+  </nav>
+  
