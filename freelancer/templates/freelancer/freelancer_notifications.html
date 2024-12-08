@@ -1,0 +1,17 @@
+{% extends 'freelancer/base.html' %}
+
+{% block content %}
+<h1>Notifications</h1>
+<ul>
+    {% for notification in notifications %}
+        <li>
+            {{ notification.message }} - <strong>{{ notification.created_at }}</strong>
+            {% if not notification.is_read %}
+                <span style="color: red;">(Unread)</span>
+            {% endif %}
+        </li>
+    {% empty %}
+        <li>No notifications found.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
