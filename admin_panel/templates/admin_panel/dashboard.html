@@ -191,8 +191,32 @@
                 </div>
             </div>
         </div>
-    </div>
+    
+    
+        <div class="col-md-3">
+            <div class="card text-center shadow-lg gradient-notifications">
+                <div class="card-body">
+                    <i class="fas fa-heartbeat fa-3x"></i>
+                    <h5 class="card-title mt-3">System Health</h5>
+                    <p class="card-text">Check the health and uptime of the system.</p>
+                    <a href="{% url 'admin_system_health' %}" class="btn btn-outline-light">View Health</a>
+                </div>
+            </div>
+        </div>
 
+        <!-- New Registrations -->
+        <div class="col-md-3">
+            <div class="card text-center shadow-lg gradient-analytics">
+                <div class="card-body">
+                    <i class="fas fa-user-plus fa-3x"></i>
+                    <h5 class="card-title mt-3">New Registrations</h5>
+                    <p class="card-text">View and manage new freelancer and client registrations.</p>
+                    <a href="{% url 'admin_new_registrations' %}" class="btn btn-outline-light">View Registrations</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
     <!-- Recent Activity Section -->
     <div class="row my-4">
         <div class="col-12">
@@ -219,29 +243,6 @@
     </div>
 
     <!-- System Health Monitoring -->
-    <div class="row my-4">
-        <div class="col-md-6">
-            <div class="card text-center shadow-lg gradient-notifications">
-                <div class="card-body">
-                    <i class="fas fa-heartbeat fa-3x"></i>
-                    <h5 class="card-title mt-3">System Health</h5>
-                    <p class="card-text">Check the health and uptime of the system.</p>
-                    <a href="{% url 'admin_system_health' %}" class="btn btn-outline-light">View Health</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- New Registrations -->
-        <div class="col-md-6">
-            <div class="card text-center shadow-lg gradient-analytics">
-                <div class="card-body">
-                    <i class="fas fa-user-plus fa-3x"></i>
-                    <h5 class="card-title mt-3">New Registrations</h5>
-                    <p class="card-text">View and manage new freelancer and client registrations.</p>
-                    <a href="{% url 'admin_new_registrations' %}" class="btn btn-outline-light">View Registrations</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 </div>
 {% endblock %}
