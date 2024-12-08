@@ -4,6 +4,17 @@
 
 {% block content %}
 <div class="container-fluid">
+    <!-- Banner Section -->
+    <div class="hero-banner" style="background-image: url('path_to_banner_image.jpg'); background-size: cover; background-position: center; padding: 100px 0; text-align: center; color: white;">
+        <div class="container">
+            <h1 class="display-3">Welcome Back, {{ user }}!</h1>
+            <p class="lead">Explore your opportunities, manage your projects, and grow your career with FreelanceHub</p>
+            <a href="{% url 'freelancer_available_jobs' %}" class="btn btn-outline-light btn-lg">
+                <i class="fas fa-search"></i> Browse Available Jobs
+            </a>
+        </div>
+    </div>
+
     <!-- Header Section -->
     <div class="row mb-4">
         <div class="col-12">
