@@ -79,45 +79,43 @@
                 </div>
             </div>
         </div>
-
-        <!-- Job Postings Overview -->
-        <div class="col-md-3">
-            <div class="card text-center shadow-lg">
-                <div class="card-body">
-                    <i class="fas fa-clipboard-list fa-3x text-success"></i>
-                    <h5 class="card-title mt-3">Job Postings Overview</h5>
-                    <p class="card-text">Monitor all job postings and their statuses.</p>
-                    <a href="{% url 'job_postings' %}" class="btn btn-outline-success">View Jobs</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- Payment Management -->
-        <div class="col-md-3">
-            <div class="card text-center shadow-lg">
-                <div class="card-body">
-                    <i class="fas fa-dollar-sign fa-3x text-warning"></i>
-                    <h5 class="card-title mt-3">Payment Management</h5>
-                    <p class="card-text">Manage and review all platform payments.</p>
-                    <a href="{% url 'admin_payments' %}" class="btn btn-outline-warning">Manage Payments</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- System Activity -->
-        <div class="col-md-3">
-            <div class="card text-center shadow-lg">
-                <div class="card-body">
-                    <i class="fas fa-cogs fa-3x text-info"></i>
-                    <h5 class="card-title mt-3">System Activity</h5>
-                    <p class="card-text">Monitor system performance and user activities.</p>
-                    <a href="{% url 'admin_system_activity' %}" class="btn btn-outline-info">View Activity</a>
-                </div>
-            </div>
+ <!-- Job Postings Overview -->
+ <div class="col-md-3">
+    <div class="card text-center shadow-lg gradient-job-postings">
+        <div class="card-body">
+            <i class="fas fa-clipboard-list fa-3x"></i>
+            <h5 class="card-title mt-3">Job Postings Overview</h5>
+            <p class="card-text">Monitor all job postings and their statuses.</p>
+            <a href="{% url 'job_postings' %}" class="btn btn-outline-light">View Jobs</a>
         </div>
     </div>
+</div>
 
-    <!-- Additional Features Section -->
+<!-- Payment Management -->
+<div class="col-md-3">
+    <div class="card text-center shadow-lg gradient-payments">
+        <div class="card-body">
+            <i class="fas fa-dollar-sign fa-3x"></i>
+            <h5 class="card-title mt-3">Payment Management</h5>
+            <p class="card-text">Manage and review all platform payments.</p>
+            <a href="{% url 'admin_payments' %}" class="btn btn-outline-light">Manage Payments</a>
+        </div>
+    </div>
+</div>
+
+<!-- System Activity -->
+<div class="col-md-3">
+    <div class="card text-center shadow-lg gradient-system-activity">
+        <div class="card-body">
+            <i class="fas fa-cogs fa-3x"></i>
+            <h5 class="card-title mt-3">System Activity</h5>
+            <p class="card-text">Monitor system performance and user activities.</p>
+            <a href="{% url 'admin_system_activity' %}" class="btn btn-outline-light">View Activity</a>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Additional Features Section -->
     <div class="row my-4">
         <!-- Analytics -->
         <div class="col-md-3">
