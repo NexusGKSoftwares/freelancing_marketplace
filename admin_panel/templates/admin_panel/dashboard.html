@@ -3,6 +3,58 @@
 {% block title %}Admin Dashboard - FreelanceHub{% endblock %}
 
 {% block content %}
+<style>
+    .card {
+        background: linear-gradient(to bottom right, #f0f4c3, #3256ce); /* Default gradient */
+        border: none;
+        color: #333;
+    }
+
+    .card .btn {
+        transition: transform 0.2s ease;
+    }
+
+    .card:hover .btn {
+        transform: scale(1.05);
+    }
+
+    .gradient-manage-users {
+        background: linear-gradient(to bottom right, #2196f3, #64b5f6);
+        color: #fff;
+    }
+
+    .gradient-job-postings {
+        background: linear-gradient(to bottom right, #4caf50, #81c784);
+        color: #fff;
+    }
+
+    .gradient-payments {
+        background: linear-gradient(to bottom right, #ff9800, #ffb74d);
+        color: #fff;
+    }
+
+    .gradient-system-activity {
+        background: linear-gradient(to bottom right, #00acc1, #4dd0e1);
+        color: #fff;
+    }
+
+    /* Additional gradients */
+    .gradient-analytics {
+        background: linear-gradient(to bottom right, #673ab7, #9575cd);
+        color: #fff;
+    }
+
+    .gradient-notifications {
+        background: linear-gradient(to bottom right, #e53935, #ef5350);
+        color: #fff;
+    }
+
+    .gradient-feedback {
+        background: linear-gradient(to bottom right, #ffeb3b, #ffe082);
+        color: #333;
+    }
+</style>
+
 <div class="container">
     <!-- Welcome Section -->
     <div class="row">
