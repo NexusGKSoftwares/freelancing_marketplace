@@ -1,0 +1,30 @@
+{% extends 'admin_panel/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h4>
+                <i class="bi bi-eye-fill me-2"></i> View Project: {{ project.name }}
+            </h4>
+        </div>
+        <div class="card-body">
+            <h5>Description:</h5>
+            <p>{{ project.description }}</p>
+
+            <h5>Status:</h5>
+            <p>{{ project.get_status_display }}</p>
+
+            <h5>Start Date:</h5>
+            <p>{{ project.start_date }}</p>
+
+            <h5>End Date:</h5>
+            <p>{{ project.end_date }}</p>
+
+            <a href="{% url 'edit_project' project.id %}" class="btn btn-primary btn-sm">
+                <i class="bi bi-pencil-fill"></i> Edit Project
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

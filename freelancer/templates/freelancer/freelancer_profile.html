@@ -1,0 +1,115 @@
+{% extends 'freelancer/base.html' %}
+{% load static %}
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .profile-header img {
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+        .profile-section {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .profile-section h2 {
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        .profile-section p {
+            font-size: 16px;
+        }
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .skill-tag {
+            background-color: #007bff;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .button:hover {
+            background-color: #218838;
+        }
+    </style>
+
+
+
+    <div class="profile-header">
+        <h1>{{ profile.user.username }}'s Profile</h1>
+        {% if profile.profile_picture %}
+            <img src="{{ profile.profile_picture.url }}" alt="Profile Picture" width="200">
+        {% else %}
+            <img src="{% static 'images/image.png' %}" alt="Default Profile Picture" width="200">
+        {% endif %}
+    </div>
+
+    <div class="profile-section">
+        <h2>Bio</h2>
+        <p>{{ profile.bio }}</p>
+    </div>
+
+    <div class="profile-section">
+        <h2>Location</h2>
+        <p>{{ profile.location }}</p>
+    </div>
+
+    <div class="profile-section">
+        <h2>Contact Information</h2>
+        <p><strong>Email:</strong> {{ profile.user.email }}</p>
+        <p><strong>Phone Number:</strong> {{ profile.phone_number }}</p>
+        <!-- You can add more contact fields like social media links here -->
+    </div>
+
+    <div class="profile-section">
+        <h2>Skills</h2>
+        <div class="skills">
+            {% for skill in profile.skills.all %}
+                <span class="skill-tag">{{ skill.name }}</span>
+            {% empty %}
+                <p>No skills added yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="profile-section">
+        <h2>Projects</h2>
+        <ul>
+            {% for project in profile.projects.all %}
+                <li>
+                    <strong>{{ project.title }}</strong>: {{ project.description }}
+                </li>
+            {% empty %}
+                <p>No projects listed yet.</p>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <a href="{% url 'freelancer_edit_profile' %}" class="button">Edit Profile</a>
+
+
+</html>

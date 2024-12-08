@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}System Activity - FreelanceHub{% endblock %}
+
+{% block content %}
+<h2 class="text-center">System Activity</h2>
+<div class="list-group">
+    {% for activity in activities %}
+    <div class="list-group-item">
+        <i class="fas fa-circle text-success"></i> {{ activity.message }}
+        <span class="text-muted float-end">{{ activity.timestamp|date:"d M Y, H:i" }}</span>
+    </div>
+    {% empty %}
+    <p class="text-center">No recent activity found.</p>
+    {% endfor %}
+</div>
+{% endblock %}
