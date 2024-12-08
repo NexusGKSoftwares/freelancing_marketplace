@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}View Job - FreelanceHub{% endblock %}
+
+{% block content %}
+<h2 class="text-center">View Job</h2>
+<div class="container mt-4">
+    <h3>{{ job.title }}</h3>
+    <p><strong>Category:</strong> {{ job.category }}</p>
+    <p><strong>Description:</strong> {{ job.description }}</p>
+    <p><strong>Budget:</strong> ${{ job.budget }}</p>
+    <p><strong>Status:</strong> {{ job.status }}</p>
+    <p><strong>Created At:</strong> {{ job.created_at|date:"d M Y" }}</p>
+    <a href="{% url 'admin_edit_job' job.id %}" class="btn btn-warning">Edit</a>
+    <a href="{% url 'admin_delete_job' job.id %}" class="btn btn-danger">Delete</a>
+</div>
+{% endblock %}
