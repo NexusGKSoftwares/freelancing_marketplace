@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Job - FreelanceHub{% endblock %}
+
+{% block content %}
+<h2 class="text-center">Delete Job</h2>
+<div class="container mt-4">
+    <p>Are you sure you want to delete the job "<strong>{{ job.title }}</strong>"?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Yes, Delete</button>
+        <a href="{% url 'admin_job_postings' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}
