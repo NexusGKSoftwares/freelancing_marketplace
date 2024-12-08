@@ -146,9 +146,43 @@ def add_job(request):
         return redirect('job_postings')
 
     return render(request, 'admin_panel/add_job.html')
+# View job
 def view_job(request, job_id):
+    # Get the job object or return a 404 if it doesn't exist
     job = get_object_or_404(JobPosting, id=job_id)
+    
+    # Render the view with the job data
     return render(request, 'admin_panel/view_job.html', {'job': job})
+
+# Edit job
+def edit_job(request, job_id):
+    job = get_object_or_404(JobPosting, id=job_id)
+    
+    # If the form is submitted (POST request)
+    if request.method == 'POST':
+        # Update the job fields from the form data
+        job.title = request.POST.get('title')
+        job.category = request.POST.get('category')
+        job.description = request.POST.get('description')
+        job.budget = request.POST.get('budget')
+        job.status = request.POST.get('status')
+        
+        job.save()  # Save the changes to the database
+        return redirect('admin_job_postings')  # Redirect to the job postings list after editing
+    
+    # If it's a GET request, just render the edit form with the current job data
+    return render(request, 'admin_panel/edit_job.html', {'job': job})
+
+# Delete job
+def delete_job(request, job_id):
+    job = get_object_or_404(JobPosting, id=job_id)
+    
+    if request.method == 'POST':
+        job.delete()  # Delete the job from the database
+        return redirect('admin_job_postings')  # Redirect to the job postings list
+    
+    # Render a confirmation page to ask if the user is sure
+    return render(request, 'admin_panel/delete_job.html', {'job': job})
 # Payment Management
 def payment_management(request):
     return render(request, 'payment_management.html')
