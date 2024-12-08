@@ -168,7 +168,7 @@ def edit_job(request, job_id):
         job.status = request.POST.get('status')
         
         job.save()  # Save the changes to the database
-        return redirect('admin_job_postings')  # Redirect to the job postings list after editing
+        return redirect('job_postings')  # Redirect to the job postings list after editing
     
     # If it's a GET request, just render the edit form with the current job data
     return render(request, 'admin_panel/edit_job.html', {'job': job})
@@ -179,7 +179,7 @@ def delete_job(request, job_id):
     
     if request.method == 'POST':
         job.delete()  # Delete the job from the database
-        return redirect('admin_job_postings')  # Redirect to the job postings list
+        return redirect('job_postings')  # Redirect to the job postings list
     
     # Render a confirmation page to ask if the user is sure
     return render(request, 'admin_panel/delete_job.html', {'job': job})
