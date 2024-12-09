@@ -3,14 +3,38 @@
 {% block content %}
 <h1>Available Jobs</h1>
 
+<!-- Filters and Sorting -->
+<form method="get" action="">
+    <label for="category">Filter by Category:</label>
+    <select name="category" id="category" onchange="this.form.submit()">
+        <option value="">All Categories</option>
+        {% for cat in categories %}
+            <option value="{{ cat }}" {% if cat == selected_category %}selected{% endif %}>{{ cat }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="sort">Sort by Budget:</label>
+    <select name="sort" id="sort" onchange="this.form.submit()">
+        <option value="low" {% if sort_order == 'low' %}selected{% endif %}>Lowest First</option>
+        <option value="high" {% if sort_order == 'high' %}selected{% endif %}>Highest First</option>
+    </select>
+</form>
+
 <ul>
     {% for job in available_jobs %}
         <li>
-            <h3>{{ job.title }}</h3>
+            <h3>
+                {{ job.title }}
+                {% if job.is_new %}
+                    <span style="color: green; font-weight: bold;">(New)</span>
+                {% endif %}
+            </h3>
             <p><strong>Category:</strong> {{ job.category }}</p>
             <p><strong>Description:</strong> {{ job.description|truncatechars:100 }}</p>
             <p><strong>Budget:</strong> ${{ job.budget }}</p>
+            <p><strong>Posted:</strong> {{ job.posted_date|date:"M d, Y" }}</p>
             <a href="{% url 'freelancer_job_details' job.id %}">View Details</a>
+            <a href="{% url 'apply_for_job' job.id %}" class="btn btn-primary">Apply</a>
         </li>
     {% empty %}
         <li>No jobs are currently available.</li>
