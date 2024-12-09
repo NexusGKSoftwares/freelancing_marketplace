@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.utils.timezone import now
 # Model for Users (Freelancers and Clients)
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -17,6 +17,7 @@ class JobPosting(models.Model):
     description = models.TextField()
     budget = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=20, choices=[('Open', 'Open'), ('Closed', 'Closed')])
+    created_at = models.DateTimeField(default=now)
 
     def __str__(self):
         return self.title
