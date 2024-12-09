@@ -3,6 +3,9 @@ from django.contrib import messages
 from freelancer.models import Feedback
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.shortcuts import render, redirect
+from .models import JobPosting
+from datetime import datetime
 
 
 from .models import Activity, User, JobPosting, Payment, SystemHealth
@@ -121,6 +124,7 @@ def job_postings(request):
 
     return render(request, 'admin_panel/job_postings.html', {'jobs': jobs})
 
+
 def add_job(request):
     if request.method == 'POST':
         # Get the form data from the request
@@ -129,6 +133,10 @@ def add_job(request):
         description = request.POST.get('description')
         budget = request.POST.get('budget')
         status = request.POST.get('status')
+        deadline = request.POST.get('deadline')  # Get the deadline from the form
+
+        # Convert deadline string to a datetime object
+        deadline = datetime.strptime(deadline, '%Y-%m-%d %H:%M')  # adjust format as needed
 
         # Create a new JobPosting object
         job_posting = JobPosting(
@@ -136,7 +144,8 @@ def add_job(request):
             category=category,
             description=description,
             budget=budget,
-            status=status
+            status=status,
+            deadline=deadline  # Save the deadline
         )
 
         # Save the new JobPosting object to the database
@@ -144,6 +153,9 @@ def add_job(request):
 
         # Redirect to a success page (or any other page you prefer)
         return redirect('job_postings')
+
+    return render(request, 'admin_panel/add_job.html')
+
 
     return render(request, 'admin_panel/add_job.html')
 # View job
