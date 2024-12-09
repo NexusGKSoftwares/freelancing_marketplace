@@ -171,7 +171,7 @@ def freelancer_available_jobs(request):
     # Get distinct categories for filtering
     categories = JobPosting.objects.values_list('category', flat=True).distinct()
 
-    return render(request, 'freelancer_available_jobs.html', {
+    return render(request, 'freelancer/freelancer_available_jobs.html', {
         'available_jobs': jobs,
         'categories': categories,
         'selected_category': category,

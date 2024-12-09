@@ -8,6 +8,6 @@
 <p><strong>Description:</strong> {{ job.description }}</p>
 <p><strong>Budget:</strong> ${{ job.budget }}</p>
 <p><strong>Status:</strong> {{ job.status }}</p>
-
+<a href="{% url 'apply_for_job' job.id %}" class="btn btn-primary">Apply</a>
 <a href="{% url 'freelancer_available_jobs' %}">Back to Available Jobs</a>
 {% endblock %}

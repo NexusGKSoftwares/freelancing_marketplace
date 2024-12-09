@@ -34,7 +34,7 @@
             <p><strong>Budget:</strong> ${{ job.budget }}</p>
             <p><strong>Posted:</strong> {{ job.posted_date|date:"M d, Y" }}</p>
             <a href="{% url 'freelancer_job_details' job.id %}">View Details</a>
-            <a href="{% url 'apply_for_job' job.id %}" class="btn btn-primary">Apply</a>
+            
         </li>
     {% empty %}
         <li>No jobs are currently available.</li>
