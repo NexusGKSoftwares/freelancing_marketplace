@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.timezone import now, timedelta
@@ -15,6 +15,12 @@ from django.http import HttpResponse
 from django.http import Http404
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseForbidden
+from django.db.models import Prefetch
+from .models import Freelancer, Project, Review
+from freelancer import models
 def index(request):
     if not request.user.is_authenticated:
         return render(request, 'freelancer/index.html')
@@ -118,8 +124,27 @@ def freelancer_edit_profile(request):
     return render(request, 'freelancer/freelancer_edit_profile.html', {'freelancer': freelancer})
 @login_required
 def freelancer_profile(request):
-    freelancer = Freelancer.objects.get(user=request.user)
-    return render(request, 'freelancer/freelancer_profile.html', {'freelancer': freelancer})
+    try:
+        # Check if the logged-in user is a freelancer
+        freelancer = get_object_or_404(Freelancer.objects.prefetch_related(
+            Prefetch('projects', queryset=Project.objects.filter(status='completed')),  # Load completed projects
+            Prefetch('reviews')  # Load freelancer reviews
+        ), user=request.user)
+
+        # Fetch additional statistics
+        total_projects = freelancer.projects.count()
+        average_rating = freelancer.reviews.aggregate(average_rating=models.Avg('rating')).get('average_rating', 0)
+
+        # Pass enriched context to the template
+        context = {
+            'freelancer': freelancer,
+            'total_projects': total_projects,
+            'average_rating': average_rating,
+            'active_contracts': freelancer.projects.filter(status='active').count(),
+        }
+        return render(request, 'freelancer/freelancer_profile.html', context)
+    except Freelancer.DoesNotExist:
+        return HttpResponseForbidden("You do not have access to this page.")
 @login_required
 def freelancer_payment_overview(request):
     # Assuming the logged-in user is associated with a freelancer profile
