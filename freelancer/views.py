@@ -175,7 +175,7 @@ def freelancer_feedback(request):
 
 @login_required
 def freelancer_job_details(request, job_id):
-    job = get_object_or_404(Job, id=job_id)
+    job = get_object_or_404(JobPosting, id=job_id)
     
     # Restrict access to the freelancer assigned to the job
     if job.freelancer != request.user.freelancer and job.status != 'available':

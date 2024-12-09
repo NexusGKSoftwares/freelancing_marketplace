@@ -2,9 +2,12 @@
 
 {% block content %}
 <h1>Job Details</h1>
+
 <h2>{{ job.title }}</h2>
-<p>{{ job.description }}</p>
+<p><strong>Category:</strong> {{ job.category }}</p>
+<p><strong>Description:</strong> {{ job.description }}</p>
+<p><strong>Budget:</strong> ${{ job.budget }}</p>
 <p><strong>Status:</strong> {{ job.status }}</p>
-<p><strong>Created At:</strong> {{ job.created_at }}</p>
-<p><strong>Start Date:</strong> {{ job.start_date }}</p>
+
+<a href="{% url 'freelancer_available_jobs' %}">Back to Available Jobs</a>
 {% endblock %}
