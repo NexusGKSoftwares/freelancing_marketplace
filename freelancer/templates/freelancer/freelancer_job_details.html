@@ -1,13 +1,31 @@
 {% extends 'freelancer/base.html' %}
 
 {% block content %}
-<h1>Job Details</h1>
-
-<h2>{{ job.title }}</h2>
-<p><strong>Category:</strong> {{ job.category }}</p>
-<p><strong>Description:</strong> {{ job.description }}</p>
-<p><strong>Budget:</strong> ${{ job.budget }}</p>
-<p><strong>Status:</strong> {{ job.status }}</p>
-<a href="{% url 'apply_for_job' job.id %}" class="btn btn-primary">Apply</a>
-<a href="{% url 'freelancer_available_jobs' %}">Back to Available Jobs</a>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h2>{{ job.title }}</h2>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title"><strong>Category:</strong> {{ job.category }}</h5>
+            <p class="card-text"><strong>Description:</strong> {{ job.description }}</p>
+            <p class="card-text"><strong>Budget:</strong> ${{ job.budget }}</p>
+            <p class="card-text"><strong>Status:</strong> 
+                <span class="badge {% if job.status == 'Open' %}bg-success{% else %}bg-danger{% endif %}">
+                    {{ job.status }}
+                </span>
+            </p>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+            <a href="{% url 'freelancer_available_jobs' %}" class="btn btn-secondary">
+                Back to Available Jobs
+            </a>
+            {% if job.status == 'Open' %}
+            <a href="#" class="btn btn-success">
+                Apply for Job
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock %}
