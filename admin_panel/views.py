@@ -178,7 +178,7 @@ def edit_job(request, job_id):
         deadline = request.POST.get('deadline')  # Get the deadline from the form
         
         # Convert deadline string to a datetime object
-        job.deadline = datetime.strptime(deadline, '%Y-%m-%d %H:%M')  # adjust format as needed
+        deadline = datetime.strptime(deadline, '%Y-%m-%dT%H:%M')
         
         job.save()  # Save the changes to the database
         return redirect('job_postings')  # Redirect to the job postings list after editing
