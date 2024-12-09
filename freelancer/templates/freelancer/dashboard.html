@@ -105,6 +105,28 @@
     max-width: 100%;
     height: auto;
   }
+  #achievements{
+    border-radius: 10px;
+  }
+  #achievements h2 {
+    font-size: 2rem;
+    color: #333;
+  }
+
+  #achievements .achievement-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  #achievements .achievement-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  #achievements i {
+    font-size: 3rem;
+  }
+</style>
+
 </style>
 
   </style>
@@ -311,41 +333,59 @@
 <br>
 <br>
 <br>
-                    <!-- Achievements Section -->
-                    <h4 class="text-white text-center"><i class="bi bi-trophy me-2 text-white"></i> Our Achievements</h4>
-                    <p class="text-center text-white">
-                        We are proud of the milestones we have achieved in transforming the freelancing industry. Here are just a few of our accomplishments:
-                    </p>
-                    <br>
-                    <br>
-                    <br>
-                    <div class="row text-center">
-                        <div class="col-md-4">
-                            <div class="achievement-box">
-                                <h5  class="text-white" ><i class="bi bi-people-fill me-2 text-white"></i> 50,000+ Freelancers</h5>
-                                <p class="text-white">Our platform has successfully connected over 50,000 skilled freelancers across various industries.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="achievement-box">
-                                <h5  class="text-white" ><i class="bi bi-briefcase-fill me-2 text-white"></i> 100,000+ Jobs Posted</h5>
-                                <p class="text-white">Over 100,000 job listings have been posted by employers seeking top-notch talent for their projects.</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="achievement-box">
-                                <h5  class="text-white" ><i class="bi bi-star-fill me-2 text-white"></i> 4.8/5 Average Rating</h5>
-                                <p class="text-white">Our freelancers and employers consistently rate us highly, with an average rating of 4.8/5 based on feedback.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+<!-- Our Achievements Section -->
+<section id="achievements" class="py-5 bg-white">
+    <div class="container">
+      <!-- Section Title -->
+      <div class="text-center mb-5">
+        <h2 class="text-uppercase fw-bold">Our Achievements</h2>
+        <p class="text-muted">Celebrating milestones that showcase our dedication and success.</p>
+      </div>
+  
+      <!-- Achievements Row -->
+      <div class="row text-center">
+        <!-- Achievement 1 -->
+        <div class="col-md-3">
+          <div class="achievement-card p-4 shadow-sm border rounded">
+            <i class="bi bi-people-fill text-primary display-4 mb-3"></i>
+            <h3 class="fw-bold">10,000+</h3>
+            <p class="text-muted">Registered Freelancers</p>
+          </div>
         </div>
+  
+        <!-- Achievement 2 -->
+        <div class="col-md-3">
+          <div class="achievement-card p-4 shadow-sm border rounded">
+            <i class="bi bi-briefcase-fill text-success display-4 mb-3"></i>
+            <h3 class="fw-bold">5,000+</h3>
+            <p class="text-muted">Projects Completed</p>
+          </div>
+        </div>
+  
+        <!-- Achievement 3 -->
+        <div class="col-md-3">
+          <div class="achievement-card p-4 shadow-sm border rounded">
+            <i class="bi bi-award-fill text-warning display-4 mb-3"></i>
+            <h3 class="fw-bold">100+</h3>
+            <p class="text-muted">Industry Awards</p>
+          </div>
+        </div>
+  
+        <!-- Achievement 4 -->
+        <div class="col-md-3">
+          <div class="achievement-card p-4 shadow-sm border rounded">
+            <i class="bi bi-globe2 text-danger display-4 mb-3"></i>
+            <h3 class="fw-bold">50+</h3>
+            <p class="text-muted">Countries Served</p>
+          </div>
+        </div>
+      </div>
     </div>
-</div>
-
+  </section>
+  
+  <br>
+  <br>
+  <br>
 <!-- Testimonials Section -->
 <div class="container py-5">
     <h2 class="text-center mb-4">What Our Clients Say</h2>
