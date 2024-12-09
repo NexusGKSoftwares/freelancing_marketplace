@@ -27,19 +27,20 @@
                 {% endfor %}
             </p>
             
-                        <!-- Progress Bar -->
-            {% if job.max_applicants %}
-            <p class="card-text"><strong>Applications:</strong> {{ job.current_applicants }} / {{ job.max_applicants }}</p>
-            <div class="progress">
-                <div class="progress-bar bg-success" role="progressbar"
-                    style="width: {{ application_percentage|floatformat:2 }}" 
-                    aria-valuenow="{{ job.current_applicants }}" 
-                    aria-valuemin="0" 
-                    aria-valuemax="{{ job.max_applicants }}">
-                    {{ application_percentage|floatformat:2 }}%
-                </div>
-            </div>
-            {% endif %}
+<!-- Progress Bar -->
+{% if job.max_applicants %}
+    <p class="card-text"><strong>Applications:</strong> {{ job.current_applicants }} / {{ job.max_applicants }}</p>
+    <div class="progress">
+        <div class="progress-bar bg-success" role="progressbar"
+            
+            aria-valuenow="{{ job.current_applicants }}" 
+            aria-valuemin="0" 
+            aria-valuemax="{{ job.max_applicants }}">
+            {{ application_percentage|floatformat:2 }}%
+        </div>
+    </div>
+{% endif %}
+
 
         </div>
         <div class="card-footer d-flex justify-content-between">
