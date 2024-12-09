@@ -1,21 +1,86 @@
 {% extends 'freelancer/base.html' %}
-{% load static %}
 
+{% block title %}Freelancer Profile{% endblock %}
 
+{% block content %}
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .profile-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .profile-header h1 {
+            margin: 0;
+            font-size: 2em;
+            color: #333;
+        }
+        .profile-header p {
+            color: #777;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            font-size: 1.5em;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .job-list {
+            list-style: none;
+            padding: 0;
+        }
+        .job-list li {
+            background: #f9f9f9;
+            margin: 5px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .job-list li:hover {
+            background: #f0f0f0;
+        }
+        .no-jobs {
+            color: #777;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="profile-header">
+            <h1> {{ user }}</h1>
+            <p>Email: {{ freelancer.user.email }}</p>
+        </div>
 
-<h1>Freelancer Profile: {{ freelancer.user.get_full_name }}</h1>
-<p>Email: {{ freelancer.user.email }}</p>
-<p>Total Projects: {{ total_Jobs }}</p>
-<p>Average Rating: {{ average_rating|floatformat:1 }}</p>
-<p>Active Contracts: {{ active_contracts }}</p>
-
-<h2>Completed Jobs</h2>
-<ul>
-    {% for project in freelancer.Jobs.all %}
-        <li>{{ project.name }} - {{ project.status }}</li>
-    {% endfor %}
-</ul>
-
-    <a href="{% url 'freelancer_edit_profile' %}" class="button">Edit Profile</a>
-
+        <div class="section">
+            <h2>Jobs</h2>
+            <ul class="job-list">
+                {% for job in jobs %}
+                    <li>
+                        <strong>{{ job.title }}</strong><br>
+                        {{ job.description|truncatewords:20 }}
+                    </li>
+                {% empty %}
+                    <p class="no-jobs">No jobs found for this freelancer.</p>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endblock %}
 
