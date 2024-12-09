@@ -136,7 +136,7 @@ def add_job(request):
         deadline = request.POST.get('deadline')  # Get the deadline from the form
 
         # Convert deadline string to a datetime object
-        deadline = datetime.strptime(deadline, '%Y-%m-%d %H:%M')  # adjust format as needed
+        deadline = datetime.strptime(deadline, '%Y-%m-%dT%H:%M')  # Correct format here
 
         # Create a new JobPosting object
         job_posting = JobPosting(
@@ -156,8 +156,6 @@ def add_job(request):
 
     return render(request, 'admin_panel/add_job.html')
 
-
-    return render(request, 'admin_panel/add_job.html')
 # View job
 def view_job(request, job_id):
     # Get the job object or return a 404 if it doesn't exist
