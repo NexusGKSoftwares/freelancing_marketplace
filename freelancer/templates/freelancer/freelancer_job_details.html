@@ -1,3 +1,6 @@
+{% extends 'freelancer/base.html' %}
+
+{% block content %}
 <div class="container mt-5">
     <div class="card">
         <div class="card-header bg-primary text-white">
@@ -12,17 +15,40 @@
                     {{ job.status }}
                 </span>
             </p>
-            <p class="card-text"><strong>Deadline:</strong> {{ job.deadline|date:"M d, Y H:i" }}</p> <!-- Display the deadline -->
+            <p class="card-text"><strong>Deadline:</strong> {{ job.deadline|date:"M d, Y" }}</p>
+            <p class="card-text"><strong>Time Remaining:</strong> <span id="countdown"></span></p>
             
-            <!-- Countdown Timer -->
-            <p id="countdown"></p>  <!-- This is where the countdown will be displayed -->
+            <!-- Tags Section -->
+            <p class="card-text"><strong>Tags:</strong>
+                {% for tag in job.tags.all %}
+                    <span class="badge bg-info text-dark">{{ tag.name }}</span>
+                {% empty %}
+                    <span class="text-muted">No tags available.</span>
+                {% endfor %}
+            </p>
+            
+<!-- Progress Bar -->
+{% if job.max_applicants %}
+    <p class="card-text"><strong>Applications:</strong> {{ job.current_applicants }} / {{ job.max_applicants }}</p>
+    <div class="progress">
+        <div class="progress-bar bg-success" role="progressbar"
+            
+            aria-valuenow="{{ job.current_applicants }}" 
+            aria-valuemin="0" 
+            aria-valuemax="{{ job.max_applicants }}">
+            {{ application_percentage|floatformat:2 }}%
+        </div>
+    </div>
+{% endif %}
+
+
         </div>
         <div class="card-footer d-flex justify-content-between">
             <a href="{% url 'freelancer_available_jobs' %}" class="btn btn-secondary">
                 Back to Available Jobs
             </a>
             {% if job.status == 'Open' %}
-            <a href="#" class="btn btn-success">
+            <a href="{% url 'apply_for_job' job.id %}" class="btn btn-success">
                 Apply for Job
             </a>
             {% endif %}
@@ -30,24 +56,26 @@
     </div>
 </div>
 
+<!-- Countdown Timer Script -->
 <script>
-    // Countdown Timer Script
-    const deadline = new Date("{{ job.deadline|date:'Y/m/d H:i' }}").getTime();
-    const countdownElement = document.getElementById("countdown");
-
-    const interval = setInterval(function() {
+    const deadline = new Date("{{ job.deadline|date:'Y-m-d H:i:s' }}").getTime();
+    const countdown = document.getElementById('countdown');
+    const timer = setInterval(() => {
         const now = new Date().getTime();
         const distance = deadline - now;
 
-        if (distance < 0) {
-            clearInterval(interval);
-            countdownElement.innerHTML = "The deadline has passed!";
-        } else {
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            countdownElement.innerHTML = `Time remaining: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+        if (distance <= 0) {
+            clearInterval(timer);
+            countdown.textContent = "Deadline passed.";
+            return;
         }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        countdown.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
     }, 1000);
 </script>
+{% endblock %}
