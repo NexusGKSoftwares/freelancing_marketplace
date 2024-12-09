@@ -1,7 +1,8 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
-
+from django.utils.timezone import now, timedelta
+from django.db.models import F
 from admin_panel.models import JobPosting
 from .models import Freelancer, Job, Notification, Feedback, Payment
 from django.contrib.auth.decorators import login_required
@@ -144,15 +145,38 @@ def freelancer_ongoing_jobs(request):
     
     return render(request, 'freelancer/freelancer_ongoing_jobs.html', {'page_obj': page_obj})
 
-
 @login_required
 def freelancer_available_jobs(request):
-    available_jobs = JobPosting.objects.filter(status='Open')
-    
-    # Debugging - Print the query results in the console
-    print("Available Jobs: ", available_jobs)
-    
-    return render(request, 'freelancer/freelancer_available_jobs.html', {'available_jobs': available_jobs})
+    # Get query parameters for filtering and sorting
+    category = request.GET.get('category', '')
+    sort_order = request.GET.get('sort', '')
+
+    # Base query for jobs with status "Open"
+    jobs = JobPosting.objects.filter(status='Open')
+
+    # Filter by category if provided
+    if category:
+        jobs = jobs.filter(category=category)
+
+    # Sort by budget
+    if sort_order == 'low':
+        jobs = jobs.order_by('budget')
+    elif sort_order == 'high':
+        jobs = jobs.order_by('-budget')
+
+    # Add a "New" flag for jobs posted within the last 7 days
+    for job in jobs:
+        job.is_new = (now() - timedelta(days=7)) <= job.created_at
+
+    # Get distinct categories for filtering
+    categories = JobPosting.objects.values_list('category', flat=True).distinct()
+
+    return render(request, 'freelancer_available_jobs.html', {
+        'available_jobs': jobs,
+        'categories': categories,
+        'selected_category': category,
+        'sort_order': sort_order,
+    })
 
 
 @login_required
