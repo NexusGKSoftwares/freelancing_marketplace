@@ -204,18 +204,19 @@ def freelancer_feedback(request):
     return render(request, 'freelancer/freelancer_feedback.html', {'feedbacks': feedbacks})
 
 
-@login_required
 def freelancer_job_details(request, job_id):
-    try:
-        job = JobPosting.objects.get(id=job_id)
-    except JobPosting.DoesNotExist:
-        messages.error(request, "The job you're looking for does not exist.")
-        return redirect('freelancer_available_jobs')
+    job = get_object_or_404(JobPosting, id=job_id)
     
-    context = {
+    # Calculate the application percentage (if max_applicants is set)
+    if job.max_applicants:
+        application_percentage = (job.current_applicants / job.max_applicants) * 100
+    else:
+        application_percentage = 0  # If no max applicants, set it to 0%
+
+    return render(request, 'freelancer/freelancer_job_details.html', {
         'job': job,
-    }
-    return render(request, 'freelancer/freelancer_job_details.html', context)
+        'application_percentage': application_percentage,
+    })
 
 @login_required
 def freelancer_payment_history(request):
