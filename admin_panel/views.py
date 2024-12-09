@@ -198,40 +198,40 @@ def delete_job(request, job_id):
     return render(request, 'admin_panel/delete_job.html', {'job': job})
 # Payment Management
 def payment_management(request):
-    return render(request, 'payment_management.html')
+    return render(request, 'admin_panel/payment_management.html')
 
 # System Activity
 def system_activity(request):
-    return render(request, 'system_activity.html')
+    return render(request, 'admin_panel/system_activity.html')
 
 # Analytics
 def analytics(request):
-    return render(request, 'analytics.html')
+    return render(request, 'admin_panel/analytics.html')
 
 # Notifications
 def notifications(request):
-    return render(request, 'notifications.html')
+    return render(request, 'admin_panel/notifications.html')
 
 # Support Tickets
 def support_tickets(request):
-    return render(request, 'support_tickets.html')
+    return render(request, 'admin_panel/support_tickets.html')
 
 # User Feedback
 def user_feedback(request):
-    return render(request, 'user_feedback.html')
+    return render(request, 'admin_panel/user_feedback.html')
 
 # Manage Freelancers
 def manage_freelancers(request):
-    return render(request, 'manage_freelancers.html')
+    return render(request, 'admin_panel/manage_freelancers.html')
 
 # Manage Clients
 def manage_clients(request):
-    return render(request, 'manage_clients.html')
+    return render(request, 'admin_panel/manage_clients.html')
 
 # System Health
 def system_health(request):
-    return render(request, 'system_health.html')
+    return render(request, 'admin_panel/system_health.html')
 
 # New Registrations
 def new_registrations(request):
-    return render(request, 'new_registrations.html')
+    return render(request, 'admin_panel/new_registrations.html')

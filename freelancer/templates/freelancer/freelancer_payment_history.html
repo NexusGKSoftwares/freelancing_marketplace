@@ -5,7 +5,7 @@
 <ul>
     {% for payment in page_obj %}
         <li>
-            <strong>Amount:</strong> ${{ payment.amount }}
+            <strong>Amount:</strong> Kshs. {{ payment.amount }}
             <br><strong>Payment Date:</strong> {{ payment.payment_date }}
             <br><strong>Job:</strong> {{ payment.job.title }}
         </li>

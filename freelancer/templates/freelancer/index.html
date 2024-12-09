@@ -19,7 +19,48 @@
 		var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);
 	</script>
 
-
+<style>
+  
+	#contact h2 {
+		font-weight: bold;
+		color: #333;
+	  }
+	
+	  #contact .form-label {
+		font-weight: 500;
+	  }
+	
+	  #contact .card {
+		border-radius: 10px;
+	  }
+	
+	  #contact .btn-primary {
+		background-color: #007bff;
+		border-color: #007bff;
+	  }
+	
+	  #contact ul li i {
+		font-size: 1.2rem;
+	  }
+  
+	footer h5 {
+	  font-weight: bold;
+	  margin-bottom: 15px;
+	}
+  
+	footer ul li a:hover {
+	  text-decoration: underline;
+	  color: #007bff;
+	}
+  
+	footer .btn-outline-light i {
+	  font-size: 1.2rem;
+	}
+  
+	footer hr {
+	  border-top: 1px solid #6c757d;
+	}
+  </style>
 
 	<link href="https://daks2k3a4ib2z.cloudfront.net/5862ff0a48ddaea33e96e0ef/587523ed5b6467f56000d039_32x32.png" rel="shortcut icon" type="image/x-icon"/>
 	<link href="https://daks2k3a4ib2z.cloudfront.net/5862ff0a48ddaea33e96e0ef/587523f2dd54b69e5863657e_256x256.png" rel="apple-touch-icon"/>
@@ -39,7 +80,7 @@
 				<nav role="navigation" class="nav-menu w-nav-menu">
 					<a href="{% url 'login' %}" data-ix="move-to-origin-on-hover" class="navlink w-inline-block"><div>Login</div><div data-ix="move-left-100-percent" class="hover-line"></div></a>
 					<a href="{% url 'register' %}" data-ix="move-to-origin-on-hover" class="navlink w-inline-block"><div>Sign Up</div><div data-ix="move-left-100-percent" class="hover-line"></div></a>
-					<a href="#" data-ix="move-to-origin-on-hover" class="navlink w-inline-block"><div>Post a Project</div><div data-ix="move-left-100-percent" class="hover-line"></div></a>
+					
 				</nav>
 				<div class="menu-button w-nav-button"><div class="burger-menu w-icon-nav-menu"></div></div>
 		</div>
@@ -51,8 +92,8 @@
 				<div class="_40-percent-column">
 					<h1 class="hero">Freelancing Portal</h1>
 					<p class="hero-subtitle"> Just give us the details about the work you need completed, and our freelancers will get it done faster, better, and cheaper than you could possibly imagine.</p>
-					<a href="#" class="rounded-outline-button">I want to hire</a>
-					<a href="#" class="rounded-outline-button">I want to work</a>
+					<a href="{% url 'login' %}" class="rounded-outline-button">I want to hire</a>
+					<a href="{% url 'register' %}" class="rounded-outline-button">I want to work</a>
 				</div>
 			</div>
 		</div>
@@ -73,9 +114,59 @@
 		</div>
 	</div>
 
-    <footer class="bg-dark text-center text-white py-3">
-        <p>© {{ year }} Freelancing Marketplace. All Rights Reserved.</p>
-    </footer>
+    <footer style="background: #010364;" class=" text-center text-lg-start">
+		<div class="container">
+		  <div class="row">
+			<!-- About Section -->
+			<div class="col-md-4 mb-4">
+			  <h5 class="text-uppercase text-light">About Us</h5>
+			  <p class=" text-light">
+				We provide a cutting-edge freelancing management platform that simplifies project management, connects freelancers with clients, and enhances productivity.
+			  </p>
+			  <a href="#" class="btn btn-outline-light btn-sm">Learn More</a>
+			</div>
+	  
+			<!-- Quick Links -->
+			<div class="col-md-4 mb-4">
+			  <h5 class="text-uppercase text-light">Quick Links</h5>
+			  <ul class="list-unstyled">
+				<li class="mb-2"><a href="#features" class="text-light text-decoration-none">Features</a></li>
+				<li class="mb-2"><a href="#pricing" class="text-light text-decoration-none">Pricing</a></li>
+				<li class="mb-2"><a href="#faq" class="text-light text-decoration-none">FAQ</a></li>
+				<li><a href="#contact" class="text-light text-decoration-none">Contact Us</a></li>
+			  </ul>
+			</div>
+	  
+			<!-- Contact Section -->
+			<div class="col-md-4">
+			  <h5 class="text-uppercase text-light">Contact Us</h5>
+			  <ul class="list-unstyled text-muted">
+				<li class="mb-2 text-light"><i class="bi bi-geo-alt-fill text-primary me-2"></i>123 Freelancers St, Techland</li>
+				<li class="mb-2 text-light"><i class="bi bi-telephone-fill text-primary me-2"></i>+(254) 791 431 287</li>
+				<li class="mb-2 text-light"><i class="bi bi-envelope-fill text-primary me-2"></i>support@freelancingms.com</li>
+				<li class="mb-2 text-light"><i class="bi bi-clock-fill text-primary me-2"></i>Mon - Fri: 9:00 AM - 6:00 PM</li>
+			  </ul>
+			  <div>
+				<a href="#" class="btn btn-outline-light btn-sm me-2"><i class="bi bi-facebook"></i></a>
+				<a href="#" class="btn btn-outline-light btn-sm me-2"><i class="bi bi-twitter"></i></a>
+				<a href="#" class="btn btn-outline-light btn-sm me-2"><i class="bi bi-linkedin"></i></a>
+				<a href="#" class="btn btn-outline-light btn-sm"><i class="bi bi-instagram"></i></a>
+			  </div>
+			</div>
+		  </div>
+	  
+		  <hr class="border-secondary my-4">
+	  
+		  <!-- Copyright Section -->
+		  <div class="text-center">
+			<p class="mb-0 text-light">
+			  &copy; 2024 Freelancing Management System. All Rights Reserved. | 
+			  <a href="#privacy-policy" class="text-light text-decoration-none">Privacy Policy</a>
+			</p>
+		  </div>
+		</div>
+	  </footer>
+	  
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" type="text/javascript" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 	<script src="https://daks2k3a4ib2z.cloudfront.net/5862ff0a48ddaea33e96e0ef/js/webflow.299fdfef2.js" type="text/javascript"></script>

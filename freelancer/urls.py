@@ -8,6 +8,7 @@ urlpatterns = [
     path('login/', views.freelancer_login, name='login'),
     path('dashboard/', views.freelancer_dashboard, name='freelancer_dashboard'),
     path('profile/', views.freelancer_profile, name='freelancer_profile'),
+    path('toggle_user_status/<int:user_id>/', views.toggle_freelancer_status, name='toggle_freelancer_status'),
     path('edit_user/<int:user_id>/', views.freelancer_edit_user, name='freelancer_edit_user'),
     path('payments/', views.freelancer_payment_overview, name='freelancer_payment_overview'),
     path('active-jobs/', views.freelancer_ongoing_jobs, name='freelancer_ongoing_jobs'),

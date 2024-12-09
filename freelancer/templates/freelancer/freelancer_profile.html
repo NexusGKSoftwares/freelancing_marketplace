@@ -83,7 +83,7 @@
                     <a href="{% url 'freelancer_edit_user' user.id %}" class="btn btn-warning btn-sm">
                         <i class="bi bi-pencil-square me-2"></i> Edit Profile
                     </a>
-                    <a href="{% url 'toggle_user_status' user.id %}" 
+                    <a href="{% url 'toggle_freelancer_status' user.id %}" 
                        class="btn btn-sm {% if user.is_active %}btn-danger{% else %}btn-success{% endif %}">
                         <i class="bi {% if user.is_active %}bi-person-dash{% else %}bi-person-plus{% endif %} me-2"></i>
                         {% if user.is_active %}Deactivate Account{% else %}Activate Account{% endif %}
