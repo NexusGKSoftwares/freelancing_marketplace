@@ -1,6 +1,8 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+
+from admin_panel.models import JobPosting
 from .models import Freelancer, Job, Notification, Feedback, Payment
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
@@ -145,14 +147,11 @@ def freelancer_ongoing_jobs(request):
 
 @login_required
 def freelancer_available_jobs(request):
-    available_jobs = Job.objects.filter(status='available').order_by('deadline')
-    
-    # Add pagination
-    paginator = Paginator(available_jobs, 5)  # Show 5 jobs per page
+    available_jobs = JobPosting.objects.filter(status='available')
+    paginator = Paginator(available_jobs, 10)  # Show 10 jobs per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    
-    return render(request, 'freelancer/freelancer_available_jobs.html', {'page_obj': page_obj})
+    return render(request, 'freelancer_available_jobs.html', {'page_obj': page_obj})
 
 
 @login_required
