@@ -77,6 +77,13 @@
     margin-bottom: 1.5rem;
   }
 }
+.verified-badge {
+  margin-left: 8px;
+  font-size: 1.1rem; /* Adjust size for better visibility */
+}
+.verified-badge .bi {
+  vertical-align: middle;
+}
 </style>
 
 
@@ -324,7 +331,12 @@
         <div class="card shadow-sm border-light">
           <img src="https://via.placeholder.com/150" class="card-img-top rounded-circle mx-auto d-block mt-4" alt="Client Image">
           <div class="card-body text-center">
-            <h5 class="card-title">John Doe</h5>
+            <h5 class="card-title">
+              John Doe 
+              <span class="verified-badge" title="Verified Client">
+                <i class="bi bi-patch-check-fill text-primary"></i>
+              </span>
+            </h5>
             <p class="text-muted">Freelance Web Developer</p>
             <div class="mb-3">
               <!-- Rating -->
@@ -346,7 +358,12 @@
         <div class="card shadow-sm border-light">
           <img src="https://via.placeholder.com/150" class="card-img-top rounded-circle mx-auto d-block mt-4" alt="Client Image">
           <div class="card-body text-center">
-            <h5 class="card-title">Jane Smith</h5>
+            <h5 class="card-title">
+              Jane Smith
+              <span class="verified-badge" title="Verified Client">
+                <i class="bi bi-patch-check-fill text-primary"></i>
+              </span>
+            </h5>
             <p class="text-muted">Freelance Graphic Designer</p>
             <div class="mb-3">
               <!-- Rating -->
@@ -368,7 +385,12 @@
         <div class="card shadow-sm border-light">
           <img src="https://via.placeholder.com/150" class="card-img-top rounded-circle mx-auto d-block mt-4" alt="Client Image">
           <div class="card-body text-center">
-            <h5 class="card-title">Samuel Lee</h5>
+            <h5 class="card-title">
+              Samuel Lee
+              <span class="verified-badge" title="Verified Client">
+                <i class="bi bi-patch-check-fill text-primary"></i>
+              </span>
+            </h5>
             <p class="text-muted">Freelance Content Writer</p>
             <div class="mb-3">
               <!-- Rating -->
