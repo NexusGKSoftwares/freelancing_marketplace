@@ -152,7 +152,7 @@ def freelancer_available_jobs(request):
     # Debugging - Print the query results in the console
     print("Available Jobs: ", available_jobs)
     
-    return render(request, 'freelancer_available_jobs.html', {'available_jobs': available_jobs})
+    return render(request, 'freelancer/freelancer_available_jobs.html', {'available_jobs': available_jobs})
 
 
 @login_required
