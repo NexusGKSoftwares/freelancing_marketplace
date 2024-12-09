@@ -19,7 +19,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseForbidden
 from django.db.models import Prefetch
-from .models import Freelancer, Project, Review
+from .models import Freelancer
 from freelancer import models
 def index(request):
     if not request.user.is_authenticated:
@@ -127,20 +127,20 @@ def freelancer_profile(request):
     try:
         # Check if the logged-in user is a freelancer
         freelancer = get_object_or_404(Freelancer.objects.prefetch_related(
-            Prefetch('projects', queryset=Project.objects.filter(status='completed')),  # Load completed projects
+            Prefetch('jobs', queryset=Job.objects.filter(status='completed')),  # Load completed jobstotal_jobs
             Prefetch('reviews')  # Load freelancer reviews
         ), user=request.user)
 
         # Fetch additional statistics
-        total_projects = freelancer.projects.count()
+        total_jobs = freelancer.job.count()
         average_rating = freelancer.reviews.aggregate(average_rating=models.Avg('rating')).get('average_rating', 0)
 
         # Pass enriched context to the template
         context = {
             'freelancer': freelancer,
-            'total_projects': total_projects,
+            'total_jobs': total_jobs,
             'average_rating': average_rating,
-            'active_contracts': freelancer.projects.filter(status='active').count(),
+            'active_contracts': freelancer.total_jobs.filter(status='active').count(),
         }
         return render(request, 'freelancer/freelancer_profile.html', context)
     except Freelancer.DoesNotExist:
