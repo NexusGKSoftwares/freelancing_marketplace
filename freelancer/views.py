@@ -107,21 +107,36 @@ def freelancer_dashboard(request):
 
 
 @login_required
-def freelancer_edit_profile(request):
-    freelancer = Freelancer.objects.get(user=request.user)  # Assuming freelancer is linked to the user
+def edit_user(request, user_id):
+    # Fetch the user by ID or return a 404 if not found
+    user = get_object_or_404(User, id=user_id)
 
     if request.method == 'POST':
-        freelancer.name = request.POST.get('name')
-        freelancer.email = request.POST.get('email')
+        # Get data from the request
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        is_active = request.POST.get('is_active') == 'True'
 
-        # Handle profile picture update
-        if 'profile_picture' in request.FILES:
-            freelancer.profile_picture = request.FILES['profile_picture']
-        
-        freelancer.save()
-        return redirect('freelancer_profile')  # Redirect to a page showing the freelancer's profile
-    
-    return render(request, 'freelancer/freelancer_edit_profile.html', {'freelancer': freelancer})
+        # Update the user object
+        user.first_name = first_name
+        user.last_name = last_name
+        user.username = username
+        user.email = email
+        user.is_active = is_active
+
+        # Save the updated user object
+        user.save()
+
+        # Add a success message (optional)
+        messages.success(request, 'User details updated successfully.')
+
+        # Redirect to the user management page
+        return redirect('freelancer_profile')  # Adjust the URL name as needed
+
+    # Render the edit user template with the user data
+    return render(request, 'freelancer/edit_user.html', {'user': user})
 @login_required
 def freelancer_profile(request):
     # Fetch the freelancer object
