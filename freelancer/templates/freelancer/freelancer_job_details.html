@@ -4,22 +4,24 @@
 <div class="container mt-5">
     <div class="card">
         <div class="card-header bg-primary text-white">
-            <h2>{{ job.title }}</h2>
+            <h2 class="display-4">{{ job.title }}</h2>
         </div>
         <div class="card-body">
-            <h5 class="card-title"><strong>Category:</strong> {{ job.category }}</h5>
-            <p class="card-text"><strong>Description:</strong> {{ job.description }}</p>
-            <p class="card-text"><strong>Budget:</strong> ${{ job.budget }}</p>
-            <p class="card-text"><strong>Status:</strong> 
+            <h5 class="card-title fs-4"><strong>Category:</strong> {{ job.category }}</h5>
+            <p class="card-text fs-5"><strong>Description:</strong> {{ job.description }}</p>
+            <p class="card-text fs-5"><strong>Budget:</strong> ${{ job.budget }}</p>
+            <p class="card-text fs-5"><strong>Status:</strong> 
                 <span class="badge {% if job.status == 'Open' %}bg-success{% else %}bg-danger{% endif %}">
                     {{ job.status }}
                 </span>
             </p>
-            <p class="card-text"><strong>Deadline:</strong> {{ job.deadline|date:"M d, Y" }}</p>
-            <p class="card-text"><strong>Time Remaining:</strong> <span id="countdown"></span></p>
+            <p class="card-text fs-5"><strong>Deadline:</strong> {{ job.deadline|date:"M d, Y" }}</p>
+            <p class="card-text fs-4"><strong>Time Remaining:</strong> 
+                <span id="countdown" class="fs-3 text-danger fw-bold"></span>
+            </p>
             
             <!-- Tags Section -->
-            <p class="card-text"><strong>Tags:</strong>
+            <p class="card-text fs-5"><strong>Tags:</strong>
                 {% for tag in job.tags.all %}
                     <span class="badge bg-info text-dark">{{ tag.name }}</span>
                 {% empty %}
@@ -27,28 +29,25 @@
                 {% endfor %}
             </p>
             
-<!-- Progress Bar -->
-{% if job.max_applicants %}
-    <p class="card-text"><strong>Applications:</strong> {{ job.current_applicants }} / {{ job.max_applicants }}</p>
-    <div class="progress">
-        <div class="progress-bar bg-success" role="progressbar"
-            
-            aria-valuenow="{{ job.current_applicants }}" 
-            aria-valuemin="0" 
-            aria-valuemax="{{ job.max_applicants }}">
-            {{ application_percentage|floatformat:2 }}%
-        </div>
-    </div>
-{% endif %}
-
-
+            <!-- Progress Bar -->
+            {% if job.max_applicants %}
+            <p class="card-text fs-5"><strong>Applications:</strong> {{ job.current_applicants }} / {{ job.max_applicants }}</p>
+            <div class="progress">
+                <div class="progress-bar bg-success" role="progressbar"
+                    aria-valuenow="{{ job.current_applicants }}" 
+                    aria-valuemin="0" 
+                    aria-valuemax="{{ job.max_applicants }}">
+                    {{ application_percentage|floatformat:2 }}%
+                </div>
+            </div>
+            {% endif %}
         </div>
         <div class="card-footer d-flex justify-content-between">
-            <a href="{% url 'freelancer_available_jobs' %}" class="btn btn-secondary">
+            <a href="{% url 'freelancer_available_jobs' %}" class="btn btn-lg btn-secondary">
                 Back to Available Jobs
             </a>
             {% if job.status == 'Open' %}
-            <a href="{% url 'apply_for_job' job.id %}" class="btn btn-success">
+            <a href="{% url 'apply_for_job' job.id %}" class="btn btn-lg btn-success">
                 Apply for Job
             </a>
             {% endif %}
@@ -67,6 +66,8 @@
         if (distance <= 0) {
             clearInterval(timer);
             countdown.textContent = "Deadline passed.";
+            countdown.classList.remove('text-danger');
+            countdown.classList.add('text-muted');
             return;
         }
 
