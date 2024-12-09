@@ -1,21 +1,42 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-class Job(models.Model):
-    title = models.CharField(max_length=255)
-    description = models.TextField()
-    # Other fields...
 
-    def __str__(self):
-        return self.title
 
 class Freelancer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='freelancer_profile')
     total_earnings = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
-    jobs = models.ManyToManyField(Job, related_name='freelancers', blank=True)
+    
     def __str__(self):
         return f"{self.user.username}'s Profile"
 
+class Job(models.Model):
+    STATUS_CHOICES = [
+        ('Active', 'Active'),
+        ('Completed', 'Completed'),
+        ('Available', 'Available'),
+        ('Pending', 'Pending'),
+    ]
+
+    freelancer = models.ForeignKey(Freelancer, on_delete=models.SET_NULL, null=True, blank=True, related_name='jobs')
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Available')
+    deadline = models.DateField(null=True, blank=True)
+
+    def __str__(self):
+        return self.title
+
+    @property
+    def status_class(self):
+        """Returns a CSS class based on the job status."""
+        status_classes = {
+            'Active': 'badge-warning',
+            'Completed': 'badge-success',
+            'Available': 'badge-primary',
+            'Pending': 'badge-secondary',
+        }
+        return status_classes.get(self.status, 'badge-light')
 
 class Notification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notifications')
