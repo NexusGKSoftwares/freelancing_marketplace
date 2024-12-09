@@ -17,10 +17,21 @@ class JobPosting(models.Model):
     description = models.TextField()
     budget = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=20, choices=[('Open', 'Open'), ('Closed', 'Closed')])
-    created_at = models.DateTimeField(default=now)
+    deadline = models.DateTimeField()
+    current_applicants = models.IntegerField(default=0)
+    max_applicants = models.IntegerField(null=True, blank=True)  # Optional
+    tags = models.ManyToManyField('Tag', blank=True)
 
     def __str__(self):
         return self.title
+
+
+class Tag(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
 # Model for Payments
 class Payment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="payments")
