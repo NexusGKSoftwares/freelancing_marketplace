@@ -151,7 +151,7 @@ def freelancer_available_jobs(request):
     paginator = Paginator(available_jobs, 10)  # Show 10 jobs per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'freelancer_available_jobs.html', {'page_obj': page_obj})
+    return render(request, 'freelancer/freelancer_available_jobs.html', {'page_obj': page_obj})
 
 
 @login_required
