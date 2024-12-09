@@ -166,7 +166,6 @@ def view_job(request, job_id):
     # Render the view with the job data
     return render(request, 'admin_panel/view_job.html', {'job': job})
 
-# Edit job
 def edit_job(request, job_id):
     job = get_object_or_404(JobPosting, id=job_id)
     
@@ -178,6 +177,10 @@ def edit_job(request, job_id):
         job.description = request.POST.get('description')
         job.budget = request.POST.get('budget')
         job.status = request.POST.get('status')
+        deadline = request.POST.get('deadline')  # Get the deadline from the form
+        
+        # Convert deadline string to a datetime object
+        job.deadline = datetime.strptime(deadline, '%Y-%m-%d %H:%M')  # adjust format as needed
         
         job.save()  # Save the changes to the database
         return redirect('job_postings')  # Redirect to the job postings list after editing
