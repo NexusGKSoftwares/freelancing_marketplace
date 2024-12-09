@@ -2,6 +2,7 @@
 
 {% block content %}
 <h1>Available Jobs</h1>
+
 <ul>
     {% for job in available_jobs %}
         <li>
@@ -9,10 +10,11 @@
             <p><strong>Category:</strong> {{ job.category }}</p>
             <p><strong>Description:</strong> {{ job.description|truncatechars:100 }}</p>
             <p><strong>Budget:</strong> ${{ job.budget }}</p>
-            <p><strong>Status:</strong> {{ job.status }}</p>
+            <a href="{% url 'freelancer_job_details' job.id %}">View Details</a>
         </li>
     {% empty %}
-        <li>No available jobs found.</li>
+        <li>No jobs are currently available.</li>
     {% endfor %}
 </ul>
+
 {% endblock %}

@@ -147,7 +147,7 @@ def freelancer_ongoing_jobs(request):
 
 @login_required
 def freelancer_available_jobs(request):
-    available_jobs = JobPosting.objects.filter(status='available')
+    available_jobs = JobPosting.objects.filter(status='Open')
     paginator = Paginator(available_jobs, 10)  # Show 10 jobs per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
