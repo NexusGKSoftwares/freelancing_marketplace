@@ -3,24 +3,16 @@
 {% block content %}
 <h1>Available Jobs</h1>
 <ul>
-    {% for job in page_obj %}
+    {% for job in available_jobs %}
         <li>
-            <a href="{% url 'freelancer_job_details' job.id %}">{{ job.title }}</a> - {{ job.description|truncatechars:100 }}
-            <br><strong>Posted on:</strong> {{ job.created_at }}
+            <h3>{{ job.title }}</h3>
+            <p><strong>Category:</strong> {{ job.category }}</p>
+            <p><strong>Description:</strong> {{ job.description|truncatechars:100 }}</p>
+            <p><strong>Budget:</strong> ${{ job.budget }}</p>
+            <p><strong>Status:</strong> {{ job.status }}</p>
         </li>
     {% empty %}
         <li>No available jobs found.</li>
     {% endfor %}
 </ul>
-
-<!-- Pagination -->
-<div class="pagination">
-    {% if page_obj.has_previous %}
-        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
-    {% endif %}
-    <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
-    {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}">Next</a>
-    {% endif %}
-</div>
 {% endblock %}
