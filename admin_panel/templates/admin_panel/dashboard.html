@@ -4,6 +4,7 @@
 
 {% block content %}
 <style>
+   
     .card {
         background: linear-gradient(to bottom right, #f0f4c3, #3256ce); /* Default gradient */
         border: none;
@@ -19,12 +20,12 @@
     }
 
     .gradient-manage-users {
-        background: linear-gradient(to bottom right, #2196f3, #64b5f6);
+        background: linear-gradient(to bottom right, #008afc, #2700b3);
         color: #fff;
     }
 
     .gradient-job-postings {
-        background: linear-gradient(to bottom right, #4caf50, #81c784);
+        background: linear-gradient(to bottom right, #24eb2b, #5c8f5f);
         color: #fff;
     }
 
@@ -74,7 +75,7 @@
                 <div class="card-body">
                     <i class="fas fa-users fa-3x"></i>
                     <h5 class="card-title mt-3">Manage Users</h5>
-                    <p class="card-text">View and manage all platform users.</p>
+                    <p class="card-text" style="color: white;" style="color: white;">View and manage all platform users.</p>
                     <a href="{% url 'admin_manage_users' %}" class="btn btn-outline-light">View Users</a>
                 </div>
             </div>
@@ -85,7 +86,7 @@
         <div class="card-body">
             <i class="fas fa-clipboard-list fa-3x"></i>
             <h5 class="card-title mt-3">Job Postings Overview</h5>
-            <p class="card-text">Monitor all job postings and their statuses.</p>
+            <p class="card-text" style="color: white;">Monitor all job postings and their statuses.</p>
             <a href="{% url 'job_postings' %}" class="btn btn-outline-light">View Jobs</a>
         </div>
     </div>
@@ -97,7 +98,7 @@
         <div class="card-body">
             <i class="fas fa-dollar-sign fa-3x"></i>
             <h5 class="card-title mt-3">Payment Management</h5>
-            <p class="card-text">Manage and review all platform payments.</p>
+            <p class="card-text" style="color: white;">Manage and review all platform payments.</p>
             <a href="{% url 'admin_payments' %}" class="btn btn-outline-light">Manage Payments</a>
         </div>
     </div>
@@ -109,7 +110,7 @@
         <div class="card-body">
             <i class="fas fa-cogs fa-3x"></i>
             <h5 class="card-title mt-3">System Activity</h5>
-            <p class="card-text">Monitor system performance and user activities.</p>
+            <p class="card-text" style="color: white;">Monitor system performance and user activities.</p>
             <a href="{% url 'admin_system_activity' %}" class="btn btn-outline-light">View Activity</a>
         </div>
     </div>
@@ -123,7 +124,7 @@
                 <div class="card-body">
                     <i class="fas fa-chart-line fa-3x"></i>
                     <h5 class="card-title mt-3">Analytics</h5>
-                    <p class="card-text">View platform performance, traffic, and growth metrics.</p>
+                    <p class="card-text" style="color: white;">View platform performance, traffic, and growth metrics.</p>
                     <a href="{% url 'admin_analytics' %}" class="btn btn-outline-light">View Analytics</a>
                 </div>
             </div>
@@ -135,7 +136,7 @@
                 <div class="card-body">
                     <i class="fas fa-bell fa-3x"></i>
                     <h5 class="card-title mt-3">Notifications</h5>
-                    <p class="card-text">Manage and view system notifications for admin actions.</p>
+                    <p class="card-text" style="color: white;">Manage and view system notifications for admin actions.</p>
                     <a href="{% url 'admin_notifications' %}" class="btn btn-outline-light">Manage Notifications</a>
                 </div>
             </div>
@@ -147,7 +148,7 @@
                 <div class="card-body">
                     <i class="fas fa-headset fa-3x"></i>
                     <h5 class="card-title mt-3">Support Tickets</h5>
-                    <p class="card-text">Manage support tickets submitted by users or freelancers.</p>
+                    <p class="card-text" style="color: white;">Manage support tickets submitted by users or freelancers.</p>
                     <a href="{% url 'admin_support_tickets' %}" class="btn btn-outline-light">View Tickets</a>
                 </div>
             </div>
@@ -159,7 +160,7 @@
                 <div class="card-body">
                     <i class="fas fa-comments fa-3x"></i>
                     <h5 class="card-title mt-3">User Feedback</h5>
-                    <p class="card-text">View and manage user feedback and reviews.</p>
+                    <p class="card-text" style="color: white;">View and manage user feedback and reviews.</p>
                     <a href="{% url 'admin_user_feedback' %}" class="btn btn-outline-dark">View Feedback</a>
                 </div>
             </div>
@@ -174,7 +175,7 @@
                 <div class="card-body">
                     <i class="fas fa-user-tie fa-3x"></i>
                     <h5 class="card-title mt-3">Manage Freelancers</h5>
-                    <p class="card-text">Monitor and manage freelancer profiles and activities.</p>
+                    <p class="card-text" style="color: white;">Monitor and manage freelancer profiles and activities.</p>
                     <a href="{% url 'admin_manage_freelancers' %}" class="btn btn-outline-light">View Freelancers</a>
                 </div>
             </div>
@@ -186,7 +187,7 @@
                 <div class="card-body">
                     <i class="fas fa-users-cog fa-3x"></i>
                     <h5 class="card-title mt-3">Manage Clients</h5>
-                    <p class="card-text">View and manage client accounts and their projects.</p>
+                    <p class="card-text" style="color: white;">View and manage client accounts and their projects.</p>
                     <a href="{% url 'admin_manage_clients' %}" class="btn btn-outline-light">View Clients</a>
                 </div>
             </div>
@@ -198,7 +199,7 @@
                 <div class="card-body">
                     <i class="fas fa-heartbeat fa-3x"></i>
                     <h5 class="card-title mt-3">System Health</h5>
-                    <p class="card-text">Check the health and uptime of the system.</p>
+                    <p class="card-text" style="color: white;">Check the health and uptime of the system.</p>
                     <a href="{% url 'admin_system_health' %}" class="btn btn-outline-light">View Health</a>
                 </div>
             </div>
@@ -210,7 +211,7 @@
                 <div class="card-body">
                     <i class="fas fa-user-plus fa-3x"></i>
                     <h5 class="card-title mt-3">New Registrations</h5>
-                    <p class="card-text">View and manage new freelancer and client registrations.</p>
+                    <p class="card-text" style="color: white;">View and manage new freelancer and client registrations.</p>
                     <a href="{% url 'admin_new_registrations' %}" class="btn btn-outline-light">View Registrations</a>
                 </div>
             </div>

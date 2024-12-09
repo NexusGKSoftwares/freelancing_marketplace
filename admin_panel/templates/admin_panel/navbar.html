@@ -1,12 +1,18 @@
 <!-- Add Font Awesome and Animate.css link -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-
-<nav class="navbar navbar-expand-lg bg-primary">
+<style>
+    .navbar {
+    background: #030250;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+</style>
+<nav class="navbar navbar-expand-lg ">
   <div class="container-fluid" data-collapse="medium" data-animation="default" data-duration="400" class="navbar w-nav">
     <!-- Brand and toggle for mobile -->
-    <a class="navbar-brand text-light" href="#">
-      <i class="fas fa-cogs"></i> Admin Panel
+    <a class="navbar-brand text-white fw-bold" href="{% url 'freelancer_dashboard' %}">
+      <img src="http://uploads.webflow.com/5862ff0a48ddaea33e96e0ef/587523cda9cb9b0448b0f616_Logo.png" width="50" />
+        Freelancer Admin  Panel
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -73,22 +79,8 @@
         </li>
       </ul>
 
-      <!-- Dark Mode Toggle -->
-      <div class="form-check form-switch text-light ms-2">
-        <input class="form-check-input" type="checkbox" id="darkModeToggle">
-        <label class="form-check-label" for="darkModeToggle">Dark Mode</label>
-      </div>
     </div>
   </div>
 </nav>
 
-<!-- Optional Dark Mode Script -->
-<script>
-  const darkModeToggle = document.getElementById('darkModeToggle');
-  darkModeToggle.addEventListener('change', () => {
-    document.body.classList.toggle('bg-dark', darkModeToggle.checked);
-    document.body.classList.toggle('text-light', darkModeToggle.checked);
-    const navbar = document.querySelector('.navbar');
-    navbar.classList.toggle('bg-dark', darkModeToggle.checked);
-  });
-</script>
+

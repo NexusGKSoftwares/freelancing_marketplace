@@ -75,7 +75,7 @@ def freelancer_dashboard(request):
     available_jobs_count = Job.objects.filter(status='Available').count()
 
     # Fetch notifications for the freelancer
-    notifications = Notification.objects.filter(user=user).order_by('-created_at')
+    notifications = Notification.objects.filter(user=user).order_by('created_at')
 
     # Fetch feedback related to the freelancer
     feedbacks = Feedback.objects.filter(freelancer=freelancer).order_by('-date')
@@ -133,37 +133,37 @@ def freelancer_payment_overview(request):
 @login_required
 def freelancer_ongoing_jobs(request):
     freelancer = get_object_or_404(Freelancer, user=request.user)
-    ongoing_jobs = freelancer.jobs.filter(status='ongoing').order_by('-start_date')
+    ongoing_jobs = freelancer.jobs.filter(status='ongoing').order_by('deadline')
     
     # Add pagination
     paginator = Paginator(ongoing_jobs, 5)  # Show 5 jobs per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
-    return render(request, 'freelancer_ongoing_jobs.html', {'page_obj': page_obj})
+    return render(request, 'freelancer/freelancer_ongoing_jobs.html', {'page_obj': page_obj})
 
 
 @login_required
 def freelancer_available_jobs(request):
-    available_jobs = Job.objects.filter(status='available').order_by('-created_at')
+    available_jobs = Job.objects.filter(status='available').order_by('deadline')
     
     # Add pagination
     paginator = Paginator(available_jobs, 5)  # Show 5 jobs per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
-    return render(request, 'freelancer_available_jobs.html', {'page_obj': page_obj})
+    return render(request, 'freelancer/freelancer_available_jobs.html', {'page_obj': page_obj})
 
 
 @login_required
 def freelancer_notifications(request):
     freelancer = get_object_or_404(Freelancer, user=request.user)
-    notifications = Notification.objects.filter(freelancer=freelancer).order_by('-created_at')
+    notifications = Notification.objects.filter(freelancer=freelancer).order_by('deadline')
     
     # Mark all notifications as read when visiting this view
     notifications.update(is_read=True)
     
-    return render(request, 'freelancer_notifications.html', {'notifications': notifications})
+    return render(request, 'freelancer/freelancer_notifications.html', {'notifications': notifications})
 
 
 @login_required
@@ -171,7 +171,7 @@ def freelancer_feedback(request):
     freelancer = get_object_or_404(Freelancer, user=request.user)
     feedbacks = freelancer.feedbacks.all().order_by('-date_submitted')
     
-    return render(request, 'freelancer_feedback.html', {'feedbacks': feedbacks})
+    return render(request, 'freelancer/freelancer_feedback.html', {'feedbacks': feedbacks})
 
 
 @login_required
@@ -182,7 +182,7 @@ def freelancer_job_details(request, job_id):
     if job.freelancer != request.user.freelancer and job.status != 'available':
         raise Http404("You do not have permission to view this job.")
     
-    return render(request, 'freelancer_job_details.html', {'job': job})
+    return render(request, 'freelancer/freelancer_job_details.html', {'job': job})
 
 
 @login_required
@@ -195,7 +195,7 @@ def freelancer_payment_history(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
-    return render(request, 'freelancer_payment_history.html', {'page_obj': page_obj})
+    return render(request, 'freelancer/freelancer_payment_history.html', {'page_obj': page_obj})
 
 
 @login_required
@@ -208,4 +208,4 @@ def freelancer_job_history(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
-    return render(request, 'freelancer_job_history.html', {'page_obj': page_obj})
+    return render(request, 'freelancer/freelancer_job_history.html', {'page_obj': page_obj})
