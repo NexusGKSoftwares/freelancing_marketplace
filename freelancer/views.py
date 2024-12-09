@@ -124,27 +124,18 @@ def freelancer_edit_profile(request):
     return render(request, 'freelancer/freelancer_edit_profile.html', {'freelancer': freelancer})
 @login_required
 def freelancer_profile(request):
-    try:
-        # Check if the logged-in user is a freelancer
-        freelancer = get_object_or_404(Freelancer.objects.prefetch_related(
-            Prefetch('jobs', queryset=Job.objects.filter(status='completed')),  # Load completed jobstotal_jobs
-            Prefetch('reviews')  # Load freelancer reviews
-        ), user=request.user)
+    # Fetch the freelancer object
+    freelancer = get_object_or_404(Freelancer, user=request.user)
 
-        # Fetch additional statistics
-        total_jobs = freelancer.job.count()
-        average_rating = freelancer.reviews.aggregate(average_rating=models.Avg('rating')).get('average_rating', 0)
+    # Fetch jobs (update this based on the actual relationship)
+    jobs = freelancer.jobs.all() if hasattr(freelancer, 'jobs') else None
 
-        # Pass enriched context to the template
-        context = {
-            'freelancer': freelancer,
-            'total_jobs': total_jobs,
-            'average_rating': average_rating,
-            'active_contracts': freelancer.total_jobs.filter(status='active').count(),
-        }
-        return render(request, 'freelancer/freelancer_profile.html', context)
-    except Freelancer.DoesNotExist:
-        return HttpResponseForbidden("You do not have access to this page.")
+    context = {
+        'freelancer': freelancer,
+        'jobs': jobs,  # Pass jobs to the template
+    }
+    return render(request, 'freelancer/freelancer_profile.html', context)
+
 @login_required
 def freelancer_payment_overview(request):
     # Assuming the logged-in user is associated with a freelancer profile
