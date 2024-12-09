@@ -10,50 +10,59 @@
             <h5 class="card-title fs-4"><strong>Category:</strong> {{ job.category }}</h5>
             <p class="card-text fs-5"><strong>Description:</strong> {{ job.description }}</p>
 
-            <!-- Budget Card -->
-            <div class="card mt-4">
-                <div class="card-header bg-light">
-                    <strong>Budget</strong>
+            <!-- Row for Budget, Status, and Deadline Cards -->
+            <div class="row">
+                <!-- Budget Card -->
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-header bg-light">
+                            <i class="bi bi-cash fs-4"></i> <strong>Budget</strong>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text fs-5">${{ job.budget }}</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <p class="card-text fs-5">${{ job.budget }}</p>
+
+                <!-- Status Card -->
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-header bg-light">
+                            <i class="bi bi-flag fs-4"></i> <strong>Status</strong>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text fs-5">
+                                <span class="badge {% if job.status == 'Open' %}bg-success{% else %}bg-danger{% endif %}">
+                                    {{ job.status }}
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Deadline Card -->
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-header bg-light">
+                            <i class="bi bi-calendar-check fs-4"></i> <strong>Deadline</strong>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text fs-5">{{ job.deadline|date:"M d, Y" }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Status Card -->
+            <!-- Countdown Card below the row of cards -->
             <div class="card mt-4">
                 <div class="card-header bg-light">
-                    <strong>Status</strong>
-                </div>
-                <div class="card-body">
-                    <p class="card-text fs-5">
-                        <span class="badge {% if job.status == 'Open' %}bg-success{% else %}bg-danger{% endif %}">
-                            {{ job.status }}
-                        </span>
-                    </p>
-                </div>
-            </div>
-
-            <!-- Deadline Card -->
-            <div class="card mt-4">
-                <div class="card-header bg-light">
-                    <strong>Deadline</strong>
-                </div>
-                <div class="card-body">
-                    <p class="card-text fs-5">{{ job.deadline|date:"M d, Y" }}</p>
-                </div>
-            </div>
-
-            <!-- Countdown Card -->
-            <div class="card mt-4">
-                <div class="card-header bg-light">
-                    <strong>Time Remaining</strong>
+                    <i class="bi bi-clock fs-4"></i> <strong>Time Remaining</strong>
                 </div>
                 <div class="card-body">
                     <p class="card-text fs-3 text-danger fw-bold" id="countdown"></p>
                 </div>
             </div>
-            
+
             <!-- Tags Section -->
             <p class="card-text fs-5"><strong>Tags:</strong>
                 {% for tag in job.tags.all %}
