@@ -37,7 +37,8 @@
         </div>
         <div class="mb-3">
             <label for="deadline" class="form-label">Deadline</label>
-            <input type="datetime-local" class="form-control" id="deadline" name="deadline"  value="{{ deadline }}" required>
+            <input type="datetime-local" class="form-control" id="deadline" name="deadline" 
+                value="{{ job.deadline|date:'Y-m-d\\TH:i' }}" required>
         </div>
         <button type="submit" class="btn btn-primary">Update Job</button>
     </form>
