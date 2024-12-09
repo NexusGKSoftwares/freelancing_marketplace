@@ -70,3 +70,7 @@ class Payment(models.Model):
     def __str__(self):
         return f"{self.freelancer.name} - {self.amount} ({self.status})"
 
+class Review(models.Model):
+    freelancer = models.ForeignKey('freelancer.Freelancer', related_name='reviews', on_delete=models.CASCADE)
+    rating = models.DecimalField(max_digits=3, decimal_places=1)
+    comment = models.TextField()
