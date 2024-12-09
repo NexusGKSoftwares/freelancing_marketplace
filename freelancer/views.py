@@ -178,6 +178,12 @@ def freelancer_available_jobs(request):
         'sort_order': sort_order,
     })
 
+@login_required
+def apply_for_job(request, job_id):
+    job = get_object_or_404(JobPosting, id=job_id)
+    # Logic to handle the application process (e.g., creating an application object)
+    messages.success(request, f'You have successfully applied for the job: {job.title}')
+    return redirect('freelancer_available_jobs')
 
 @login_required
 def freelancer_notifications(request):
