@@ -15,6 +15,7 @@ urlpatterns = [
     path('notifications/', views.freelancer_notifications, name='freelancer_notifications'),
     path('feedback/', views.freelancer_feedback, name='freelancer_feedback'),
     path('job/<int:job_id>/', views.freelancer_job_details, name='freelancer_job_details'),
+    path('apply-for-job/<int:job_id>/', views.apply_for_job, name='apply_for_job'),
     path('payment-history/', views.freelancer_payment_history, name='freelancer_payment_history'),
     path('job-history/', views.freelancer_job_history, name='freelancer_job_history'),
     path('logout/', LogoutView.as_view(), name='logout'),
