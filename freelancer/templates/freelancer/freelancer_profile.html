@@ -1,44 +1,70 @@
 {% extends 'freelancer/base.html' %}
 
 {% block content %}
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-8 offset-md-2">
-            <div class="card">
-                <div class="card-header bg-primary text-white">
-                    <h4>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0 rounded">
+                <!-- Card Header -->
+                <div class="card-header bg-gradient-primary text-white text-center py-4">
+                    <h3 class="mb-0">
                         <i class="bi bi-person-circle me-2"></i> My Profile
-                    </h4>
+                    </h3>
                 </div>
-                <div class="card-body">
-                    <div class="row mb-3">
-                        <div class="col-md-4 fw-bold">Full Name:</div>
+
+                <!-- Card Body -->
+                <div class="card-body p-4">
+                    <!-- Full Name -->
+                    <div class="row mb-4 align-items-center">
+                        <div class="col-md-4 text-muted fw-bold">
+                            <i class="bi bi-person-fill me-2 text-primary"></i> Full Name:
+                        </div>
                         <div class="col-md-8">{{ user.first_name }} {{ user.last_name }}</div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-md-4 fw-bold">Username:</div>
+
+                    <!-- Username -->
+                    <div class="row mb-4 align-items-center">
+                        <div class="col-md-4 text-muted fw-bold">
+                            <i class="bi bi-person-badge-fill me-2 text-secondary"></i> Username:
+                        </div>
                         <div class="col-md-8">{{ user.username }}</div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-md-4 fw-bold">Email Address:</div>
+
+                    <!-- Email -->
+                    <div class="row mb-4 align-items-center">
+                        <div class="col-md-4 text-muted fw-bold">
+                            <i class="bi bi-envelope-fill me-2 text-danger"></i> Email Address:
+                        </div>
                         <div class="col-md-8">{{ user.email }}</div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-md-4 fw-bold">Account Status:</div>
+
+                    <!-- Account Status -->
+                    <div class="row mb-4 align-items-center">
+                        <div class="col-md-4 text-muted fw-bold">
+                            <i class="bi bi-shield-fill-check me-2 text-success"></i> Account Status:
+                        </div>
                         <div class="col-md-8">
                             {% if user.is_active %}
-                            <span class="badge bg-success">Active</span>
+                            <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Active</span>
                             {% else %}
-                            <span class="badge bg-danger">Suspended</span>
+                            <span class="badge bg-danger"><i class="bi bi-exclamation-triangle me-1"></i> Suspended</span>
                             {% endif %}
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-md-4 fw-bold">Date Joined:</div>
+
+                    <!-- Date Joined -->
+                    <div class="row mb-4 align-items-center">
+                        <div class="col-md-4 text-muted fw-bold">
+                            <i class="bi bi-calendar-check-fill me-2 text-info"></i> Date Joined:
+                        </div>
                         <div class="col-md-8">{{ user.date_joined|date:"F j, Y, g:i a" }}</div>
                     </div>
-                    <div class="row mb-3">
-                        <div class="col-md-4 fw-bold">Last Login:</div>
+
+                    <!-- Last Login -->
+                    <div class="row mb-4 align-items-center">
+                        <div class="col-md-4 text-muted fw-bold">
+                            <i class="bi bi-clock-history me-2 text-warning"></i> Last Login:
+                        </div>
                         <div class="col-md-8">
                             {% if user.last_login %}
                             {{ user.last_login|date:"F j, Y, g:i a" }}
@@ -48,16 +74,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-footer d-flex justify-content-between">
-                    <a href="{% url 'freelancer_dashboard' %}" class="btn btn-secondary">
+
+                <!-- Card Footer -->
+                <div class="card-footer d-flex justify-content-between align-items-center bg-light">
+                    <a href="{% url 'freelancer_dashboard' %}" class="btn btn-secondary btn-sm">
                         <i class="bi bi-arrow-left-circle me-2"></i> Back to Homepage
                     </a>
-                    <a href="{% url 'edit_user' user.id %}" class="btn btn-warning">
-                        <i class="bi bi-pencil-square me-2"></i> Edit User
+                    <a href="{% url 'edit_user' user.id %}" class="btn btn-warning btn-sm">
+                        <i class="bi bi-pencil-square me-2"></i> Edit Profile
                     </a>
-                    <a href="{% url 'toggle_user_status' user.id %}" class="btn {% if user.is_active %}btn-danger{% else %}btn-success{% endif %}">
-                        <i class="bi bi-person-dash me-2"></i>
-                        {% if user.is_active %} Deactivate account {% else %} Activate Account {% endif %}
+                    <a href="{% url 'toggle_user_status' user.id %}" 
+                       class="btn btn-sm {% if user.is_active %}btn-danger{% else %}btn-success{% endif %}">
+                        <i class="bi {% if user.is_active %}bi-person-dash{% else %}bi-person-plus{% endif %} me-2"></i>
+                        {% if user.is_active %}Deactivate Account{% else %}Activate Account{% endif %}
                     </a>
                 </div>
             </div>
