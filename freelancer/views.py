@@ -206,14 +206,16 @@ def freelancer_feedback(request):
 
 @login_required
 def freelancer_job_details(request, job_id):
-    job = get_object_or_404(JobPosting, id=job_id)
+    try:
+        job = JobPosting.objects.get(id=job_id)
+    except JobPosting.DoesNotExist:
+        messages.error(request, "The job you're looking for does not exist.")
+        return redirect('freelancer_available_jobs')
     
-    # Restrict access to the freelancer assigned to the job
-    if job.freelancer != request.user.freelancer and job.status != 'available':
-        raise Http404("You do not have permission to view this job.")
-    
-    return render(request, 'freelancer/freelancer_job_details.html', {'job': job})
-
+    context = {
+        'job': job,
+    }
+    return render(request, 'freelancer/freelancer_job_details.html', context)
 
 @login_required
 def freelancer_payment_history(request):
