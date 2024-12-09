@@ -20,7 +20,7 @@ def index(request):
         return render(request, 'freelancer/index.html')
     else:
         return HttpResponseRedirect(reverse('freelancer_dashboard'))
-    
+     
 def register(request):
     if request.method == "POST":
         username = request.POST['username']

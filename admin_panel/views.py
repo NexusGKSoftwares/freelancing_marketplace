@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 from .models import JobPosting
 from datetime import datetime
 
-
+ 
 from .models import Activity, User, JobPosting, Payment, SystemHealth
 
 # Admin dashboard view
