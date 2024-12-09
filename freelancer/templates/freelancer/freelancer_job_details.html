@@ -9,16 +9,50 @@
         <div class="card-body">
             <h5 class="card-title fs-4"><strong>Category:</strong> {{ job.category }}</h5>
             <p class="card-text fs-5"><strong>Description:</strong> {{ job.description }}</p>
-            <p class="card-text fs-5"><strong>Budget:</strong> ${{ job.budget }}</p>
-            <p class="card-text fs-5"><strong>Status:</strong> 
-                <span class="badge {% if job.status == 'Open' %}bg-success{% else %}bg-danger{% endif %}">
-                    {{ job.status }}
-                </span>
-            </p>
-            <p class="card-text fs-5"><strong>Deadline:</strong> {{ job.deadline|date:"M d, Y" }}</p>
-            <p class="card-text fs-4"><strong>Time Remaining:</strong> 
-                <span id="countdown" class="fs-3 text-danger fw-bold"></span>
-            </p>
+
+            <!-- Budget Card -->
+            <div class="card mt-4">
+                <div class="card-header bg-light">
+                    <strong>Budget</strong>
+                </div>
+                <div class="card-body">
+                    <p class="card-text fs-5">${{ job.budget }}</p>
+                </div>
+            </div>
+
+            <!-- Status Card -->
+            <div class="card mt-4">
+                <div class="card-header bg-light">
+                    <strong>Status</strong>
+                </div>
+                <div class="card-body">
+                    <p class="card-text fs-5">
+                        <span class="badge {% if job.status == 'Open' %}bg-success{% else %}bg-danger{% endif %}">
+                            {{ job.status }}
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Deadline Card -->
+            <div class="card mt-4">
+                <div class="card-header bg-light">
+                    <strong>Deadline</strong>
+                </div>
+                <div class="card-body">
+                    <p class="card-text fs-5">{{ job.deadline|date:"M d, Y" }}</p>
+                </div>
+            </div>
+
+            <!-- Countdown Card -->
+            <div class="card mt-4">
+                <div class="card-header bg-light">
+                    <strong>Time Remaining</strong>
+                </div>
+                <div class="card-body">
+                    <p class="card-text fs-3 text-danger fw-bold" id="countdown"></p>
+                </div>
+            </div>
             
             <!-- Tags Section -->
             <p class="card-text fs-5"><strong>Tags:</strong>
@@ -28,7 +62,7 @@
                     <span class="text-muted">No tags available.</span>
                 {% endfor %}
             </p>
-            
+
             <!-- Progress Bar -->
             {% if job.max_applicants %}
             <p class="card-text fs-5"><strong>Applications:</strong> {{ job.current_applicants }} / {{ job.max_applicants }}</p>
