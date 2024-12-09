@@ -17,6 +17,7 @@ class JobPosting(models.Model):
     description = models.TextField()
     budget = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=20, choices=[('Open', 'Open'), ('Closed', 'Closed')])
+    created_at = models.DateTimeField(default=now)
     deadline = models.DateTimeField()
     current_applicants = models.IntegerField(default=0)
     max_applicants = models.IntegerField(null=True, blank=True)  # Optional
