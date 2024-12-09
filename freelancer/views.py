@@ -107,7 +107,7 @@ def freelancer_dashboard(request):
 
 
 @login_required
-def edit_user(request, user_id):
+def freelancer_edit_user(request, user_id):
     # Fetch the user by ID or return a 404 if not found
     user = get_object_or_404(User, id=user_id)
 
