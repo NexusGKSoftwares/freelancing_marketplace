@@ -3,6 +3,83 @@
 {% block title %}Freelancer Dashboard - FreelanceHub{% endblock %}
 
 {% block content %}
+<style>
+
+/* Background for the testimonials section */
+.container.py-5 {
+  background: linear-gradient(to right, #f0f4ff, #dfe9fd); /* Light gradient */
+  border-radius: 15px;
+  padding: 3rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Card Design */
+.card {
+  border: none;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #ffffff; /* White background for card */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px); /* Lift effect */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15); /* Hover shadow */
+}
+
+/* Image */
+.card img {
+  width: 100px; /* Smaller image size */
+  height: 100px;
+  border: 3px solid #6c63ff; /* Custom border for the image */
+}
+
+/* Title and Subtitle */
+.card-title {
+  font-weight: 600;
+  color: #333333; /* Dark gray for the title */
+}
+
+.text-muted {
+  color: #6c757d;
+}
+
+/* Rating Stars */
+.text-warning {
+  font-size: 1.2rem;
+}
+
+/* Card Text */
+.card-text {
+  font-size: 0.95rem;
+  color: #555555; /* Medium gray for readability */
+}
+
+/* Social Buttons */
+.btn-outline-primary {
+  border: 1px solid #6c63ff;
+  color: #6c63ff;
+}
+
+.btn-outline-primary:hover {
+  background: #6c63ff;
+  color: #ffffff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .card img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .card {
+    margin-bottom: 1.5rem;
+  }
+}
+</style>
+
+
 <div class="container">
     <br>
     <br>
@@ -238,4 +315,76 @@
     </div>
 </div>
 
+<!-- Testimonials Section -->
+<div class="container py-5">
+    <h2 class="text-center mb-4">What Our Clients Say</h2>
+    <div class="row">
+      <!-- Testimonial 1 -->
+      <div class="col-md-4">
+        <div class="card shadow-sm border-light">
+          <img src="https://via.placeholder.com/150" class="card-img-top rounded-circle mx-auto d-block mt-4" alt="Client Image">
+          <div class="card-body text-center">
+            <h5 class="card-title">John Doe</h5>
+            <p class="text-muted">Freelance Web Developer</p>
+            <div class="mb-3">
+              <!-- Rating -->
+              <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+            <p class="card-text">"Freelancing has been a great experience. I get to work with amazing clients and build exciting projects. The flexibility is priceless!"</p>
+            <!-- Social Icons -->
+            <div>
+              <a href="#" class="btn btn-outline-primary btn-sm m-1"><i class="bi bi-twitter"></i></a>
+              <a href="#" class="btn btn-outline-primary btn-sm m-1"><i class="bi bi-linkedin"></i></a>
+              <a href="#" class="btn btn-outline-primary btn-sm m-1"><i class="bi bi-github"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Testimonial 2 -->
+      <div class="col-md-4">
+        <div class="card shadow-sm border-light">
+          <img src="https://via.placeholder.com/150" class="card-img-top rounded-circle mx-auto d-block mt-4" alt="Client Image">
+          <div class="card-body text-center">
+            <h5 class="card-title">Jane Smith</h5>
+            <p class="text-muted">Freelance Graphic Designer</p>
+            <div class="mb-3">
+              <!-- Rating -->
+              <span class="text-warning">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+            <p class="card-text">"Freelancing allowed me to be creative on my own terms. I love working on diverse projects from clients around the world!"</p>
+            <!-- Social Icons -->
+            <div>
+              <a href="#" class="btn btn-outline-primary btn-sm m-1"><i class="bi bi-twitter"></i></a>
+              <a href="#" class="btn btn-outline-primary btn-sm m-1"><i class="bi bi-linkedin"></i></a>
+              <a href="#" class="btn btn-outline-primary btn-sm m-1"><i class="bi bi-instagram"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Testimonial 3 -->
+      <div class="col-md-4">
+        <div class="card shadow-sm border-light">
+          <img src="https://via.placeholder.com/150" class="card-img-top rounded-circle mx-auto d-block mt-4" alt="Client Image">
+          <div class="card-body text-center">
+            <h5 class="card-title">Samuel Lee</h5>
+            <p class="text-muted">Freelance Content Writer</p>
+            <div class="mb-3">
+              <!-- Rating -->
+              <span class="text-warning">&#9733;&#9733;&#9733;&#9733;</span>
+            </div>
+            <p class="card-text">"Being a freelancer has given me the chance to explore various niches and work with fantastic clients across industries!"</p>
+            <!-- Social Icons -->
+            <div>
+              <a href="#" class="btn btn-outline-primary btn-sm m-1"><i class="bi bi-twitter"></i></a>
+              <a href="#" class="btn btn-outline-primary btn-sm m-1"><i class="bi bi-linkedin"></i></a>
+              <a href="#" class="btn btn-outline-primary btn-sm m-1"><i class="bi bi-facebook"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 {% endblock %}
