@@ -20,7 +20,30 @@
 		!function(o,c){
 		var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);
 	</script>
-
+<style>
+  
+  #contact h2 {
+      font-weight: bold;
+      color: #333;
+    }
+  
+    #contact .form-label {
+      font-weight: 500;
+    }
+  
+    #contact .card {
+      border-radius: 10px;
+    }
+  
+    #contact .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+  
+    #contact ul li i {
+      font-size: 1.2rem;
+    }
+</style>
 
 <body style="background: #01048d; height: 100%;">
   {% include 'freelancer/navbar.html' %}
@@ -34,5 +57,82 @@
       </div>
     </div>
   </div>
+    <!-- Contact Section -->
+    <div class="container py-5">
+      <section class="bg-light py-5" id="contact">
+          <div class="container">
+            <h2 class="text-center mb-4">Get in Touch</h2>
+            <p class="text-center mb-5 text-muted">
+              Have questions or need support? We’d love to hear from you! Fill out the form or reach us directly using the provided contact details.
+            </p>
+            <div class="row">
+              <!-- Contact Form -->
+              <div class="col-md-6">
+                <div class="card shadow-sm border-0">
+                  <div class="card-body">
+                    <h4 class="card-title mb-4">Contact Form</h4>
+                    <form>
+                      <div class="mb-3">
+                        <label for="name" class="form-label">Your Name</label>
+                        <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                      </div>
+                      <div class="mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                      </div>
+                      <div class="mb-3">
+                        <label for="subject" class="form-label">Subject</label>
+                        <input type="text" class="form-control" id="subject" placeholder="Enter subject" required>
+                      </div>
+                      <div class="mb-3">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea class="form-control" id="message" rows="4" placeholder="Write your message" required></textarea>
+                      </div>
+                      <button type="submit" class="btn btn-primary w-100">Send Message</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+        
+              <!-- Contact Information -->
+              <div class="col-md-6">
+                <div class="card shadow-sm border-0">
+                  <div class="card-body">
+                    <h4 class="card-title mb-4">Contact Information</h4>
+                    <p class="text-muted">
+                      Reach us directly via the following communication channels. We are here to assist you 24/7.
+                    </p>
+                    <ul class="list-unstyled">
+                      <li class="mb-3">
+                        <i class="bi bi-geo-alt-fill text-primary me-2"></i>
+                        <strong>Address:</strong> 123 Freelancers Street, Innovation City, Techland
+                      </li>
+                      <li class="mb-3">
+                        <i class="bi bi-telephone-fill text-primary me-2"></i>
+                        <strong>Phone:</strong> +123-456-7890
+                      </li>
+                      <li class="mb-3">
+                        <i class="bi bi-envelope-fill text-primary me-2"></i>
+                        <strong>Email:</strong> support@freelancingms.com
+                      </li>
+                      <li class="mb-3">
+                        <i class="bi bi-clock-fill text-primary me-2"></i>
+                        <strong>Hours:</strong> Mon - Fri: 9:00 AM - 6:00 PM
+                      </li>
+                    </ul>
+                    <!-- Social Media Icons -->
+                    <div>
+                      <a href="#" class="btn btn-outline-primary btn-sm me-2"><i class="bi bi-facebook"></i></a>
+                      <a href="#" class="btn btn-outline-primary btn-sm me-2"><i class="bi bi-twitter"></i></a>
+                      <a href="#" class="btn btn-outline-primary btn-sm me-2"><i class="bi bi-linkedin"></i></a>
+                      <a href="#" class="btn btn-outline-primary btn-sm"><i class="bi bi-instagram"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script></body>
 </html>
