@@ -1,14 +1,22 @@
-<!-- templates/apply_success.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Application Successful</title>
-</head>
-<body>
-    <h1>Application Submitted Successfully!</h1>
-    <p>Thank you for applying. We will get back to you shortly.</p>
-    <a href="{% url 'freelancer_available_jobs' %}">Back to Available Jobs</a>
-</body>
-</html>
+{% extends 'freelancer/base.html' %}
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow-lg p-4 text-center" style="max-width: 500px; border-radius: 15px;">
+        <div class="card-body">
+            <!-- Success Icon -->
+            <div class="text-success mb-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.982 10.566l-2.482-2.482a.75.75 0 1 1 1.06-1.06L7.5 8.94l3.988-3.988a.75.75 0 1 1 1.06 1.06l-4.5 4.5a.75.75 0 0 1-1.06 0z"/>
+                </svg>
+            </div>
+            <h1 class="card-title text-success fw-bold">Success!</h1>
+            <p class="card-text">Your application has been submitted successfully. We’ll get back to you shortly.</p>
+            <!-- Navigation Buttons -->
+            <div class="mt-4">
+                <a href="{% url 'freelancer_available_jobs' %}" class="btn btn-primary">View Available Jobs</a>
+                <a href="/" class="btn btn-outline-secondary">Go to Dashboard</a>
+            </div>
+        </div>
+    </div>
+</div>
+
