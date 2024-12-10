@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.timezone import now, timedelta
 from django.db.models import F
-from admin_panel.models import JobPosting
+from admin_panel.models import JobPosting, StaticPage
 from .models import Freelancer, Job, Notification, Feedback, Payment
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
@@ -290,3 +290,24 @@ def freelancer_job_history(request):
     
     return render(request, 'freelancer/freelancer_job_history.html', {'page_obj': page_obj})
 
+def get_static_page_content(request, page):
+    static_page = get_object_or_404(StaticPage, page=page)
+    return render(request, f"{page}.html", {"title": static_page.title, "content": static_page.content})
+
+def about(request):
+    return get_static_page_content(request, 'about')
+
+def contact_us(request):
+    return get_static_page_content(request, 'contact_us')
+
+def features(request):
+    return get_static_page_content(request, 'features')
+
+def terms_and_conditions(request):
+    return get_static_page_content(request, 'terms_and_conditions')
+
+def privacy_policy(request):
+    return get_static_page_content(request, 'privacy_policy')
+
+def faq(request):
+    return get_static_page_content(request, 'faq')
