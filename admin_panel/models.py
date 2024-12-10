@@ -87,7 +87,6 @@ class SystemHealth(models.Model):
 
 
 
-
 class SystemSetting(models.Model):
     name = models.CharField(max_length=200, unique=True)
     description = models.TextField(blank=True, help_text="Description of the setting")
@@ -109,6 +108,7 @@ class StaticPage(models.Model):
     page = models.CharField(max_length=50, choices=PAGE_CHOICES, unique=True)
     title = models.CharField(max_length=200)
     content = models.TextField()
+    system_setting = models.ForeignKey(SystemSetting, related_name='static_pages', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = "Static Page"
