@@ -83,3 +83,22 @@ class SystemHealth(models.Model):
 
     class Meta:
         ordering = ['-timestamp']
+
+
+
+class StaticPage(models.Model):
+    PAGE_CHOICES = [
+        ('about', 'About Us'),
+        ('contact_us', 'Contact Us'),
+        ('features', 'Features'),
+        ('terms_and_conditions', 'Terms and Conditions'),
+        ('privacy_policy', 'Privacy Policy'),
+        ('faq', 'FAQ'),
+    ]
+
+    page = models.CharField(max_length=50, choices=PAGE_CHOICES, unique=True)
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+
+    def __str__(self):
+        return self.get_page_display() 
