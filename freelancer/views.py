@@ -11,7 +11,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth import login 
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from .forms import ProfilePictureForm 
 from django.http import Http404
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -166,6 +166,20 @@ def freelancer_profile(request):
         'jobs': jobs,  # Pass jobs to the template
     }
     return render(request, 'freelancer/freelancer_profile.html', context)
+@login_required
+def upload_profile_picture(request):
+    if request.method == 'POST':
+        form = ProfilePictureForm(request.POST, request.FILES)
+        if form.is_valid():
+            profile = request.user.profile  # Assuming a `Profile` model related to `User`
+            profile.picture = form.cleaned_data['picture']
+            profile.save()
+            messages.success(request, "Profile picture updated successfully!")
+            return redirect('freelancer_profile')  # Redirect to the profile page
+    else:
+        form = ProfilePictureForm()
+
+    return render(request, 'freelancer/upload_profile_picture.html', {'form': form})
 
 @login_required
 def freelancer_payment_overview(request):
