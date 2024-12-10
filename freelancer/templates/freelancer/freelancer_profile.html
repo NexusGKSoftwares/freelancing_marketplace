@@ -1,5 +1,5 @@
 {% extends 'freelancer/base.html' %}
-
+{% load static %}
 {% block content %}
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -15,14 +15,24 @@
                 <!-- Card Body -->
                 <div class="card-body p-5 overflow-auto" style="max-height: 80vh;">
                     <!-- Profile Picture -->
-                    <div class="text-center mb-5">
-                        <img src="{{ user.profile_picture.url }}" alt="Profile Picture" 
-                             class="rounded-circle img-thumbnail" 
-                             style="width: 150px; height: 150px; object-fit: cover;">
-                        <a href="{% url 'upload_profile_picture' %}" class="btn btn-outline-primary btn-sm mt-3">
-                            <i class="bi bi-camera-fill me-2"></i> Change Picture
-                        </a>
-                    </div>
+                <div class="card-header text-center py-4">
+                    {% if user.profile.picture %}
+                        <img 
+                            src="{{ user.profile.picture.url }}" 
+                            alt="Profile Picture" 
+                            class="rounded-circle img-fluid mb-3" 
+                            style="width: 150px; height: 150px; object-fit: cover;"
+                        >
+                    {% else %}
+                        <img 
+                            src="{% static 'images/default-profile.png' %}" 
+                            alt="Default Profile Picture" 
+                            class="rounded-circle img-fluid mb-3" 
+                            style="width: 150px; height: 150px; object-fit: cover;"
+                        >
+                    {% endif %}
+                    
+                </div>
 
                     <!-- Full Name -->
                     <div class="row mb-4 align-items-center">
