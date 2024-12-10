@@ -1,11 +1,11 @@
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages 
-from admin_panel.forms import StaticPageForm
+# from admin_panel.forms import StaticPageForm
 from freelancer.models import Feedback
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import render, redirect
-from .models import JobPosting, StaticPage
+from .models import JobPosting
 from datetime import datetime
 
  
@@ -202,28 +202,6 @@ def payment_management(request):
     return render(request, 'admin_panel/payment_management.html')
 
 
-def system_activity(request):
-    # If the form is submitted
-    if request.method == 'POST':
-        for page_slug, page_name in StaticPage.PAGE_CHOICES:
-            static_page = get_object_or_404(StaticPage, page=page_slug)
-
-            # Get the form for each static page (this assumes the page is being passed in the form)
-            form = StaticPageForm(request.POST, instance=static_page)
-            if form.is_valid():
-                form.save()  # Save changes to the database
-
-        # Redirect to system_activity page after successful form submission
-        return redirect('system_activity')
-
-    # Initial setup to display the form with existing content
-    context = {}
-    for page_slug, page_name in StaticPage.PAGE_CHOICES:
-        static_page = get_object_or_404(StaticPage, page=page_slug)
-        form = StaticPageForm(instance=static_page)
-        context[page_slug] = form
-
-    return render(request, 'admin_panel/system_activity.html', context)
 # Analytics
 def analytics(request):
     return render(request, 'admin_panel/analytics.html')

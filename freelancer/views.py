@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.timezone import now, timedelta
 from django.db.models import F
-from admin_panel.models import JobPosting, StaticPage
+from admin_panel.models import JobPosting
 from .models import Freelancer, Job, Notification, Feedback, Payment, Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm

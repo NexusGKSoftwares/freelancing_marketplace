@@ -87,35 +87,30 @@ class SystemHealth(models.Model):
 
 
 
-class SystemSetting(models.Model):
-    name = models.CharField(max_length=200, unique=True)
-    description = models.TextField(blank=True, help_text="Description of the setting")
-    updated_at = models.DateTimeField(auto_now=True)
+# class SystemSetting(models.Model):
+#     name = models.CharField(max_length=200, unique=True)
+#     description = models.TextField(blank=True, help_text="Description of the setting")
+#     updated_at = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
-class StaticPage(models.Model):
-    PAGE_CHOICES = [
-        ('about', 'About Us'),
-        ('contact_us', 'Contact Us'),
-        ('features', 'Features'),
-        ('terms_and_conditions', 'Terms and Conditions'),
-        ('privacy_policy', 'Privacy Policy'),
-        ('faq', 'FAQ'),
-    ]
-    page = models.CharField(max_length=50, choices=PAGE_CHOICES, unique=True)
-    title = models.CharField(max_length=200)
-    content = models.TextField()
-    system_setting = models.ForeignKey(
-        SystemSetting, 
-        related_name='static_pages', 
-        on_delete=models.CASCADE, 
-        default=1  # assuming 1 is the ID of an existing SystemSetting record
-    )
-    class Meta:
-        verbose_name = "Static Page"
-        verbose_name_plural = "Static Pages"
+# class StaticPage(models.Model):
+#     PAGE_CHOICES = [
+#         ('about', 'About Us'),
+#         ('contact_us', 'Contact Us'),
+#         ('features', 'Features'),
+#         ('terms_and_conditions', 'Terms and Conditions'),
+#         ('privacy_policy', 'Privacy Policy'),
+#         ('faq', 'FAQ'),
+#     ]
+#     page = models.CharField(max_length=50, choices=PAGE_CHOICES, unique=True)
+#     title = models.CharField(max_length=200)
+#     content = models.TextField()
+#     system_setting = models.ForeignKey(SystemSetting, on_delete=models.CASCADE, default=1) 
+#     class Meta:
+#         verbose_name = "Static Page"
+#         verbose_name_plural = "Static Pages"
 
-    def __str__(self):
-        return self.get_page_display()
+#     def __str__(self):
+#         return self.get_page_display()
