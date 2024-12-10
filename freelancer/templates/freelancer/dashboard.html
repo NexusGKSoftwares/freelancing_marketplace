@@ -214,28 +214,33 @@
         </div>
     </div>
 
-    <!-- Jobs Available Section -->
     <div class="row">
-        <div class="col-12">
-            <h3 class="mb-4 text-white">Available Jobs</h3>
-            <div class="row row-cols-1 row-cols-md-2 g-4">
-                {% for job in available_jobs %}
-                    <div class="col">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ job.title }}</h5>
-                                <p class="card-text">{{ job.description }}</p>
-                                <a href="{% url 'job_detail' job.id %}" class="btn btn-primary">View Details</a>
-                            </div>
-                        </div>
-                    </div>
-                {% empty %}
-                    <p class="text-white">No available jobs at the moment.</p>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-
+      {% for job in available_jobs %}
+          <div class="col-md-6 col-lg-4 mb-4">
+              <div class="card h-100">
+                  <div class="card-body">
+                      <h5 class="card-title">
+                          {{ job.title }}
+                          {% if job.is_new %}
+                              <span class="badge bg-success ms-2">New</span>
+                          {% endif %}
+                      </h5>
+                      <p class="card-text"><strong>Category:</strong> {{ job.category }}</p>
+                      <p class="card-text"><strong>Description:</strong> {{ job.description|truncatechars:100 }}</p>
+                      <p class="card-text"><strong>Budget:</strong> Kshs. {{ job.budget }}</p>
+                      <p class="card-text"><strong>Posted:</strong> {{ job.created_at|date:"d M Y" }}</p>
+                      <a href="{% url 'freelancer_job_details' job.id %}" class="btn btn-primary">View Details</a>
+                  </div>
+              </div>
+          </div>
+      {% empty %}
+          <div class="col-12">
+              <div class="alert alert-warning text-center" role="alert">
+                  No jobs are currently available.
+              </div>
+          </div>
+      {% endfor %}
+  </div>
     <!-- Notifications & Feedback Section -->
     <div class="row">
         <!-- Job Notifications -->

@@ -37,7 +37,7 @@
                         </h5>
                         <p class="card-text"><strong>Category:</strong> {{ job.category }}</p>
                         <p class="card-text"><strong>Description:</strong> {{ job.description|truncatechars:100 }}</p>
-                        <p class="card-text"><strong>Budget:</strong> ${{ job.budget }}</p>
+                        <p class="card-text"><strong>Budget:</strong> Kshs. {{ job.budget }}</p>
                         <p class="card-text"><strong>Posted:</strong> {{ job.created_at|date:"d M Y" }}</p>
                         <a href="{% url 'freelancer_job_details' job.id %}" class="btn btn-primary">View Details</a>
                     </div>
