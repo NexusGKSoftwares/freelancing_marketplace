@@ -252,7 +252,7 @@ def apply_for_job(request, job_id):
     return redirect('apply_success')
 
 def apply_success(request):
-    return render(request, 'apply_success.html')
+    return render(request, 'freelancer/apply_success.html')
 
 @login_required
 def freelancer_notifications(request):
