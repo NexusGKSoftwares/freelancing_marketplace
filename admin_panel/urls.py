@@ -24,5 +24,5 @@ urlpatterns = [
     path('admin_manage_clients/', views.manage_clients, name='admin_manage_clients'),
     path('admin_system_health/', views.system_health, name='admin_system_health'),
     path('admin_new_registrations/', views.new_registrations, name='admin_new_registrations'),
-    path('logout/', LogoutView.as_view(), name='logout'),
+    
 ]
