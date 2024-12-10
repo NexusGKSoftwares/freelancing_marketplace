@@ -13,3 +13,4 @@ class SystemSettingAdmin(admin.ModelAdmin):
     list_display = ('name', 'updated_at')
     search_fields = ('name',)
     inlines = [StaticPageInline]
+
