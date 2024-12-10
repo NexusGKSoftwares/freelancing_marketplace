@@ -21,6 +21,7 @@ urlpatterns = [
     path('feedback/', views.freelancer_feedback, name='freelancer_feedback'),
     path('job/<int:job_id>/', views.freelancer_job_details, name='freelancer_job_details'),
     path('apply-for-job/<int:job_id>/', views.apply_for_job, name='apply_for_job'),
+    path('apply-success/', views.apply_success, name='apply_success'),
     path('payment-history/', views.freelancer_payment_history, name='freelancer_payment_history'),
     path('job-history/', views.freelancer_job_history, name='freelancer_job_history'),
     path('logout/', views.logout_view, name='logout'),

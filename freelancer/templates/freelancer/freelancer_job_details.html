@@ -19,7 +19,7 @@
                             <i class="bi bi-cash fs-4"></i> <strong>Budget</strong>
                         </div>
                         <div class="card-body">
-                            <p class="card-text fs-5">${{ job.budget }}</p>
+                            <p class="card-text fs-5">Kshs. {{ job.budget }}</p>
                         </div>
                     </div>
                 </div>
@@ -119,7 +119,7 @@
                 Back to Available Jobs
             </a>
             {% if job.status == 'Open' %}
-            <a href="{% url 'apply_for_job' job.id %}" class="btn btn-lg btn-success">
+            <a href="{% url 'apply_for_job' job_id=1 %}" class="btn btn-lg btn-success">
                 Apply for Job
             </a>
             {% endif %}
