@@ -104,7 +104,6 @@ class StaticPage(models.Model):
         ('privacy_policy', 'Privacy Policy'),
         ('faq', 'FAQ'),
     ]
-
     page = models.CharField(max_length=50, choices=PAGE_CHOICES, unique=True)
     title = models.CharField(max_length=200)
     content = models.TextField()
