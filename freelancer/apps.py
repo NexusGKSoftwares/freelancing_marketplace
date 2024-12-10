@@ -5,4 +5,4 @@ class FreelancerConfig(AppConfig):
     name = 'freelancer'
 
     def ready(self):
-        import freelancer.signals  # Replace 'freelancer' with the name of your app
+        import freelancer.signals  
