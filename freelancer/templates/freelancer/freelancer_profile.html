@@ -3,69 +3,87 @@
 {% block content %}
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <div class="card shadow-lg border-0 rounded">
+        <div class="col-lg-10">
+            <div class="card shadow-lg border-0 rounded min-vh-100">
                 <!-- Card Header -->
-                <div class="card-header bg-gradient-primary text-white text-center py-4">
-                    <h3 class="mb-0">
-                        <i class="bi bi-person-circle me-2"></i> My Profile
-                    </h3>
+                <div class="card-header bg-gradient-primary text-white text-center py-5">
+                    <h1 class="mb-0">
+                        <i class="bi bi-person-circle me-3"></i> My Profile
+                    </h1>
                 </div>
 
                 <!-- Card Body -->
-                <div class="card-body p-4">
+                <div class="card-body p-5 overflow-auto" style="max-height: 80vh;">
+                    <!-- Profile Picture -->
+                    <div class="text-center mb-5">
+                        <img src="{{ user.profile_picture.url }}" alt="Profile Picture" 
+                             class="rounded-circle img-thumbnail" 
+                             style="width: 150px; height: 150px; object-fit: cover;">
+                        <a href="{% url 'upload_profile_picture' %}" class="btn btn-outline-primary btn-sm mt-3">
+                            <i class="bi bi-camera-fill me-2"></i> Change Picture
+                        </a>
+                    </div>
+
                     <!-- Full Name -->
                     <div class="row mb-4 align-items-center">
-                        <div class="col-md-4 text-muted fw-bold">
+                        <div class="col-md-4 text-muted fw-bold fs-5">
                             <i class="bi bi-person-fill me-2 text-primary"></i> Full Name:
                         </div>
-                        <div class="col-md-8">{{ user.first_name }} {{ user.last_name }}</div>
+                        <div class="col-md-8 fs-5">{{ user.first_name }} {{ user.last_name }}</div>
                     </div>
 
                     <!-- Username -->
                     <div class="row mb-4 align-items-center">
-                        <div class="col-md-4 text-muted fw-bold">
+                        <div class="col-md-4 text-muted fw-bold fs-5">
                             <i class="bi bi-person-badge-fill me-2 text-secondary"></i> Username:
                         </div>
-                        <div class="col-md-8">{{ user.username }}</div>
+                        <div class="col-md-8 fs-5">{{ user.username }}</div>
                     </div>
 
                     <!-- Email -->
                     <div class="row mb-4 align-items-center">
-                        <div class="col-md-4 text-muted fw-bold">
+                        <div class="col-md-4 text-muted fw-bold fs-5">
                             <i class="bi bi-envelope-fill me-2 text-danger"></i> Email Address:
                         </div>
-                        <div class="col-md-8">{{ user.email }}</div>
+                        <div class="col-md-8 fs-5">{{ user.email }}</div>
+                    </div>
+
+                    <!-- User Statistics -->
+                    <div class="row mb-4 align-items-center">
+                        <div class="col-md-4 text-muted fw-bold fs-5">
+                            <i class="bi bi-graph-up-arrow me-2 text-success"></i> Profile Views:
+                        </div>
+                        <div class="col-md-8 fs-5">{{ user.profile_views }}</div>
                     </div>
 
                     <!-- Account Status -->
                     <div class="row mb-4 align-items-center">
-                        <div class="col-md-4 text-muted fw-bold">
+                        <div class="col-md-4 text-muted fw-bold fs-5">
                             <i class="bi bi-shield-fill-check me-2 text-success"></i> Account Status:
                         </div>
                         <div class="col-md-8">
                             {% if user.is_active %}
-                            <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i> Active</span>
+                            <span class="badge bg-success fs-6"><i class="bi bi-check-circle me-1"></i> Active</span>
                             {% else %}
-                            <span class="badge bg-danger"><i class="bi bi-exclamation-triangle me-1"></i> Suspended</span>
+                            <span class="badge bg-danger fs-6"><i class="bi bi-exclamation-triangle me-1"></i> Suspended</span>
                             {% endif %}
                         </div>
                     </div>
 
                     <!-- Date Joined -->
                     <div class="row mb-4 align-items-center">
-                        <div class="col-md-4 text-muted fw-bold">
+                        <div class="col-md-4 text-muted fw-bold fs-5">
                             <i class="bi bi-calendar-check-fill me-2 text-info"></i> Date Joined:
                         </div>
-                        <div class="col-md-8">{{ user.date_joined|date:"F j, Y, g:i a" }}</div>
+                        <div class="col-md-8 fs-5">{{ user.date_joined|date:"F j, Y, g:i a" }}</div>
                     </div>
 
                     <!-- Last Login -->
                     <div class="row mb-4 align-items-center">
-                        <div class="col-md-4 text-muted fw-bold">
+                        <div class="col-md-4 text-muted fw-bold fs-5">
                             <i class="bi bi-clock-history me-2 text-warning"></i> Last Login:
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-8 fs-5">
                             {% if user.last_login %}
                             {{ user.last_login|date:"F j, Y, g:i a" }}
                             {% else %}
@@ -76,16 +94,16 @@
                 </div>
 
                 <!-- Card Footer -->
-                <div class="card-footer d-flex justify-content-between align-items-center bg-light">
-                    <a href="{% url 'freelancer_dashboard' %}" class="btn btn-secondary btn-sm">
-                        <i class="bi bi-arrow-left-circle me-2"></i> Back to Homepage
+                <div class="card-footer d-flex justify-content-between align-items-center bg-light py-3">
+                    <a href="{% url 'freelancer_dashboard' %}" class="btn btn-secondary btn-lg">
+                        <i class="bi bi-arrow-left-circle me-3"></i> Back to Homepage
                     </a>
-                    <a href="{% url 'freelancer_edit_user' user.id %}" class="btn btn-warning btn-sm">
-                        <i class="bi bi-pencil-square me-2"></i> Edit Profile
+                    <a href="{% url 'freelancer_edit_user' user.id %}" class="btn btn-warning btn-lg">
+                        <i class="bi bi-pencil-square me-3"></i> Edit Profile
                     </a>
                     <a href="{% url 'toggle_freelancer_status' user.id %}" 
-                       class="btn btn-sm {% if user.is_active %}btn-danger{% else %}btn-success{% endif %}">
-                        <i class="bi {% if user.is_active %}bi-person-dash{% else %}bi-person-plus{% endif %} me-2"></i>
+                       class="btn btn-lg {% if user.is_active %}btn-danger{% else %}btn-success{% endif %}">
+                        <i class="bi {% if user.is_active %}bi-person-dash{% else %}bi-person-plus{% endif %} me-3"></i>
                         {% if user.is_active %}Deactivate Account{% else %}Activate Account{% endif %}
                     </a>
                 </div>
