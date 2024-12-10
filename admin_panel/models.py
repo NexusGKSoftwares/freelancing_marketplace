@@ -108,8 +108,12 @@ class StaticPage(models.Model):
     page = models.CharField(max_length=50, choices=PAGE_CHOICES, unique=True)
     title = models.CharField(max_length=200)
     content = models.TextField()
-    system_setting = models.ForeignKey(SystemSetting, related_name='static_pages', on_delete=models.CASCADE)
-
+    system_setting = models.ForeignKey(
+        SystemSetting, 
+        related_name='static_pages', 
+        on_delete=models.CASCADE, 
+        default=1  # assuming 1 is the ID of an existing SystemSetting record
+    )
     class Meta:
         verbose_name = "Static Page"
         verbose_name_plural = "Static Pages"
