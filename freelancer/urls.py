@@ -20,4 +20,10 @@ urlpatterns = [
     path('payment-history/', views.freelancer_payment_history, name='freelancer_payment_history'),
     path('job-history/', views.freelancer_job_history, name='freelancer_job_history'),
     path('logout/', LogoutView.as_view(), name='logout'),
+    path('about/', views.about, name='about'),
+    path('contact-us/', views.contact_us, name='contact_us'),
+    path('features/', views.features, name='features'),
+    path('terms-and-conditions/', views.terms_and_conditions, name='terms_and_conditions'),
+    path('privacy-policy/', views.privacy_policy, name='privacy_policy'),
+    path('faq/', views.faq, name='faq'),
 ]
