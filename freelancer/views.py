@@ -289,3 +289,4 @@ def freelancer_job_history(request):
     page_obj = paginator.get_page(page_number)
     
     return render(request, 'freelancer/freelancer_job_history.html', {'page_obj': page_obj})
+
