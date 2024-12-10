@@ -171,15 +171,16 @@ def upload_profile_picture(request):
     if request.method == 'POST':
         form = ProfilePictureForm(request.POST, request.FILES)
         if form.is_valid():
-            profile = request.user.profile  # Assuming a `Profile` model related to `User`
+            profile = request.user.profile  # Now this works
             profile.picture = form.cleaned_data['picture']
             profile.save()
             messages.success(request, "Profile picture updated successfully!")
-            return redirect('freelancer_profile')  # Redirect to the profile page
+            return redirect('freelancer_profile')
     else:
         form = ProfilePictureForm()
 
     return render(request, 'freelancer/upload_profile_picture.html', {'form': form})
+
 
 @login_required
 def freelancer_payment_overview(request):
