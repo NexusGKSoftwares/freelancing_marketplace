@@ -150,3 +150,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = '/freelancer/dashboard/'  # Redirect after login
 LOGOUT_REDIRECT_URL = '/freelancer/login/'    # Redirect after logout
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+INSTALLED_APPS += ['django_distill']
+
+MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware']

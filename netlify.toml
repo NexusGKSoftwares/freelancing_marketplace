@@ -1,0 +1,11 @@
+[build]
+publish = "distill_static"
+command = "python manage.py distill-local"
+
+[build.environment]
+PYTHON_VERSION = "3.9"
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200
