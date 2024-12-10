@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.utils.timezone import now, timedelta
 from django.db.models import F
 from admin_panel.models import JobPosting, StaticPage
-from .models import Freelancer, Job, Notification, Feedback, Payment
+from .models import Freelancer, Job, Notification, Feedback, Payment, Profile
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate
@@ -168,10 +168,14 @@ def freelancer_profile(request):
     return render(request, 'freelancer/freelancer_profile.html', context)
 @login_required
 def upload_profile_picture(request):
+    # Ensure profile exists for the user
+    if not hasattr(request.user, 'profile'):
+        Profile.objects.create(user=request.user)
+
     if request.method == 'POST':
         form = ProfilePictureForm(request.POST, request.FILES)
         if form.is_valid():
-            profile = request.user.profile  # Now this works
+            profile = request.user.profile
             profile.picture = form.cleaned_data['picture']
             profile.save()
             messages.success(request, "Profile picture updated successfully!")
@@ -180,7 +184,6 @@ def upload_profile_picture(request):
         form = ProfilePictureForm()
 
     return render(request, 'freelancer/upload_profile_picture.html', {'form': form})
-
 
 @login_required
 def freelancer_payment_overview(request):
