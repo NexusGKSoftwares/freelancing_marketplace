@@ -308,27 +308,27 @@ def freelancer_job_history(request):
     
     return render(request, 'freelancer/freelancer_job_history.html', {'page_obj': page_obj})
 
-def get_static_page_content(request, page):
-    static_page = get_object_or_404(StaticPage, page=page)
-    return render(request, f"{page}.html", {"title": static_page.title, "content": static_page.content})
+# def (request, page):
+#     static_page = get_object_or_404(StaticPage, page=page)
+#     return render(request, f"{page}.html", {"title": static_page.title, "content": static_page.content})
 
 def about(request):
-    return get_static_page_content(request, 'about')
+    return (request, 'about')
 
 def contact_us(request):
-    return get_static_page_content(request, 'contact_us')
+    return (request, 'contact_us')
 
 def features(request):
-    return get_static_page_content(request, 'features')
+    return (request, 'features')
 
 def terms_and_conditions(request):
-    return get_static_page_content(request, 'terms_and_conditions')
+    return (request, 'terms_and_conditions')
 
 def privacy_policy(request):
-    return get_static_page_content(request, 'privacy_policy')
+    return (request, 'privacy_policy')
 
 def faq(request):
-    return get_static_page_content(request, 'faq')
+    return (request, 'faq')
 def logout_view(request):
     logout(request)
     return redirect('index')
