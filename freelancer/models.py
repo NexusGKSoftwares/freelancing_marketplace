@@ -70,3 +70,11 @@ class Payment(models.Model):
     def __str__(self):
         return f"{self.freelancer.name} - {self.amount} ({self.status})"
 
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    picture = models.ImageField(upload_to='profile_pictures/', blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.user.username}'s Profile"
